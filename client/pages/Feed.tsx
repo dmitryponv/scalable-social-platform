@@ -146,24 +146,32 @@ export default function Feed() {
     }
   };
 
-  const handleCommentSubmit = (postId: string, e: React.FormEvent) => {
+  const handleCommentSubmit = async (postId: string, e: React.FormEvent) => {
     e.preventDefault();
-    if (newComments[postId]?.trim()) {
-      const comment: Comment = {
-        id: `c-${Date.now()}`,
-        author: {
-          name: "You",
-          handle: "@yourhandle",
-          avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=You",
-        },
-        content: newComments[postId],
-        timestamp: "now",
-      };
-      setPostComments((prev) => ({
-        ...prev,
-        [postId]: [...(prev[postId] || []), comment],
-      }));
-      setNewComments((prev) => ({ ...prev, [postId]: "" }));
+    if (!newComments[postId]?.trim()) return;
+
+    try {
+      const response = await fetch(`/api/posts/${postId}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: newComments[postId],
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.comment) {
+        setPostComments((prev) => ({
+          ...prev,
+          [postId]: [...(prev[postId] || []), data.comment],
+        }));
+        setNewComments((prev) => ({ ...prev, [postId]: "" }));
+      } else {
+        console.error(data.message || "Failed to create comment");
+      }
+    } catch (err) {
+      console.error("Failed to create comment:", err);
     }
   };
 
