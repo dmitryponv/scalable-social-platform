@@ -104,7 +104,9 @@ export default function Feed() {
 
   const loadSuggestions = async () => {
     try {
-      const response = await fetch("/api/users/suggestions");
+      const response = await fetch("/api/users/suggestions", {
+        credentials: "include",
+      });
       const data = await response.json();
 
       if (data.success) {
