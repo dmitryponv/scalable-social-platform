@@ -254,7 +254,10 @@ export default function Feed() {
               <button className="btn-social-ghost p-2">
                 <User className="w-5 h-5" />
               </button>
-              <button className="btn-social-ghost p-2">
+              <button
+                onClick={handleLogout}
+                className="btn-social-ghost p-2"
+              >
                 <LogOut className="w-5 h-5" />
               </button>
             </div>
@@ -297,6 +300,23 @@ export default function Feed() {
 
           {/* Main Feed */}
           <div className="lg:col-span-2 space-y-6">
+            {error && (
+              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 text-sm text-destructive">
+                {error}
+              </div>
+            )}
+
+            {loading ? (
+              <div className="post-card flex items-center justify-center py-12">
+                <Loader className="w-6 h-6 animate-spin text-primary" />
+                <span className="ml-2 text-muted-foreground">Loading feed...</span>
+              </div>
+            ) : posts.length === 0 ? (
+              <div className="post-card text-center py-12">
+                <p className="text-muted-foreground">No posts yet. Be the first to share something!</p>
+              </div>
+            ) : null}
+
             {/* Create Post */}
             <div className="post-card">
               <div className="flex gap-4">
@@ -417,7 +437,7 @@ export default function Feed() {
                             </p>
                           </div>
                           <p className="text-xs text-muted-foreground mt-2">
-                            {comment.timestamp}
+                            {new Date(comment.createdAt).toLocaleString()}
                           </p>
                         </div>
                       </div>
@@ -463,30 +483,32 @@ export default function Feed() {
               <div className="post-card space-y-4">
                 <h3 className="font-bold text-lg">Suggestions For You</h3>
                 <div className="space-y-4">
-                  {[
-                    { name: "Tech Daily", handle: "@techdaily" },
-                    { name: "Code Master", handle: "@codemaster" },
-                    { name: "Design Lab", handle: "@designlab" },
-                    { name: "Web Weekly", handle: "@webweekly" },
-                  ].map((user) => (
-                    <div
-                      key={user.handle}
-                      className="flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent"></div>
-                        <div>
-                          <p className="font-semibold text-sm">{user.name}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {user.handle}
-                          </p>
+                  {suggestions.length === 0 ? (
+                    <p className="text-xs text-muted-foreground">No suggestions available</p>
+                  ) : (
+                    suggestions.map((user) => (
+                      <div
+                        key={user.id}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent"></div>
+                          <div>
+                            <p className="font-semibold text-sm">{user.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {user.handle}
+                            </p>
+                          </div>
                         </div>
+                        <button
+                          onClick={() => handleFollowUser(user.id)}
+                          className="btn-social-primary px-4 py-1 text-xs"
+                        >
+                          Follow
+                        </button>
                       </div>
-                      <button className="btn-social-primary px-4 py-1 text-xs">
-                        Follow
-                      </button>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             </div>
