@@ -42,58 +42,8 @@ interface Comment {
   timestamp: string;
 }
 
-const mockPosts: Post[] = [
-  {
-    id: "1",
-    author: {
-      name: "Sarah Chen",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      handle: "@sarahchen",
-    },
-    timestamp: "2 hours ago",
-    content:
-      "Just launched my new project! Super excited to share it with everyone. Been working on this for months 🚀",
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop",
-    likes: 324,
-    comments: 42,
-    shares: 108,
-    liked: false,
-  },
-  {
-    id: "2",
-    author: {
-      name: "Alex Morgan",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
-      handle: "@alexmorgan",
-    },
-    timestamp: "4 hours ago",
-    content:
-      "The future of web development is here. Check out this amazing new framework that just dropped! #WebDev #Tech",
-    likes: 542,
-    comments: 78,
-    shares: 234,
-    liked: false,
-  },
-  {
-    id: "3",
-    author: {
-      name: "Jordan Lee",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jordan",
-      handle: "@jordanlee",
-    },
-    timestamp: "6 hours ago",
-    content:
-      "Finally finished my design system! 16 months of work has paid off. So proud of what we accomplished as a team 🎨",
-    likes: 892,
-    comments: 156,
-    shares: 445,
-    liked: false,
-  },
-];
-
 export default function Feed() {
-  const [posts, setPosts] = useState<Post[]>(mockPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [newPost, setNewPost] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
   const [postComments, setPostComments] = useState<Record<string, Comment[]>>({
