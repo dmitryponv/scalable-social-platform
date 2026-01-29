@@ -40,18 +40,21 @@ export default function Register() {
 
     setLoading(true);
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch("/api/auth/register", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-      // const data = await response.json();
-      
-      // Simulate successful registration
-      setTimeout(() => {
-        navigate("/feed");
-      }, 500);
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        setError(data.message || "Registration failed");
+        return;
+      }
+
+      // Successfully registered, redirect to feed
+      navigate("/feed");
     } catch (err) {
       setError("An error occurred. Please try again.");
     } finally {
