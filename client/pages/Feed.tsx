@@ -18,7 +18,54 @@ import {
 } from "lucide-react";
 import type { Post, Comment } from "@shared/api";
 
+const TrendingWidget = () => {
+  const [trending, setTrending] = useState<any[]>([]);
+  const [trendingLoading, setTrendingLoading] = useState(true);
+
+  useEffect(() => {
+    const loadTrending = async () => {
+      try {
+        const response = await fetch("/api/trending");
+        const data = await response.json();
+        if (data.success) {
+          setTrending(data.trending);
+        }
+      } catch (err) {
+        console.error("Failed to load trending:", err);
+      } finally {
+        setTrendingLoading(false);
+      }
+    };
+
+    loadTrending();
+  }, []);
+
+  return (
+    <div className="post-card space-y-4">
+      <h3 className="font-bold text-lg">What's trending</h3>
+      {trendingLoading ? (
+        <p className="text-sm text-muted-foreground">Loading...</p>
+      ) : (
+        <div className="space-y-3">
+          {trending.map((item) => (
+            <div
+              key={item.tag}
+              className="hover:bg-muted/50 p-2 rounded transition-colors cursor-pointer"
+            >
+              <p className="font-semibold text-sm">{item.tag}</p>
+              <p className="text-xs text-muted-foreground">
+                {item.count.toLocaleString()} posts
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function Feed() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPost, setNewPost] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
