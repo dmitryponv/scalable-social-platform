@@ -119,25 +119,30 @@ export default function Feed() {
     }
   };
 
-  const handlePostSubmit = (e: React.FormEvent) => {
+  const handlePostSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newPost.trim()) {
-      const post: Post = {
-        id: `new-${Date.now()}`,
-        author: {
-          name: "You",
-          avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=You",
-          handle: "@yourhandle",
-        },
-        timestamp: "now",
-        content: newPost,
-        likes: 0,
-        comments: 0,
-        shares: 0,
-        liked: false,
-      };
-      setPosts([post, ...posts]);
-      setNewPost("");
+    if (!newPost.trim()) return;
+
+    try {
+      const response = await fetch("/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: newPost,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.post) {
+        setPosts([data.post, ...posts]);
+        setNewPost("");
+      } else {
+        setError(data.message || "Failed to create post");
+      }
+    } catch (err) {
+      console.error("Failed to create post:", err);
+      setError("Failed to create post");
     }
   };
 
