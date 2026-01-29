@@ -346,7 +346,7 @@ export default function Feed() {
                     <div>
                       <p className="font-semibold">{post.author.name}</p>
                       <p className="text-xs text-muted-foreground">
-                        {post.author.handle} · {post.timestamp}
+                        {post.author.handle} · {new Date(post.createdAt).toLocaleString()}
                       </p>
                     </div>
                   </div>
