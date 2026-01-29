@@ -90,19 +90,33 @@ export default function Feed() {
     }
   };
 
-  const handleLike = (postId: string) => {
-    setPosts((prevPosts) =>
-      prevPosts.map((post) => {
-        if (post.id === postId) {
-          return {
-            ...post,
-            liked: !post.liked,
-            likes: post.liked ? post.likes - 1 : post.likes + 1,
-          };
-        }
-        return post;
-      })
-    );
+  const handleLike = async (postId: string) => {
+    try {
+      const post = posts.find((p) => p.id === postId);
+      if (!post) return;
+
+      const endpoint = post.liked ? `/api/posts/${postId}/unlike` : `/api/posts/${postId}/like`;
+      const response = await fetch(endpoint, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        setPosts((prevPosts) =>
+          prevPosts.map((p) => {
+            if (p.id === postId) {
+              return {
+                ...p,
+                liked: !p.liked,
+                likes: p.liked ? p.likes - 1 : p.likes + 1,
+              };
+            }
+            return p;
+          })
+        );
+      }
+    } catch (err) {
+      console.error("Failed to like post:", err);
+    }
   };
 
   const handlePostSubmit = (e: React.FormEvent) => {
