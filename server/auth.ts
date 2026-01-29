@@ -40,12 +40,13 @@ export const generateSessionToken = (): string => {
     Math.random().toString(36).substring(2);
 };
 
-// Extend Express Request to include user
+// Extend Express Request to include user and cookies
 declare global {
   namespace Express {
     interface Request {
       user?: AuthUser;
       sessionToken?: string;
+      cookies?: Record<string, string>;
     }
   }
 }
