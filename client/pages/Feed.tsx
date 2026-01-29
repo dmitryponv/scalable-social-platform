@@ -84,7 +84,9 @@ export default function Feed() {
   const loadFeed = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/posts");
+      const response = await fetch("/api/posts", {
+        credentials: "include",
+      });
       const data = await response.json();
 
       if (data.success) {
