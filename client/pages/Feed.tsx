@@ -243,24 +243,7 @@ export default function Feed() {
               </button>
 
               {/* Stats */}
-              <div className="post-card space-y-4">
-                <h3 className="font-bold text-lg">What's trending</h3>
-                <div className="space-y-3">
-                  {[
-                    { tag: "#React", count: "2.5M" },
-                    { tag: "#WebDev", count: "1.8M" },
-                    { tag: "#TypeScript", count: "1.2M" },
-                    { tag: "#Design", count: "956K" },
-                  ].map((item) => (
-                    <div key={item.tag} className="hover:bg-muted/50 p-2 rounded transition-colors cursor-pointer">
-                      <p className="font-semibold text-sm">{item.tag}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {item.count} posts
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <TrendingWidget />
             </div>
           </aside>
 
