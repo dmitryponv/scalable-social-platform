@@ -28,20 +28,23 @@ export default function Login() {
 
     setLoading(true);
     try {
-      // TODO: Replace with actual API call
-      // const response = await fetch("/api/auth/login", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-      // const data = await response.json();
-      
-      // Simulate successful login
-      setTimeout(() => {
-        navigate("/feed");
-      }, 500);
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        setError(data.message || "Login failed");
+        return;
+      }
+
+      // Successfully logged in, redirect to feed
+      navigate("/feed");
     } catch (err) {
-      setError("Invalid email or password");
+      setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
