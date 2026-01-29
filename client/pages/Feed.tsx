@@ -150,6 +150,7 @@ export default function Feed() {
       const endpoint = post.liked ? `/api/posts/${postId}/unlike` : `/api/posts/${postId}/like`;
       const response = await fetch(endpoint, {
         method: "POST",
+        credentials: "include",
       });
 
       if (response.ok) {
