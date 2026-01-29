@@ -121,6 +121,7 @@ export default function Feed() {
     try {
       await fetch("/api/auth/logout", {
         method: "POST",
+        credentials: "include",
       });
       navigate("/");
     } catch (err) {
