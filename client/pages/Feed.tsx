@@ -46,21 +46,49 @@ export default function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPost, setNewPost] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
-  const [postComments, setPostComments] = useState<Record<string, Comment[]>>({
-    "1": [
-      {
-        id: "c1",
-        author: {
-          name: "Sam Park",
-          handle: "@sampark",
-          avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sam",
-        },
-        content: "This looks amazing! Congrats on the launch 🎉",
-        timestamp: "1 hour ago",
-      },
-    ],
-  });
+  const [postComments, setPostComments] = useState<Record<string, Comment[]>>({});
   const [newComments, setNewComments] = useState<Record<string, string>>({});
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Load posts and suggestions on mount
+  useEffect(() => {
+    loadFeed();
+    loadSuggestions();
+  }, []);
+
+  const loadFeed = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/posts");
+      const data = await response.json();
+
+      if (data.success) {
+        setPosts(data.posts);
+      } else {
+        setError(data.message || "Failed to load feed");
+      }
+    } catch (err) {
+      console.error("Failed to load feed:", err);
+      setError("Failed to load feed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadSuggestions = async () => {
+    try {
+      const response = await fetch("/api/users/suggestions");
+      const data = await response.json();
+
+      if (data.success) {
+        setSuggestions(data.users);
+      }
+    } catch (err) {
+      console.error("Failed to load suggestions:", err);
+    }
+  };
 
   const handleLike = (postId: string) => {
     setPosts((prevPosts) =>
