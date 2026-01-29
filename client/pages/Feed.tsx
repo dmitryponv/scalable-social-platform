@@ -113,6 +113,31 @@ export default function Feed() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+      });
+      navigate("/");
+    } catch (err) {
+      console.error("Failed to logout:", err);
+    }
+  };
+
+  const handleFollowUser = async (userId: string) => {
+    try {
+      const response = await fetch(`/api/users/${userId}/follow`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        setSuggestions((prev) => prev.filter((u) => u.id !== userId));
+      }
+    } catch (err) {
+      console.error("Failed to follow user:", err);
+    }
+  };
+
   const handleLike = async (postId: string) => {
     try {
       const post = posts.find((p) => p.id === postId);
