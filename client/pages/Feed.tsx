@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Heart,
   MessageCircle,
@@ -13,34 +13,10 @@ import {
   MoreHorizontal,
   Image,
   Smile,
+  TrendingUp,
+  Loader,
 } from "lucide-react";
-
-interface Post {
-  id: string;
-  author: {
-    name: string;
-    avatar: string;
-    handle: string;
-  };
-  timestamp: string;
-  content: string;
-  image?: string;
-  likes: number;
-  comments: number;
-  shares: number;
-  liked: boolean;
-}
-
-interface Comment {
-  id: string;
-  author: {
-    name: string;
-    handle: string;
-    avatar: string;
-  };
-  content: string;
-  timestamp: string;
-}
+import type { Post, Comment } from "@shared/api";
 
 export default function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
