@@ -133,6 +133,7 @@ export default function Feed() {
     try {
       const response = await fetch(`/api/users/${userId}/follow`, {
         method: "POST",
+        credentials: "include",
       });
 
       if (response.ok) {
