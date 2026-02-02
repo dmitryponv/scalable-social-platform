@@ -91,7 +91,8 @@ export const handleSearch: RequestHandler = async (req, res) => {
     const searchLower = query.toLowerCase();
 
     // Search posts by content
-    const posts = getAllPosts()
+    const allPosts = await getAllPosts();
+    const posts = allPosts
       .filter((post) =>
         post.content.toLowerCase().includes(searchLower)
       )
@@ -124,7 +125,8 @@ export const handleGetHashtagPosts: RequestHandler = async (req, res) => {
       ? tag.toLowerCase()
       : `#${tag.toLowerCase()}`;
 
-    const posts = getAllPosts()
+    const allPosts = await getAllPosts();
+    const posts = allPosts
       .filter((post) => post.content.toLowerCase().includes(searchTag))
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
