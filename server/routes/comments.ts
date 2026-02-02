@@ -40,7 +40,7 @@ export const handleCreateComment: RequestHandler = async (req, res) => {
     const { content } = req.body as CreateCommentRequest;
 
     // Validate post exists
-    const post = getPostById(postId);
+    const post = await getPostById(postId);
     if (!post) {
       return res.status(404).json({
         success: false,
@@ -63,19 +63,14 @@ export const handleCreateComment: RequestHandler = async (req, res) => {
       } as CreateCommentResponse);
     }
 
-    const commentId = generateId();
-    const now = new Date();
+    const newComment = await createComment(postId, req.user.id, content.trim());
 
-    const newComment = {
-      id: commentId,
-      postId,
-      authorId: req.user.id,
-      content: content.trim(),
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    db.comments.set(commentId, newComment);
+    if (!newComment) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to create comment",
+      } as CreateCommentResponse);
+    }
 
     return res.status(201).json({
       success: true,
