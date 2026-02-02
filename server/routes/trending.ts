@@ -20,7 +20,7 @@ export const handleGetTrending: RequestHandler = async (req, res) => {
     const hashtagCounts = new Map<string, number>();
 
     // Count hashtags from all posts
-    const posts = getAllPosts();
+    const posts = await getAllPosts();
     for (const post of posts) {
       const tags = extractHashtags(post.content);
       for (const tag of tags) {
