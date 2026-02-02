@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Mail, Lock, User, ArrowRight } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
+import GoogleOAuthButton from "../components/GoogleOAuthButton";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
-    // Basic validation
     if (!formData.name || !formData.email || !formData.password) {
       setError("Please fill in all fields");
       return;
@@ -54,7 +54,6 @@ export default function Register() {
         return;
       }
 
-      // Successfully registered, redirect to feed
       navigate("/feed");
     } catch (err) {
       setError("An error occurred. Please try again.");
@@ -64,16 +63,16 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50 flex flex-col">
       {/* Navigation */}
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm">
+      <nav className="border-b-2 border-purple-200 bg-white/80 backdrop-blur-xl shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="gradient-primary w-10 h-10 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+            <Link to="/" className="flex items-center gap-3">
+              <div className="gradient-primary w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-black text-lg">C</span>
               </div>
-              <span className="font-bold text-xl hidden sm:inline gradient-primary-text">
+              <span className="font-black text-2xl gradient-primary-text hidden sm:inline">
                 Connect
               </span>
             </Link>
@@ -86,28 +85,31 @@ export default function Register() {
         <div className="w-full max-w-md">
           <div className="space-y-8">
             {/* Header */}
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl sm:text-4xl font-bold">Create Account</h1>
-              <p className="text-muted-foreground">
-                Join our community and start sharing
+            <div className="text-center space-y-3">
+              <Sparkles className="w-12 h-12 mx-auto text-purple-600" />
+              <h1 className="text-4xl font-black gradient-primary-text">
+                Create Your Account
+              </h1>
+              <p className="text-gray-600 font-semibold">
+                Join our vibrant community and start sharing
               </p>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
-                <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3 text-sm text-destructive">
+                <div className="bg-red-100 border-2 border-red-300 rounded-2xl p-4 text-sm text-red-700 font-semibold">
                   {error}
                 </div>
               )}
 
               {/* Name Field */}
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
+                <label htmlFor="name" className="text-sm font-bold text-gray-900">
                   Full Name
                 </label>
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-500" />
                   <input
                     id="name"
                     name="name"
@@ -115,18 +117,18 @@ export default function Register() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="John Doe"
-                    className="w-full bg-input border border-border rounded-lg pl-12 pr-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                    className="w-full bg-white border-2 border-purple-200 rounded-2xl pl-12 pr-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
                   />
                 </div>
               </div>
 
               {/* Email Field */}
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
+                <label htmlFor="email" className="text-sm font-bold text-gray-900">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-pink-500" />
                   <input
                     id="email"
                     name="email"
@@ -134,18 +136,18 @@ export default function Register() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="you@example.com"
-                    className="w-full bg-input border border-border rounded-lg pl-12 pr-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                    className="w-full bg-white border-2 border-pink-200 rounded-2xl pl-12 pr-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
                   />
                 </div>
               </div>
 
               {/* Password Field */}
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium">
+                <label htmlFor="password" className="text-sm font-bold text-gray-900">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-500" />
                   <input
                     id="password"
                     name="password"
@@ -153,18 +155,18 @@ export default function Register() {
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Minimum 8 characters"
-                    className="w-full bg-input border border-border rounded-lg pl-12 pr-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                    className="w-full bg-white border-2 border-cyan-200 rounded-2xl pl-12 pr-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
                   />
                 </div>
               </div>
 
               {/* Confirm Password Field */}
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="text-sm font-medium">
+                <label htmlFor="confirmPassword" className="text-sm font-bold text-gray-900">
                   Confirm Password
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-500" />
                   <input
                     id="confirmPassword"
                     name="confirmPassword"
@@ -172,7 +174,7 @@ export default function Register() {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
-                    className="w-full bg-input border border-border rounded-lg pl-12 pr-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                    className="w-full bg-white border-2 border-orange-200 rounded-2xl pl-12 pr-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all"
                   />
                 </div>
               </div>
@@ -181,7 +183,7 @@ export default function Register() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-social-primary py-3 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-social-primary py-3 justify-center font-black text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? "Creating Account..." : (
                   <>
@@ -192,53 +194,53 @@ export default function Register() {
               </button>
             </form>
 
+            {/* OAuth Button */}
+            <div className="space-y-3">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t-2 border-purple-200"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50 text-gray-600 font-bold">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+              <GoogleOAuthButton />
+            </div>
+
             {/* Login Link */}
             <div className="text-center">
-              <p className="text-muted-foreground text-sm">
+              <p className="text-gray-600 text-sm font-semibold">
                 Already have an account?{" "}
                 <Link
                   to="/login"
-                  className="font-semibold text-primary hover:underline transition-all"
+                  className="font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 hover:underline transition-all"
                 >
                   Sign In
                 </Link>
               </p>
             </div>
 
-            {/* Divider */}
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-background text-muted-foreground">
-                  Password Security
-                </span>
-              </div>
-            </div>
-
             {/* Security Features */}
-            <div className="space-y-3 bg-card border border-border rounded-lg p-4">
+            <div className="space-y-3 bg-white border-2 border-purple-200 rounded-3xl p-5 shadow-lg">
+              <p className="text-xs font-black text-gray-500 uppercase tracking-wider">Security</p>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Lock className="w-3 h-3 text-primary" />
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-200 flex items-center justify-center">
+                  <Lock className="w-3 h-3 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Secure Password Storage</p>
-                  <p className="text-xs text-muted-foreground">
-                    Passwords are encrypted and securely stored
-                  </p>
+                  <p className="text-sm font-bold text-gray-900">Secure Password Storage</p>
+                  <p className="text-xs text-gray-500">Encrypted and securely stored</p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center">
-                  <Lock className="w-3 h-3 text-secondary" />
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-pink-200 flex items-center justify-center">
+                  <Lock className="w-3 h-3 text-pink-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium">Session Cookies</p>
-                  <p className="text-xs text-muted-foreground">
-                    Stay logged in securely with encrypted sessions
-                  </p>
+                  <p className="text-sm font-bold text-gray-900">Session Cookies</p>
+                  <p className="text-xs text-gray-500">Secure encrypted sessions</p>
                 </div>
               </div>
             </div>
