@@ -7,7 +7,7 @@ import {
   isValidPassword,
   isValidHandle,
 } from "../auth";
-import { db, generateId, getUserByEmail, getUserByHandle, createSession, deleteSession } from "../db";
+import { generateId, getUserByEmail, getUserByHandle, createSession, deleteSession, createUser } from "../db";
 import type { RegisterRequest, RegisterResponse, LoginRequest, LoginResponse, LogoutResponse } from "@shared/api";
 
 /**
