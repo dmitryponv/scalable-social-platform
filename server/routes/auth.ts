@@ -179,7 +179,7 @@ export const handleLogout: RequestHandler = async (req, res) => {
   try {
     const sessionToken = req.cookies?.sessionToken;
     if (sessionToken) {
-      deleteSession(sessionToken);
+      await deleteSession(sessionToken);
     }
 
     res.clearCookie("sessionToken");
