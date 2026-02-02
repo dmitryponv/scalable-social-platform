@@ -145,16 +145,14 @@ export const handleLikePost: RequestHandler = async (req, res) => {
     }
 
     const { id } = req.params;
-    const post = getPostById(id);
+    const success = await likePost(id, req.user.id);
 
-    if (!post) {
+    if (!success) {
       return res.status(404).json({
         success: false,
         message: "Post not found",
       } as PostEngagementResponse);
     }
-
-    post.likedBy.add(req.user.id);
 
     return res.json({
       success: true,
@@ -183,16 +181,14 @@ export const handleUnlikePost: RequestHandler = async (req, res) => {
     }
 
     const { id } = req.params;
-    const post = getPostById(id);
+    const success = await unlikePost(id, req.user.id);
 
-    if (!post) {
+    if (!success) {
       return res.status(404).json({
         success: false,
         message: "Post not found",
       } as PostEngagementResponse);
     }
-
-    post.likedBy.delete(req.user.id);
 
     return res.json({
       success: true,
@@ -221,16 +217,14 @@ export const handleSharePost: RequestHandler = async (req, res) => {
     }
 
     const { id } = req.params;
-    const post = getPostById(id);
+    const success = await sharePost(id);
 
-    if (!post) {
+    if (!success) {
       return res.status(404).json({
         success: false,
         message: "Post not found",
       } as PostEngagementResponse);
     }
-
-    post.shares += 1;
 
     return res.json({
       success: true,
