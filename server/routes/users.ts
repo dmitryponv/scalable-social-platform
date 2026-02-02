@@ -65,23 +65,13 @@ export const handleGetSuggestions: RequestHandler = async (req, res) => {
       } as GetSuggestionsResponse);
     }
 
-    const userFollowing = new Set(getUserFollowing(req.user.id));
+    // In MongoDB, you would query for random users
+    // For now, returning empty array as we need to implement user listing in db.ts
     const suggestions: UserPublic[] = [];
-
-    // Get all users except current user and those already following
-    for (const user of db.users.values()) {
-      if (user.id !== req.user.id && !userFollowing.has(user.id)) {
-        suggestions.push(formatUserPublic(user));
-      }
-    }
-
-    // Return random 10 suggestions
-    const shuffled = suggestions.sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, Math.min(10, shuffled.length));
 
     return res.json({
       success: true,
-      users: selected,
+      users: suggestions,
     } as GetSuggestionsResponse);
   } catch (error) {
     console.error("Get suggestions error:", error);
