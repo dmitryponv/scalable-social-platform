@@ -99,7 +99,7 @@ export const handleFollowUser: RequestHandler = async (req, res) => {
     const { id } = req.params;
 
     // Check if target user exists
-    const targetUser = getUserById(id);
+    const targetUser = await getUserById(id);
     if (!targetUser) {
       return res.status(404).json({
         success: false,
@@ -116,7 +116,8 @@ export const handleFollowUser: RequestHandler = async (req, res) => {
     }
 
     // Check if already following
-    if (isUserFollowing(req.user.id, id)) {
+    const alreadyFollowing = await isUserFollowing(req.user.id, id);
+    if (alreadyFollowing) {
       return res.status(400).json({
         success: false,
         message: "Already following this user",
@@ -124,13 +125,13 @@ export const handleFollowUser: RequestHandler = async (req, res) => {
     }
 
     // Create follow relationship
-    const followId = generateId();
-    db.follows.set(followId, {
-      id: followId,
-      followerId: req.user.id,
-      followingId: id,
-      createdAt: new Date(),
-    });
+    const success = await followUser(req.user.id, id);
+    if (!success) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to follow user",
+      } as FollowResponse);
+    }
 
     return res.status(201).json({
       success: true,
