@@ -240,7 +240,7 @@ export const handleGetFollowing: RequestHandler = async (req, res) => {
     const { id } = req.params;
 
     // Check if user exists
-    const user = getUserById(id);
+    const user = await getUserById(id);
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -248,15 +248,18 @@ export const handleGetFollowing: RequestHandler = async (req, res) => {
       });
     }
 
-    const followingIds = getUserFollowing(id);
-    const following = followingIds
-      .map((followingId) => getUserById(followingId))
-      .filter((u): u is any => u !== undefined)
+    const followingIds = await getUserFollowing(id);
+    const following = await Promise.all(
+      followingIds.map(async (followingId) => await getUserById(followingId))
+    );
+
+    const formattedFollowing = following
+      .filter((u): u is Exclude<typeof u, null> => u !== null)
       .map(formatUserPublic);
 
     return res.json({
       success: true,
-      following,
+      following: formattedFollowing,
     });
   } catch (error) {
     console.error("Get following error:", error);
