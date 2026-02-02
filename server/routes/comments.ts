@@ -1,23 +1,21 @@
 import { RequestHandler } from "express";
-import { db, generateId, getPostById, getPostComments, getCommentById, getUserById } from "../db";
-import type { CreateCommentRequest, CreateCommentResponse, GetCommentsResponse, Comment } from "@shared/api";
+import { getPostById, getPostComments, getCommentById, createComment, deleteComment } from "../db";
+import type { CreateCommentRequest, CreateCommentResponse, GetCommentsResponse, Comment, CommentData } from "@shared/api";
 
 /**
  * Helper function to format a comment with user info
  */
-const formatComment = (comment: any): Comment => {
-  const author = getUserById(comment.authorId);
-
+const formatComment = (comment: CommentData): Comment => {
   return {
     id: comment.id,
     postId: comment.postId,
     authorId: comment.authorId,
     author: {
-      id: author?.id || "",
-      name: author?.name || "Unknown",
-      handle: author?.handle || "unknown",
-      avatar: author?.avatar,
-      bio: author?.bio,
+      id: comment.authorId,
+      name: "User",
+      handle: "user",
+      avatar: undefined,
+      bio: undefined,
     },
     content: comment.content,
     createdAt: comment.createdAt,
