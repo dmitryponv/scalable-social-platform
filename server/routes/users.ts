@@ -201,7 +201,7 @@ export const handleGetFollowers: RequestHandler = async (req, res) => {
     const { id } = req.params;
 
     // Check if user exists
-    const user = getUserById(id);
+    const user = await getUserById(id);
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -209,15 +209,18 @@ export const handleGetFollowers: RequestHandler = async (req, res) => {
       });
     }
 
-    const followerIds = getUserFollowers(id);
-    const followers = followerIds
-      .map((followerId) => getUserById(followerId))
-      .filter((u): u is any => u !== undefined)
+    const followerIds = await getUserFollowers(id);
+    const followers = await Promise.all(
+      followerIds.map(async (followerId) => await getUserById(followerId))
+    );
+
+    const formattedFollowers = followers
+      .filter((u): u is Exclude<typeof u, null> => u !== null)
       .map(formatUserPublic);
 
     return res.json({
       success: true,
-      followers,
+      followers: formattedFollowers,
     });
   } catch (error) {
     console.error("Get followers error:", error);
