@@ -57,21 +57,14 @@ export const handleCreatePost: RequestHandler = async (req, res) => {
       } as CreatePostResponse);
     }
 
-    const postId = generateId();
-    const now = new Date();
+    const newPost = await createPost(req.user.id, content.trim(), image);
 
-    const newPost = {
-      id: postId,
-      authorId: req.user.id,
-      content: content.trim(),
-      image,
-      likedBy: new Set<string>(),
-      shares: 0,
-      createdAt: now,
-      updatedAt: now,
-    };
-
-    db.posts.set(postId, newPost);
+    if (!newPost) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to create post",
+      } as CreatePostResponse);
+    }
 
     return res.status(201).json({
       success: true,
