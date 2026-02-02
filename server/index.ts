@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { authMiddleware } from "./auth";
+import { connectDB } from "./config/database";
+import { initializeCache } from "./config/cache";
+import { initializeGoogleOAuth } from "./config/oauth";
 
 // Route handlers
 import { handleDemo } from "./routes/demo";
@@ -13,6 +16,17 @@ import { handleGetTrending, handleSearch, handleGetHashtagPosts } from "./routes
 
 export function createServer() {
   const app = express();
+
+  // Initialize database and external services
+  (async () => {
+    try {
+      await connectDB();
+      await initializeCache();
+      initializeGoogleOAuth();
+    } catch (error) {
+      console.error("Failed to initialize services:", error);
+    }
+  })();
 
   // Middleware
   app.use(cors());
