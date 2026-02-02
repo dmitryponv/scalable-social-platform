@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { db, generateId, getUserById, getUserFollowing, getUserFollowers, isUserFollowing } from "../db";
+import { getUserById, getUserFollowing, getUserFollowers, isUserFollowing, followUser, unfollowUser } from "../db";
 import type { FollowResponse, GetSuggestionsResponse, UserPublic } from "@shared/api";
 
 /**
