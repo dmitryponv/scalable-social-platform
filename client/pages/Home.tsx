@@ -1,32 +1,26 @@
 import { Link } from "react-router-dom";
-import { Heart, MessageCircle, Share2, Users, Lock, Zap } from "lucide-react";
+import { Heart, MessageCircle, Share2, Users, Zap, Sparkles, ArrowRight, Star } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50">
       {/* Navigation */}
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <nav className="border-b-2 border-purple-200 bg-white/80 backdrop-blur-xl sticky top-0 z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <div className="gradient-primary w-10 h-10 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+            <div className="flex items-center gap-3">
+              <div className="gradient-primary w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+                <span className="text-white font-black text-lg">C</span>
               </div>
-              <span className="font-bold text-xl hidden sm:inline gradient-primary-text">
+              <span className="font-black text-2xl gradient-primary-text hidden sm:inline">
                 Connect
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <Link
-                to="/login"
-                className="btn-social-ghost text-sm"
-              >
+              <Link to="/login" className="btn-social-ghost text-sm hover:text-purple-600">
                 Sign In
               </Link>
-              <Link
-                to="/register"
-                className="btn-social-primary text-sm"
-              >
+              <Link to="/register" className="btn-social-primary text-sm">
                 Get Started
               </Link>
             </div>
@@ -34,251 +28,242 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section - Very Colorful */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                Connect with
-                <br />
-                <span className="gradient-primary-text">Your Community</span>
+              <div className="inline-block">
+                <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                  ✨ Welcome to Connect
+                </span>
+              </div>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight">
+                Share Your{" "}
+                <span className="gradient-primary-text block">Colorful</span>
+                Story
               </h1>
-              <p className="text-lg text-muted-foreground max-w-lg">
-                Share your thoughts, discover amazing content, and engage with millions of users worldwide. Built for the modern social era.
+              <p className="text-xl text-gray-600 max-w-lg leading-relaxed">
+                Connect with millions of vibrant creators. Share thoughts, discover amazing content, and engage with your community like never before.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/register"
-                className="btn-social-primary text-base px-6 py-3 justify-center"
-              >
+              <Link to="/register" className="btn-social-primary text-base px-8 py-4 justify-center group">
                 Create Account
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link
-                to="/feed"
-                className="btn-social-ghost text-base px-6 py-3 justify-center border border-border"
-              >
-                Explore Feed
+              <Link to="/feed" className="btn-social-secondary text-base px-8 py-4 justify-center">
+                Explore Now
               </Link>
             </div>
 
-            <div className="flex items-center gap-8 pt-8 border-t border-border">
-              <div>
-                <p className="text-2xl font-bold">50M+</p>
-                <p className="text-sm text-muted-foreground">Active Users</p>
+            {/* Stats with Colors */}
+            <div className="grid grid-cols-3 gap-4 pt-8 border-t-2 border-purple-200">
+              <div className="group">
+                <p className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">50M+</p>
+                <p className="text-sm text-gray-500 font-semibold">Users</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold">1B+</p>
-                <p className="text-sm text-muted-foreground">Daily Posts</p>
+              <div className="group">
+                <p className="text-3xl font-black bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">1B+</p>
+                <p className="text-sm text-gray-500 font-semibold">Posts</p>
               </div>
-              <div>
-                <p className="text-2xl font-bold">10B+</p>
-                <p className="text-sm text-muted-foreground">Interactions</p>
+              <div className="group">
+                <p className="text-3xl font-black bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">10B+</p>
+                <p className="text-sm text-gray-500 font-semibold">Likes</p>
               </div>
             </div>
           </div>
 
-          {/* Right Visual */}
+          {/* Right Visual - Very Colorful */}
           <div className="relative">
-            <div className="absolute inset-0 gradient-primary opacity-20 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl border border-border/50 p-8 sm:p-12">
-              <div className="space-y-6">
-                {/* Sample Post Card */}
-                <div className="bg-card rounded-2xl border border-border p-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent"></div>
-                    <div>
-                      <p className="font-semibold">Sarah Chen</p>
-                      <p className="text-xs text-muted-foreground">2 hours ago</p>
-                    </div>
-                  </div>
-                  <p className="text-sm mb-4">
-                    Just launched my new project! Super excited to share it with you all 🚀
-                  </p>
-                  <div className="h-24 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg mb-4"></div>
-                  <div className="flex items-center justify-between text-muted-foreground">
-                    <button className="flex items-center gap-2 hover:text-primary transition-colors">
-                      <Heart className="w-4 h-4" />
-                      <span className="text-xs">324</span>
-                    </button>
-                    <button className="flex items-center gap-2 hover:text-secondary transition-colors">
-                      <MessageCircle className="w-4 h-4" />
-                      <span className="text-xs">42</span>
-                    </button>
-                    <button className="flex items-center gap-2 hover:text-accent transition-colors">
-                      <Share2 className="w-4 h-4" />
-                      <span className="text-xs">108</span>
-                    </button>
-                  </div>
-                </div>
+            {/* Floating gradient shapes */}
+            <div className="absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-br from-purple-400 to-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+            <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-gradient-to-br from-cyan-400 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style={{animationDelay: '2s'}}></div>
 
-                {/* Stats Preview */}
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-card rounded-lg border border-border p-3 text-center">
-                    <p className="text-sm font-semibold text-primary">324</p>
-                    <p className="text-xs text-muted-foreground">Likes</p>
-                  </div>
-                  <div className="bg-card rounded-lg border border-border p-3 text-center">
-                    <p className="text-sm font-semibold text-secondary">42</p>
-                    <p className="text-xs text-muted-foreground">Comments</p>
-                  </div>
-                  <div className="bg-card rounded-lg border border-border p-3 text-center">
-                    <p className="text-sm font-semibold text-accent">108</p>
-                    <p className="text-xs text-muted-foreground">Shares</p>
+            <div className="relative z-10 space-y-4">
+              {/* Post Card 1 - Purple */}
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl border-2 border-purple-300 p-5 shadow-xl hover:shadow-2xl transition-all hover:scale-105">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg"></div>
+                  <div>
+                    <p className="font-bold text-gray-900">Sarah Chen</p>
+                    <p className="text-xs text-gray-500">Just now</p>
                   </div>
                 </div>
+                <p className="text-sm text-gray-700 font-medium mb-4">
+                  Just shared my new creative project! 🎨✨
+                </p>
+                <div className="h-28 bg-gradient-to-br from-purple-300 to-pink-300 rounded-2xl mb-4 shadow-md"></div>
+              </div>
+
+              {/* Post Card 2 - Cyan */}
+              <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-3xl border-2 border-cyan-300 p-5 shadow-xl hover:shadow-2xl transition-all hover:scale-105 transform hover:-translate-y-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 shadow-lg"></div>
+                  <div>
+                    <p className="font-bold text-gray-900">Alex Rivera</p>
+                    <p className="text-xs text-gray-500">2 hours ago</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-700 font-medium">
+                  Amazing community engagement today! 🚀
+                </p>
+              </div>
+
+              {/* Post Card 3 - Orange */}
+              <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-3xl border-2 border-orange-300 p-5 shadow-xl hover:shadow-2xl transition-all hover:scale-105">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-lg"></div>
+                  <div>
+                    <p className="font-bold text-gray-900">Jordan Kim</p>
+                    <p className="text-xs text-gray-500">5 hours ago</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-700 font-medium">
+                  Live session with my followers at 5PM! 🎉
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="border-t border-border py-20 sm:py-32 bg-card/30">
+      {/* Features Section - Rainbow Colors */}
+      <section className="py-20 sm:py-32 bg-white/50 border-y-2 border-purple-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Everything You Need
+            <div className="inline-block mb-4">
+              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-bold">
+                ✨ Our Features
+              </span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-black mb-4 gradient-primary-text">
+              Packed with Powerful Features
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Powerful features designed for modern social interaction and community building
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Everything you need to express yourself and connect with your community
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="group bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <MessageCircle className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Share & Post</h3>
-              <p className="text-muted-foreground">
-                Express yourself with rich text, images, and multimedia. Blog posts, updates, and stories all in one place.
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Feature Cards with Individual Gradients */}
+            <div className="feature-card-1 shadow-2xl hover:shadow-purple-500/50">
+              <MessageCircle className="w-8 h-8 mb-4" />
+              <h3 className="text-xl font-black mb-3">Share & Post</h3>
+              <p className="text-white/90">
+                Express yourself with rich content, images, and multimedia stories.
               </p>
             </div>
 
-            {/* Feature 2 */}
-            <div className="group bg-card border border-border rounded-2xl p-8 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10">
-              <div className="w-12 h-12 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Engage & Interact</h3>
-              <p className="text-muted-foreground">
-                Like posts, leave comments, and share content. Build meaningful connections with your community.
+            <div className="feature-card-2 shadow-2xl hover:shadow-pink-500/50">
+              <Heart className="w-8 h-8 mb-4" />
+              <h3 className="text-xl font-black mb-3">Engage & Like</h3>
+              <p className="text-white/90">
+                Build meaningful connections with likes, comments, and shares.
               </p>
             </div>
 
-            {/* Feature 3 */}
-            <div className="group bg-card border border-border rounded-2xl p-8 hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
-              <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Lock className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Secure & Safe</h3>
-              <p className="text-muted-foreground">
-                Advanced encryption, secure authentication, and password protection. Your privacy matters to us.
+            <div className="feature-card-3 shadow-2xl hover:shadow-cyan-400/50">
+              <Zap className="w-8 h-8 mb-4" />
+              <h3 className="text-xl font-black mb-3">Lightning Fast</h3>
+              <p className="text-white/90">
+                Powered by MongoDB & Redis for ultimate speed and reliability.
               </p>
             </div>
 
-            {/* Feature 4 */}
-            <div className="group bg-card border border-border rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Users className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Community First</h3>
-              <p className="text-muted-foreground">
-                Discover communities, follow creators, and build your network. Connect with people who matter.
+            <div className="feature-card-4 shadow-2xl hover:shadow-orange-500/50">
+              <Users className="w-8 h-8 mb-4" />
+              <h3 className="text-xl font-black mb-3">Community</h3>
+              <p className="text-white/90">
+                Discover creators and build your network. Follow anyone.
               </p>
             </div>
 
-            {/* Feature 5 */}
-            <div className="group bg-card border border-border rounded-2xl p-8 hover:border-secondary/50 transition-all duration-300 hover:shadow-lg hover:shadow-secondary/10">
-              <div className="w-12 h-12 bg-gradient-to-br from-secondary to-accent rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Lightning Fast</h3>
-              <p className="text-muted-foreground">
-                Optimized performance with Redis caching and MongoDB. Scales to millions of users seamlessly.
+            <div className="feature-card-5 shadow-2xl hover:shadow-green-500/50">
+              <Star className="w-8 h-8 mb-4" />
+              <h3 className="text-xl font-black mb-3">Trending</h3>
+              <p className="text-white/90">
+                Stay updated with trending hashtags and viral content.
               </p>
             </div>
 
-            {/* Feature 6 */}
-            <div className="group bg-card border border-border rounded-2xl p-8 hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10">
-              <div className="w-12 h-12 bg-gradient-to-br from-accent to-primary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Share2 className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="font-bold text-lg mb-2">Share & Spread</h3>
-              <p className="text-muted-foreground">
-                Share posts with your network. Viral content, trending topics, and trending creators all discoverable.
+            <div className="feature-card-6 shadow-2xl hover:shadow-fuchsia-500/50">
+              <Share2 className="w-8 h-8 mb-4" />
+              <h3 className="text-xl font-black mb-3">Share & Spread</h3>
+              <p className="text-white/90">
+                Share posts and help content go viral in your community.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - Ultra Colorful */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
-        <div className="bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 rounded-3xl border border-border p-12 sm:p-16 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Ready to Connect?
-          </h2>
-          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            Join millions of users and start sharing your story today. It only takes a minute to get started.
-          </p>
-          <Link
-            to="/register"
-            className="btn-social-primary inline-block text-lg px-8 py-4"
-          >
-            Create Account Now
-          </Link>
+        <div className="relative overflow-hidden">
+          {/* Background gradient blobs */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 opacity-20 rounded-3xl filter blur-2xl"></div>
+          
+          <div className="relative bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-500 rounded-3xl p-12 sm:p-20 text-center shadow-2xl">
+            <Sparkles className="w-12 h-12 text-white mx-auto mb-4" />
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-6">
+              Start Your Journey Today
+            </h2>
+            <p className="text-white/90 text-xl mb-10 max-w-2xl mx-auto">
+              Join our vibrant community of creators and discover what you can achieve. It's free and takes less than a minute!
+            </p>
+            <Link to="/register" className="inline-block bg-white text-transparent bg-clip-text font-black text-lg px-10 py-4 rounded-2xl bg-white hover:scale-110 transition-transform shadow-xl hover:shadow-2xl">
+              <span className="text-white bg-gradient-to-r from-purple-600 to-pink-600 px-10 py-4 rounded-2xl inline-block font-black">
+                Create Account Now
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card/30 py-12">
+      <footer className="border-t-2 border-purple-200 bg-gradient-to-b from-white to-purple-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="gradient-primary w-8 h-8 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">C</span>
+                <div className="gradient-primary w-10 h-10 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-black">C</span>
                 </div>
-                <span className="font-bold gradient-primary-text">Connect</span>
+                <span className="font-black text-lg gradient-primary-text">Connect</span>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Your community, your space, your voice.
-              </p>
+              <p className="text-gray-600 font-semibold">Your vibrant community, your story.</p>
             </div>
             <div>
-              <p className="font-semibold mb-4">Product</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Security</a></li>
+              <p className="font-black text-gray-900 mb-4">Product</p>
+              <ul className="space-y-2 text-gray-600 font-semibold">
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Security</a></li>
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Pricing</a></li>
               </ul>
             </div>
             <div>
-              <p className="font-semibold mb-4">Company</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Careers</a></li>
+              <p className="font-black text-gray-900 mb-4">Company</p>
+              <ul className="space-y-2 text-gray-600 font-semibold">
+                <li><a href="#" className="hover:text-purple-600 transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Careers</a></li>
               </ul>
             </div>
             <div>
-              <p className="font-semibold mb-4">Legal</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Contact</a></li>
+              <p className="font-black text-gray-900 mb-4">Legal</p>
+              <ul className="space-y-2 text-gray-600 font-semibold">
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Privacy</a></li>
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Terms</a></li>
+                <li><a href="#" className="hover:text-purple-600 transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8">
-            <p className="text-center text-sm text-muted-foreground">
-              © 2024 Connect. All rights reserved.
+          <div className="border-t-2 border-purple-200 pt-8">
+            <p className="text-center text-gray-600 font-semibold">
+              © 2024 Connect. Built with 💜💙💗
             </p>
           </div>
         </div>
