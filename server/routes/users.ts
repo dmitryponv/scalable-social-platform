@@ -20,7 +20,7 @@ const formatUserPublic = (user: any): UserPublic => ({
 export const handleGetUser: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = getUserById(id);
+    const user = await getUserById(id);
 
     if (!user) {
       return res.status(404).json({
@@ -29,8 +29,9 @@ export const handleGetUser: RequestHandler = async (req, res) => {
       });
     }
 
-    const followers = getUserFollowers(id);
-    const following = getUserFollowing(id);
+    const followers = await getUserFollowers(id);
+    const following = await getUserFollowing(id);
+    const isFollowing = req.user ? await isUserFollowing(req.user.id, id) : false;
 
     return res.json({
       success: true,
@@ -38,7 +39,7 @@ export const handleGetUser: RequestHandler = async (req, res) => {
         ...formatUserPublic(user),
         followers: followers.length,
         following: following.length,
-        isFollowing: req.user ? isUserFollowing(req.user.id, id) : false,
+        isFollowing,
       },
     });
   } catch (error) {
