@@ -94,7 +94,7 @@ export const handleGetComments: RequestHandler = async (req, res) => {
     const { postId } = req.params;
 
     // Validate post exists
-    const post = getPostById(postId);
+    const post = await getPostById(postId);
     if (!post) {
       return res.status(404).json({
         success: false,
@@ -103,13 +103,12 @@ export const handleGetComments: RequestHandler = async (req, res) => {
       } as GetCommentsResponse);
     }
 
-    const comments = getPostComments(postId)
-      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-      .map(formatComment);
+    const comments = await getPostComments(postId);
+    const formattedComments = comments.map(formatComment);
 
     return res.json({
       success: true,
-      comments,
+      comments: formattedComments,
     } as GetCommentsResponse);
   } catch (error) {
     console.error("Get comments error:", error);
@@ -128,7 +127,7 @@ export const handleGetComments: RequestHandler = async (req, res) => {
 export const handleGetComment: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const comment = getCommentById(id);
+    const comment = await getCommentById(id);
 
     if (!comment) {
       return res.status(404).json({
@@ -164,7 +163,7 @@ export const handleDeleteComment: RequestHandler = async (req, res) => {
     }
 
     const { id } = req.params;
-    const comment = getCommentById(id);
+    const comment = await getCommentById(id);
 
     if (!comment) {
       return res.status(404).json({
@@ -181,7 +180,7 @@ export const handleDeleteComment: RequestHandler = async (req, res) => {
       });
     }
 
-    db.comments.delete(id);
+    await deleteComment(id);
 
     return res.json({
       success: true,
