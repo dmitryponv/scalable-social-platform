@@ -222,3 +222,111 @@ export const handleGetMe: RequestHandler = async (req, res) => {
     },
   });
 };
+
+/**
+ * GET /api/auth/google
+ * Get Google OAuth URL
+ */
+export const handleGoogleAuthUrl: RequestHandler = async (req, res) => {
+  try {
+    const { getGoogleAuthUrl } = await import("../config/oauth");
+    const url = getGoogleAuthUrl();
+    return res.json({
+      success: true,
+      url,
+    });
+  } catch (error) {
+    console.error("Google auth URL error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Google OAuth not configured",
+    });
+  }
+};
+
+/**
+ * POST /api/auth/google/callback
+ * Handle Google OAuth callback
+ */
+export const handleGoogleCallback: RequestHandler = async (req, res) => {
+  try {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      return res.status(400).json({
+        success: false,
+        message: "ID token is required",
+      });
+    }
+
+    const { verifyGoogleToken, getGoogleClient } = await import("../config/oauth");
+    const payload = await verifyGoogleToken(idToken);
+
+    if (!payload) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid token",
+      });
+    }
+
+    // Check if user exists with this email
+    let user = await getUserByEmail(payload.email);
+
+    // If not, create a new user
+    if (!user) {
+      // Generate a unique handle from email
+      let handle = payload.email.split("@")[0].toLowerCase();
+      let counter = 1;
+      while (await getUserByHandle(handle)) {
+        handle = `${payload.email.split("@")[0].toLowerCase()}_${counter}`;
+        counter++;
+      }
+
+      user = await createUser({
+        name: payload.name,
+        email: payload.email,
+        handle,
+        avatar: payload.picture,
+        googleId: payload.sub,
+      });
+
+      if (!user) {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to create user",
+        });
+      }
+    }
+
+    // Create session
+    const sessionToken = await createSession(user.id);
+
+    // Set session cookie
+    res.cookie("sessionToken", sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
+    return res.json({
+      success: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        handle: user.handle,
+        avatar: user.avatar,
+        bio: user.bio,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
+  } catch (error) {
+    console.error("Google callback error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
