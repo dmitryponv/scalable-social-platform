@@ -1,6 +1,6 @@
 /**
  * Database Abstraction Layer
- * 
+ *
  * This file provides an abstraction layer for database operations.
  * Now using MongoDB with Mongoose models.
  */
@@ -9,6 +9,10 @@ import mongoose from "mongoose";
 import { User, Post, Comment, Follow, Session } from "./models/index";
 import { generateSessionToken } from "./auth";
 import { cacheGet, cacheSet, cacheDelete, cacheClear } from "./config/cache";
+
+// Helper function to generate unique IDs
+export const generateId = (): string =>
+  new mongoose.Types.ObjectId().toString();
 
 export interface UserData {
   id: string;
