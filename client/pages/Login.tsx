@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Mail, Lock, ArrowRight } from "lucide-react";
+import GoogleOAuthButton from "../components/GoogleOAuthButton";
 
 export default function Login() {
   const navigate = useNavigate();
