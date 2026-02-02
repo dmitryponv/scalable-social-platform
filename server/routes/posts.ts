@@ -85,13 +85,12 @@ export const handleCreatePost: RequestHandler = async (req, res) => {
  */
 export const handleGetFeed: RequestHandler = async (req, res) => {
   try {
-    const posts = getAllPosts()
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
-      .map((post) => formatPost(post, req.user?.id));
+    const posts = await getAllPosts(50, 0);
+    const formattedPosts = posts.map((post) => formatPost(post, req.user?.id));
 
     return res.json({
       success: true,
-      posts,
+      posts: formattedPosts,
     } as GetFeedResponse);
   } catch (error) {
     console.error("Get feed error:", error);
