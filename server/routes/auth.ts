@@ -119,8 +119,8 @@ export const handleLogin: RequestHandler = async (req, res) => {
       } as LoginResponse);
     }
 
-    // Find user
-    const user = getUserByEmail(email);
+    // Find user (with password hash for comparison)
+    const user = await getUserByEmail(email);
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -128,8 +128,10 @@ export const handleLogin: RequestHandler = async (req, res) => {
       } as LoginResponse);
     }
 
-    // Check password
-    if (!comparePassword(password, user.password)) {
+    // Check password using bcrypt (User model's comparePassword method)
+    const { User } = await import("../models/index");
+    const userDoc = await User.findOne({ email: email.toLowerCase() });
+    if (!userDoc || !(await userDoc.comparePassword(password))) {
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
@@ -137,8 +139,7 @@ export const handleLogin: RequestHandler = async (req, res) => {
     }
 
     // Create session
-    const sessionToken = generateSessionToken();
-    createSession(user.id, sessionToken);
+    const sessionToken = await createSession(user.id);
 
     // Set session cookie
     res.cookie("sessionToken", sessionToken, {
