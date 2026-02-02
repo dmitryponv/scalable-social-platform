@@ -8,12 +8,11 @@
 
 @layer base {
   /**
-   * Tailwind CSS theme
+   * Vibrant Colorful Theme - Social Media App
    * tailwind.config.ts expects the following color variables to be expressed as HSL values.
-   * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
-    --background: 0 0% 100%;
+    --background: 280 20% 97%;
     --foreground: 240 10% 10%;
 
     --card: 0 0% 100%;
@@ -22,42 +21,44 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
 
-    --primary: 264 89% 50%;
+    /* Vibrant Primary: Deep Purple */
+    --primary: 270 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 100% 50%;
+    /* Vibrant Secondary: Neon Cyan */
+    --secondary: 180 100% 45%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 240 8% 85%;
     --muted-foreground: 240 6% 40%;
 
-    --accent: 280 100% 60%;
+    /* Vibrant Accent: Hot Pink */
+    --accent: 340 100% 55%;
     --accent-foreground: 0 0% 100%;
+
+    /* Additional vibrant colors */
+    --color-orange: 30 100% 55%;
+    --color-green: 140 100% 45%;
+    --color-yellow: 45 100% 55%;
+    --color-red: 0 100% 55%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 8% 90%;
-    --input: 240 8% 94%;
-    --ring: 264 89% 50%;
+    --border: 270 20% 90%;
+    --input: 270 15% 95%;
+    --ring: 270 100% 50%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --sidebar-background: 240 10% 98%;
-
+    --sidebar-background: 270 15% 96%;
     --sidebar-foreground: 240 10% 15%;
-
-    --sidebar-primary: 264 89% 50%;
-
+    --sidebar-primary: 270 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-
-    --sidebar-accent: 200 100% 50%;
-
+    --sidebar-accent: 340 100% 55%;
     --sidebar-accent-foreground: 0 0% 100%;
-
-    --sidebar-border: 240 8% 90%;
-
-    --sidebar-ring: 264 89% 50%;
+    --sidebar-border: 270 20% 90%;
+    --sidebar-ring: 270 100% 50%;
   }
 
   .dark {
