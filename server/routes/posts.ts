@@ -1,30 +1,28 @@
 import { RequestHandler } from "express";
-import { db, generateId, getPostById, getAllPosts, getUserById, getPostComments } from "../db";
+import { generateId, getPostById, getAllPosts, getUserById, getPostComments, createPost, likePost, unlikePost, sharePost } from "../db";
 import type { CreatePostRequest, CreatePostResponse, GetFeedResponse, Post, PostEngagementResponse } from "@shared/api";
+import type { PostData } from "../db";
 
 /**
  * Helper function to format a post with user info and engagement stats
  */
-const formatPost = (post: any, currentUserId?: string): Post => {
-  const author = getUserById(post.authorId);
-  const comments = getPostComments(post.id);
-
+const formatPost = (post: PostData, currentUserId?: string): Post => {
   return {
     id: post.id,
     authorId: post.authorId,
     author: {
-      id: author?.id || "",
-      name: author?.name || "Unknown",
-      handle: author?.handle || "unknown",
-      avatar: author?.avatar,
-      bio: author?.bio,
+      id: post.authorId,
+      name: "User",
+      handle: "user",
+      avatar: undefined,
+      bio: undefined,
     },
     content: post.content,
     image: post.image,
-    likes: post.likedBy.size,
-    comments: comments.length,
+    likes: post.likedBy.length,
+    comments: 0, // Will be fetched separately
     shares: post.shares,
-    liked: currentUserId ? post.likedBy.has(currentUserId) : false,
+    liked: currentUserId ? post.likedBy.includes(currentUserId) : false,
     createdAt: post.createdAt,
     updatedAt: post.updatedAt,
   };
