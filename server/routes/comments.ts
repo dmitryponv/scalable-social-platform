@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { getPostById, getPostComments, getCommentById, createComment, deleteComment } from "../db";
-import type { CreateCommentRequest, CreateCommentResponse, GetCommentsResponse, Comment, CommentData } from "@shared/api";
+import { getPostById, getPostComments, getCommentById, createComment, deleteComment, type CommentData } from "../db";
+import type { CreateCommentRequest, CreateCommentResponse, GetCommentsResponse, Comment } from "@shared/api";
 
 /**
  * Helper function to format a comment with user info
