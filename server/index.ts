@@ -62,6 +62,8 @@ export function createServer() {
   app.post("/api/auth/login", handleLogin);
   app.post("/api/auth/logout", handleLogout);
   app.get("/api/auth/me", handleGetMe);
+  app.get("/api/auth/google", handleGoogleAuthUrl);
+  app.post("/api/auth/google/callback", handleGoogleCallback);
 
   // ============ Post Routes ============
   app.post("/api/posts", handleCreatePost);
