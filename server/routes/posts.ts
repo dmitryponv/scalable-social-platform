@@ -109,7 +109,7 @@ export const handleGetFeed: RequestHandler = async (req, res) => {
 export const handleGetPost: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const post = getPostById(id);
+    const post = await getPostById(id);
 
     if (!post) {
       return res.status(404).json({
