@@ -162,7 +162,7 @@ export const handleUnfollowUser: RequestHandler = async (req, res) => {
     const { id } = req.params;
 
     // Check if target user exists
-    const targetUser = getUserById(id);
+    const targetUser = await getUserById(id);
     if (!targetUser) {
       return res.status(404).json({
         success: false,
@@ -170,17 +170,9 @@ export const handleUnfollowUser: RequestHandler = async (req, res) => {
       } as FollowResponse);
     }
 
-    // Find and delete follow relationship
-    let found = false;
-    for (const [followId, follow] of db.follows.entries()) {
-      if (follow.followerId === req.user.id && follow.followingId === id) {
-        db.follows.delete(followId);
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
+    // Delete follow relationship
+    const success = await unfollowUser(req.user.id, id);
+    if (!success) {
       return res.status(400).json({
         success: false,
         message: "Not following this user",
