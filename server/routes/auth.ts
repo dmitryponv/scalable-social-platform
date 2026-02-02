@@ -48,7 +48,8 @@ export const handleRegister: RequestHandler = async (req, res) => {
     }
 
     // Check if user already exists
-    if (getUserByEmail(email)) {
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
       return res.status(409).json({
         success: false,
         message: "Email already registered",
@@ -58,33 +59,28 @@ export const handleRegister: RequestHandler = async (req, res) => {
     // Generate handle from name
     let handle = name.toLowerCase().replace(/\s+/g, "_");
     let counter = 1;
-    while (getUserByHandle(handle)) {
+    while (await getUserByHandle(handle)) {
       handle = `${name.toLowerCase().replace(/\s+/g, "_")}_${counter}`;
       counter++;
     }
 
     // Create user
-    const userId = generateId();
-    const hashedPassword = hashPassword(password);
-    const now = new Date();
-
-    const newUser = {
-      id: userId,
+    const newUser = await createUser({
       name,
       email,
-      password: hashedPassword,
+      password,
       handle,
-      avatar: undefined,
-      bio: undefined,
-      createdAt: now,
-      updatedAt: now,
-    };
+    });
 
-    db.users.set(userId, newUser);
+    if (!newUser) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to create user",
+      } as RegisterResponse);
+    }
 
     // Create session
-    const sessionToken = generateSessionToken();
-    createSession(userId, sessionToken);
+    const sessionToken = await createSession(newUser.id);
 
     // Set session cookie (httpOnly for security)
     res.cookie("sessionToken", sessionToken, {
@@ -96,16 +92,7 @@ export const handleRegister: RequestHandler = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        handle: newUser.handle,
-        avatar: newUser.avatar,
-        bio: newUser.bio,
-        createdAt: newUser.createdAt,
-        updatedAt: newUser.updatedAt,
-      },
+      user: newUser,
     } as RegisterResponse);
   } catch (error) {
     console.error("Register error:", error);
