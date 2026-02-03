@@ -63,6 +63,7 @@ bash scripts/generate-ssl-certs.sh
 ```
 
 This creates:
+
 - `ssl/server.key` - Private key
 - `ssl/server.crt` - Certificate
 
@@ -156,14 +157,14 @@ docker-compose logs -f nginx
 
 ### Services Available
 
-| Service | Port | URL | Notes |
-|---------|------|-----|-------|
-| App (HTTPS) | 5443 | https://localhost:5443 | Main application |
-| App (HTTP) | 5000 | http://localhost:5000 | Redirects to HTTPS |
-| Nginx | 443 | https://localhost | SSL reverse proxy |
-| Nginx | 80 | http://localhost | Redirects to HTTPS |
-| MongoDB | 27017 | mongodb://localhost:27017 | Database |
-| Redis | 6379 | redis://localhost:6379 | Cache |
+| Service     | Port  | URL                       | Notes              |
+| ----------- | ----- | ------------------------- | ------------------ |
+| App (HTTPS) | 5443  | https://localhost:5443    | Main application   |
+| App (HTTP)  | 5000  | http://localhost:5000     | Redirects to HTTPS |
+| Nginx       | 443   | https://localhost         | SSL reverse proxy  |
+| Nginx       | 80    | http://localhost          | Redirects to HTTPS |
+| MongoDB     | 27017 | mongodb://localhost:27017 | Database           |
+| Redis       | 6379  | redis://localhost:6379    | Cache              |
 
 ### Managing Services
 
@@ -313,16 +314,16 @@ docker-compose exec redis redis-cli ping
 
 Key variables for Docker deployment:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ENABLE_HTTPS` | `false` | Enable HTTPS server |
-| `PORT` | `5000` | HTTP port |
-| `HTTPS_PORT` | `5443` | HTTPS port |
-| `SSL_KEY_PATH` | - | Path to SSL private key |
-| `SSL_CERT_PATH` | - | Path to SSL certificate |
-| `MONGODB_URI` | `mongodb://localhost:27017/social-media-app` | MongoDB connection |
-| `REDIS_URL` | `redis://localhost:6379` | Redis connection |
-| `NODE_ENV` | `development` | Node environment |
+| Variable        | Default                                      | Description             |
+| --------------- | -------------------------------------------- | ----------------------- |
+| `ENABLE_HTTPS`  | `false`                                      | Enable HTTPS server     |
+| `PORT`          | `5000`                                       | HTTP port               |
+| `HTTPS_PORT`    | `5443`                                       | HTTPS port              |
+| `SSL_KEY_PATH`  | -                                            | Path to SSL private key |
+| `SSL_CERT_PATH` | -                                            | Path to SSL certificate |
+| `MONGODB_URI`   | `mongodb://localhost:27017/social-media-app` | MongoDB connection      |
+| `REDIS_URL`     | `redis://localhost:6379`                     | Redis connection        |
+| `NODE_ENV`      | `development`                                | Node environment        |
 
 ### Docker Compose Override
 
@@ -479,11 +480,13 @@ docker system prune -a --volumes
 ## Security Considerations
 
 ### For Development
+
 - Self-signed certificates are fine
 - Keep `ENABLE_HTTPS=false` for local dev
 - Use weak test secrets
 
 ### For Production
+
 - Use Let's Encrypt for real certificates
 - Set `ENABLE_HTTPS=true`
 - Generate strong `SESSION_SECRET` (32+ characters):
@@ -496,6 +499,7 @@ docker system prune -a --volumes
 - Keep Docker images up to date
 
 ### SSL/TLS Best Practices
+
 - Use TLSv1.2+ (configured in nginx.conf)
 - Strong cipher suites (HIGH:!aNULL:!MD5)
 - HSTS header (max-age=31536000)

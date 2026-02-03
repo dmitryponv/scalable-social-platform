@@ -26,11 +26,11 @@ docker-compose logs -f
 
 ## Access the App
 
-| URL | Purpose | Notes |
-|-----|---------|-------|
-| https://localhost:5443 | Main app (HTTPS) | Direct HTTPS access |
-| http://localhost | Main app (HTTP) | Auto-redirects to HTTPS |
-| http://localhost:5000 | Direct HTTP | For testing only |
+| URL                    | Purpose          | Notes                   |
+| ---------------------- | ---------------- | ----------------------- |
+| https://localhost:5443 | Main app (HTTPS) | Direct HTTPS access     |
+| http://localhost       | Main app (HTTP)  | Auto-redirects to HTTPS |
+| http://localhost:5000  | Direct HTTP      | For testing only        |
 
 ## Environment Setup
 
@@ -72,12 +72,14 @@ Then access at `http://localhost:8080`
 For real HTTPS on production:
 
 1. **Get SSL Certificate**
+
    ```bash
    # Using Let's Encrypt
    sudo certbot certonly --nginx -d yourdomain.com
    ```
 
 2. **Update .env**
+
    ```bash
    ENABLE_HTTPS=true
    SSL_KEY_PATH=/etc/letsencrypt/live/yourdomain.com/privkey.pem
@@ -156,13 +158,13 @@ To suppress the warning, install the certificate in your system (advanced users 
 
 ## Troubleshooting
 
-| Issue | Solution |
-|-------|----------|
-| Port already in use | `docker kill <container>` or use different port |
-| Certificate error | `bash scripts/generate-ssl-certs.sh` |
-| MongoDB won't connect | Wait 30 seconds, `docker-compose restart mongo` |
-| Redis connection error | `docker-compose restart redis` |
-| Services not starting | `docker-compose logs` to see error details |
+| Issue                  | Solution                                        |
+| ---------------------- | ----------------------------------------------- |
+| Port already in use    | `docker kill <container>` or use different port |
+| Certificate error      | `bash scripts/generate-ssl-certs.sh`            |
+| MongoDB won't connect  | Wait 30 seconds, `docker-compose restart mongo` |
+| Redis connection error | `docker-compose restart redis`                  |
+| Services not starting  | `docker-compose logs` to see error details      |
 
 ## Need Help?
 

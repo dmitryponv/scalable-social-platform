@@ -37,7 +37,9 @@ if (enableHttps && sslKeyPath && sslCertPath) {
     const httpsServer = https.createServer({ key, cert }, app);
 
     httpsServer.listen(httpsPort, () => {
-      console.log(`🚀 Fusion Starter HTTPS server running on port ${httpsPort}`);
+      console.log(
+        `🚀 Fusion Starter HTTPS server running on port ${httpsPort}`,
+      );
       console.log(`📱 Frontend: https://localhost:${httpsPort}`);
       console.log(`🔧 API: https://localhost:${httpsPort}/api`);
       console.log(`🔐 SSL: Enabled`);
@@ -53,7 +55,7 @@ if (enableHttps && sslKeyPath && sslCertPath) {
 
     httpServer.listen(port, () => {
       console.log(
-        `🔄 HTTP redirect server running on port ${port} -> HTTPS on ${httpsPort}`
+        `🔄 HTTP redirect server running on port ${port} -> HTTPS on ${httpsPort}`,
       );
     });
 
