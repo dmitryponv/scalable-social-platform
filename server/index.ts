@@ -8,12 +8,47 @@ import { initializeGoogleOAuth } from "./config/oauth";
 
 // Route handlers
 import { handleDemo } from "./routes/demo";
-import { handleRegister, handleLogin, handleLogout, handleGetMe, handleGoogleAuthUrl, handleGoogleCallback } from "./routes/auth";
-import { handleCreatePost, handleGetFeed, handleGetPost, handleLikePost, handleUnlikePost, handleSharePost } from "./routes/posts";
-import { handleCreateComment, handleGetComments, handleDeleteComment } from "./routes/comments";
-import { handleGetUser, handleGetSuggestions, handleFollowUser, handleUnfollowUser, handleGetFollowers, handleGetFollowing } from "./routes/users";
-import { handleGetTrending, handleSearch, handleGetHashtagPosts } from "./routes/trending";
-import { handleGetUserEngagement, handleGetPlatformAnalytics, handleGetTrendingAnalytics, handleGetRetentionAnalytics, handleTrackEvent } from "./routes/analytics";
+import {
+  handleRegister,
+  handleLogin,
+  handleLogout,
+  handleGetMe,
+  handleGoogleAuthUrl,
+  handleGoogleCallback,
+} from "./routes/auth";
+import {
+  handleCreatePost,
+  handleGetFeed,
+  handleGetPost,
+  handleLikePost,
+  handleUnlikePost,
+  handleSharePost,
+} from "./routes/posts";
+import {
+  handleCreateComment,
+  handleGetComments,
+  handleDeleteComment,
+} from "./routes/comments";
+import {
+  handleGetUser,
+  handleGetSuggestions,
+  handleFollowUser,
+  handleUnfollowUser,
+  handleGetFollowers,
+  handleGetFollowing,
+} from "./routes/users";
+import {
+  handleGetTrending,
+  handleSearch,
+  handleGetHashtagPosts,
+} from "./routes/trending";
+import {
+  handleGetUserEngagement,
+  handleGetPlatformAnalytics,
+  handleGetTrendingAnalytics,
+  handleGetRetentionAnalytics,
+  handleTrackEvent,
+} from "./routes/analytics";
 
 export function createServer() {
   const app = express();

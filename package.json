@@ -21,8 +21,14 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "google-auth-library": "^10.5.0",
+    "mongoose": "^9.1.5",
+    "redis": "^5.10.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {

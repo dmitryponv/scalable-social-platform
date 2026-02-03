@@ -11,10 +11,12 @@ This guide walks you through setting up Google OAuth 2.0 authentication for the 
 ## Step 1: Create a Google Cloud Project
 
 ### 1.1 Go to Google Cloud Console
+
 1. Open https://console.cloud.google.com
 2. If you don't have a Google Cloud account, create one
 
 ### 1.2 Create a new project
+
 1. Click on the project selector at the top of the page
 2. Click "NEW PROJECT"
 3. Enter project name: "Social Media App"
@@ -24,6 +26,7 @@ This guide walks you through setting up Google OAuth 2.0 authentication for the 
 ## Step 2: Enable Google+ API
 
 ### 2.1 Enable the API
+
 1. In the Google Cloud Console, go to "APIs & Services" > "Library"
 2. Search for "Google+ API"
 3. Click on "Google+ API"
@@ -33,11 +36,13 @@ This guide walks you through setting up Google OAuth 2.0 authentication for the 
 ## Step 3: Create OAuth 2.0 Credentials
 
 ### 3.1 Go to Credentials
+
 1. Go to "APIs & Services" > "Credentials"
 2. Click the "+ CREATE CREDENTIALS" button
 3. Select "OAuth client ID"
 
 ### 3.2 Configure the OAuth Consent Screen
+
 If this is your first time, you'll need to configure the consent screen:
 
 1. Click "CONFIGURE CONSENT SCREEN"
@@ -50,6 +55,7 @@ If this is your first time, you'll need to configure the consent screen:
 5. Click "SAVE AND CONTINUE"
 
 ### 3.3 Add Scopes
+
 1. Click "ADD OR REMOVE SCOPES"
 2. Search for and select:
    - `email`
@@ -59,6 +65,7 @@ If this is your first time, you'll need to configure the consent screen:
 4. Click "SAVE AND CONTINUE"
 
 ### 3.4 Add Test Users (Development Only)
+
 1. If in development, add test email addresses
 2. Click "ADD USERS"
 3. Enter your email and any collaborators' emails
@@ -67,6 +74,7 @@ If this is your first time, you'll need to configure the consent screen:
 ## Step 4: Create OAuth 2.0 Client ID
 
 ### 4.1 Create Client ID
+
 1. Go back to "APIs & Services" > "Credentials"
 2. Click "+ CREATE CREDENTIALS"
 3. Select "OAuth client ID"
@@ -74,10 +82,12 @@ If this is your first time, you'll need to configure the consent screen:
 5. Enter the name: "Connect Web App"
 
 ### 4.2 Add Authorized Redirect URIs
+
 1. Under "Authorized redirect URIs", click "ADD URI"
 2. Add the following URIs based on your environment:
 
 **For Local Development:**
+
 ```
 http://localhost:5173/auth/google/callback
 http://localhost:3000/auth/google/callback
@@ -85,12 +95,14 @@ http://127.0.0.1:5173/auth/google/callback
 ```
 
 **For Testing on VirtualBox:**
+
 ```
 http://192.168.1.X:5173/auth/google/callback
 http://192.168.1.X:3000/auth/google/callback
 ```
 
 **For Production:**
+
 ```
 https://yourdomain.com/auth/google/callback
 https://www.yourdomain.com/auth/google/callback
@@ -99,13 +111,16 @@ https://www.yourdomain.com/auth/google/callback
 3. Click "CREATE"
 
 ### 4.3 Save Your Credentials
+
 You'll see a popup with your Client ID and Client Secret:
+
 - Copy the **Client ID** and **Client Secret**
 - Store them securely (you'll need them next)
 
 ## Step 5: Configure Environment Variables
 
 ### 5.1 Create/Update .env file
+
 Create a `.env` file in the project root with:
 
 ```bash
@@ -116,33 +131,39 @@ GOOGLE_REDIRECT_URI=http://localhost:5173/auth/google/callback
 ```
 
 Replace:
+
 - `your_client_id_here.apps.googleusercontent.com` with your actual Client ID
 - `your_client_secret_here` with your actual Client Secret
 
 ### 5.2 Environment Variable Details
 
 **GOOGLE_CLIENT_ID**
+
 - Format: `xxx-xxxxxxxxxxxxxxxx.apps.googleusercontent.com`
 - Where: Find in OAuth 2.0 Client IDs section
 - What: Public ID for your app
 
 **GOOGLE_CLIENT_SECRET**
+
 - Format: A long string of characters
 - Where: Click on the OAuth client to reveal
 - What: Secret key - keep this private!
 
 **GOOGLE_REDIRECT_URI**
+
 - Format: `https://yourdomain.com/auth/google/callback`
 - What: Where Google redirects after user approves
 
 ## Step 6: Test the Integration
 
 ### 6.1 Start the app
+
 ```bash
 pnpm run dev
 ```
 
 ### 6.2 Test Google OAuth
+
 1. Go to http://localhost:5173
 2. Click "Get Started" to go to register page
 3. Look for "Continue with Google" button
@@ -150,7 +171,9 @@ pnpm run dev
 5. Select your test account and approve
 
 ### 6.3 Verify it works
+
 After approving:
+
 - You should be redirected back to the app
 - You should be logged in automatically
 - Your user should be created in the database
@@ -158,6 +181,7 @@ After approving:
 ## Step 7: Production Deployment
 
 ### 7.1 Update Credentials for Production
+
 1. Go to Google Cloud Console
 2. Go to "APIs & Services" > "Credentials"
 3. Click on your OAuth client
@@ -165,6 +189,7 @@ After approving:
 5. Save
 
 ### 7.2 Update Environment Variables for Production
+
 Set these environment variables on your production server:
 
 ```bash
@@ -174,6 +199,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 ```
 
 ### 7.3 Deploy
+
 - Deploy your app to your production server
 - Verify Google OAuth works on the live site
 
@@ -184,6 +210,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 **Problem**: You get an error saying the redirect URI doesn't match.
 
 **Solution**:
+
 1. Check the exact URL in the error message
 2. Go to Google Cloud Console > Credentials
 3. Click on your OAuth client
@@ -195,6 +222,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 **Problem**: The "Continue with Google" button doesn't work.
 
 **Solution**:
+
 1. Check browser console for errors (F12 > Console)
 2. Verify GOOGLE_CLIENT_ID is set in .env
 3. Check that the app is running on the correct port
@@ -205,6 +233,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 **Problem**: You see "Invalid client" when trying to log in.
 
 **Solution**:
+
 1. Verify GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET are correct
 2. Make sure there are no extra spaces in the .env file
 3. Restart the dev server after changing .env
@@ -215,6 +244,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 **Problem**: Error mentions client not being authenticated.
 
 **Solution**:
+
 1. Make sure the OAuth consent screen is configured
 2. Go to "APIs & Services" > "OAuth consent screen"
 3. Verify all required fields are filled
@@ -223,11 +253,13 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 ## Security Best Practices
 
 ### For Development
+
 1. Store credentials in .env.local (not in git)
 2. Add .env to .gitignore
 3. Use test accounts only
 
 ### For Production
+
 1. Never commit credentials to git
 2. Use environment variables on production server
 3. Use strong, unique secrets
@@ -236,6 +268,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 6. Use HTTPS only in production
 
 ### Protecting Your Secrets
+
 ```bash
 # .gitignore
 .env
@@ -252,6 +285,7 @@ GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 ## Support
 
 If you encounter issues:
+
 1. Check the troubleshooting section above
 2. Check Google Cloud Console for errors
 3. Review the app logs for more details
@@ -260,6 +294,7 @@ If you encounter issues:
 ## Next Steps
 
 After setting up Google OAuth:
+
 1. Test with multiple user accounts
 2. Test password reset flow (for non-OAuth users)
 3. Test account linking (if implementing)

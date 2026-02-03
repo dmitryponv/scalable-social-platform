@@ -1,8 +1,8 @@
 /**
  * MongoDB Schemas and Models
- * 
+ *
  * This file defines all MongoDB schemas and models for the social media app.
- * 
+ *
  * Installation required:
  * npm install mongoose bcryptjs
  */
@@ -36,7 +36,7 @@ const userSchema = new Schema<IUser>(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Hash password before saving
@@ -55,7 +55,7 @@ userSchema.pre<IUser>("save", async function (next) {
 
 // Method to compare passwords
 userSchema.methods.comparePassword = async function (
-  password: string
+  password: string,
 ): Promise<boolean> {
   if (!this.password) return false;
   return bcryptjs.compare(password, this.password);
@@ -86,7 +86,7 @@ const postSchema = new Schema<IPost>(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Index for faster queries
@@ -118,7 +118,7 @@ const commentSchema = new Schema<IComment>(
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 commentSchema.index({ postId: 1, createdAt: -1 });
@@ -144,7 +144,7 @@ const followSchema = new Schema<IFollow>(
     },
     createdAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 followSchema.index({ followerId: 1 });
@@ -170,7 +170,7 @@ const sessionSchema = new Schema<ISession>(
     expiresAt: { type: Date, required: true },
     createdAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Auto-delete expired sessions
@@ -184,12 +184,10 @@ export const Post: Model<IPost> =
   mongoose.models.Post || mongoose.model<IPost>("Post", postSchema);
 
 export const Comment: Model<IComment> =
-  mongoose.models.Comment ||
-  mongoose.model<IComment>("Comment", commentSchema);
+  mongoose.models.Comment || mongoose.model<IComment>("Comment", commentSchema);
 
 export const Follow: Model<IFollow> =
   mongoose.models.Follow || mongoose.model<IFollow>("Follow", followSchema);
 
 export const Session: Model<ISession> =
-  mongoose.models.Session ||
-  mongoose.model<ISession>("Session", sessionSchema);
+  mongoose.models.Session || mongoose.model<ISession>("Session", sessionSchema);

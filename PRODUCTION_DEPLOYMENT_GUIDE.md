@@ -3,6 +3,7 @@
 Complete guide for deploying the Social Media App to production with load balancing, caching, and scaling.
 
 ## Table of Contents
+
 1. [Pre-Deployment Checklist](#pre-deployment-checklist)
 2. [Database Setup](#database-setup)
 3. [Server Configuration](#server-configuration)
@@ -17,6 +18,7 @@ Complete guide for deploying the Social Media App to production with load balanc
 ## Pre-Deployment Checklist
 
 ### Environment Variables
+
 ```bash
 # Create .env file with production values
 NODE_ENV=production
@@ -46,6 +48,7 @@ SSL_KEY_PATH=/etc/ssl/private/yourdomain.key
 ```
 
 ### Security Review
+
 - [ ] All secrets are strong and unique
 - [ ] Credentials are NOT in git repository
 - [ ] CORS is configured for your domain only
@@ -57,6 +60,7 @@ SSL_KEY_PATH=/etc/ssl/private/yourdomain.key
 - [ ] CSRF protections configured
 
 ### Performance Review
+
 - [ ] Database indexes are created
 - [ ] Redis caching is configured
 - [ ] CDN is configured for static assets
@@ -71,6 +75,7 @@ SSL_KEY_PATH=/etc/ssl/private/yourdomain.key
 ### MongoDB Atlas Cloud Database
 
 #### 1. Create MongoDB Atlas Cluster
+
 ```
 1. Go to https://www.mongodb.com/cloud/atlas
 2. Create account and new project
@@ -81,16 +86,19 @@ SSL_KEY_PATH=/etc/ssl/private/yourdomain.key
 ```
 
 #### 2. Get Connection String
+
 ```
 mongodb+srv://username:password@cluster.mongodb.net/social-media-app?retryWrites=true&w=majority
 ```
 
 #### 3. Configure Backups
+
 - Enable daily snapshots
 - Set retention to 30 days minimum
 - Test restore procedures
 
 #### 4. Create Indexes
+
 ```bash
 mongosh "mongodb+srv://username:password@cluster.mongodb.net/social-media-app"
 
@@ -105,6 +113,7 @@ db.analytics.createIndex({ userId: 1, timestamp: -1 })
 ```
 
 ### MongoDB Local Installation (Alternative)
+
 ```bash
 # For dedicated server
 curl https://raw.githubusercontent.com/mongodb/mongo/master/evergreen/mongod-new-install.sh | bash
@@ -120,6 +129,7 @@ curl https://raw.githubusercontent.com/mongodb/mongo/master/evergreen/mongod-new
 ### Docker Deployment (Recommended)
 
 #### 1. Create Dockerfile
+
 ```dockerfile
 FROM node:18-alpine
 
@@ -152,8 +162,9 @@ CMD ["pnpm", "start"]
 ```
 
 #### 2. Create docker-compose.yml
+
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   app:
@@ -197,6 +208,7 @@ volumes:
 ```
 
 #### 3. Deploy with Docker
+
 ```bash
 # Build and start services
 docker-compose up -d
@@ -215,25 +227,27 @@ docker-compose logs -f app
 ### Nginx Configuration for Load Balancing
 
 #### 1. Install Nginx
+
 ```bash
 sudo apt-get update
 sudo apt-get install -y nginx
 ```
 
 #### 2. Configure Upstream Servers
+
 ```nginx
 # /etc/nginx/sites-available/social-media-app
 
 upstream app_backend {
     # Use least connections algorithm for better distribution
     least_conn;
-    
+
     # App server instances
     server localhost:5000 weight=2;
     server localhost:5001;
     server localhost:5002;
     server localhost:5003;
-    
+
     # Health check
     keepalive 32;
 }
@@ -246,7 +260,7 @@ limit_req_zone $binary_remote_addr zone=api:10m rate=100r/s;
 server {
     listen 80;
     server_name yourdomain.com www.yourdomain.com;
-    
+
     # Redirect HTTP to HTTPS
     return 301 https://$server_name$request_uri;
 }
@@ -254,7 +268,7 @@ server {
 server {
     listen 443 ssl http2;
     server_name yourdomain.com www.yourdomain.com;
-    
+
     # SSL Configuration
     ssl_certificate /etc/ssl/certs/yourdomain.crt;
     ssl_certificate_key /etc/ssl/private/yourdomain.key;
@@ -263,30 +277,30 @@ server {
     ssl_prefer_server_ciphers on;
     ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 10m;
-    
+
     # Compression
     gzip on;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss;
     gzip_min_length 1000;
-    
+
     # Security Headers
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-XSS-Protection "1; mode=block" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
-    
+
     # Logging
     access_log /var/log/nginx/access.log;
     error_log /var/log/nginx/error.log;
-    
+
     # Static files with caching
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
         proxy_pass http://app_backend;
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
-    
+
     # API Rate Limiting
     location /api/auth {
         limit_req zone=auth burst=10 nodelay;
@@ -297,7 +311,7 @@ server {
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
     }
-    
+
     # Main API
     location /api {
         limit_req zone=api burst=50 nodelay;
@@ -310,13 +324,13 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_cache_bypass $http_upgrade;
-        
+
         # Timeouts
         proxy_connect_timeout 60s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
-    
+
     # WebSocket
     location /socket.io {
         proxy_pass http://app_backend;
@@ -328,7 +342,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_read_timeout 86400;
     }
-    
+
     # Main app
     location / {
         limit_req zone=general burst=20 nodelay;
@@ -339,7 +353,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
-    
+
     # Health check endpoint
     location /health {
         access_log off;
@@ -349,6 +363,7 @@ server {
 ```
 
 #### 3. Enable and Test
+
 ```bash
 # Test configuration
 sudo nginx -t
@@ -371,6 +386,7 @@ sudo systemctl status nginx
 ### Redis Configuration
 
 #### 1. Redis Enterprise Setup
+
 ```bash
 # For managed Redis service
 REDIS_URL=redis://:password@redis.example.com:6379
@@ -381,6 +397,7 @@ REDIS_SESSION_TTL=604800    # 7 days for sessions
 ```
 
 #### 2. Cache Invalidation Strategy
+
 ```
 - Posts: Invalidate on create/edit
 - User profiles: Invalidate on update
@@ -389,6 +406,7 @@ REDIS_SESSION_TTL=604800    # 7 days for sessions
 ```
 
 #### 3. Monitoring Cache
+
 ```bash
 redis-cli info stats
 redis-cli DBSIZE
@@ -402,6 +420,7 @@ redis-cli SLOWLOG GET 10
 ### Application Monitoring
 
 #### 1. Sentry for Error Tracking
+
 ```bash
 # Install Sentry SDK
 npm install @sentry/node
@@ -417,6 +436,7 @@ Sentry.init({
 ```
 
 #### 2. Prometheus Metrics
+
 ```bash
 # Install
 npm install prom-client
@@ -429,6 +449,7 @@ app.get('/metrics', (req, res) => {
 ```
 
 #### 3. ELK Stack (Elasticsearch, Logstash, Kibana)
+
 ```bash
 # Centralized logging
 # Send all logs to Elasticsearch
@@ -454,37 +475,42 @@ app.get('/metrics', (req, res) => {
 ## Security Hardening
 
 ### 1. HTTPS/TLS
+
 - [ ] Valid SSL certificate (Let's Encrypt or commercial)
 - [ ] TLS 1.2+ only
 - [ ] HSTS headers enabled
 - [ ] Certificate renewal automated
 
 ### 2. Environment Variables
+
 - [ ] All secrets in .env (not in code)
 - [ ] Use strong random values
 - [ ] Rotate secrets regularly
 - [ ] Use environment-specific configurations
 
 ### 3. Rate Limiting
+
 - [ ] API endpoints rate limited
 - [ ] Auth endpoints (5 req/s)
 - [ ] General API (100 req/s)
 - [ ] DDoS protection enabled
 
 ### 4. Input Validation
+
 - [ ] All inputs validated
 - [ ] Mongoose schemas enforce types
 - [ ] XSS protection enabled
 - [ ] SQL injection not possible (using Mongoose)
 
 ### 5. CORS Configuration
+
 ```javascript
 cors({
   origin: process.env.PRODUCTION_DOMAIN,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type']
-})
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"],
+});
 ```
 
 ---
@@ -504,6 +530,7 @@ PORT=5003 pnpm start &
 ### Vertical Scaling (More Resources)
 
 **Recommended specs by user count:**
+
 - 0-1,000 users: 2GB RAM, 1-2 CPU cores
 - 1,000-10,000 users: 4GB RAM, 2-4 CPU cores
 - 10,000-100,000 users: 8GB+ RAM, 4-8 CPU cores
@@ -579,6 +606,7 @@ redis-cli
 ### Common Issues
 
 **High Memory Usage**
+
 ```bash
 # Check Node.js process
 node --max-old-space-size=4096 dist/server.js
@@ -588,6 +616,7 @@ redis-cli INFO memory
 ```
 
 **Slow Queries**
+
 ```bash
 # MongoDB
 db.currentOp(true)
@@ -597,6 +626,7 @@ SLOWLOG GET 10
 ```
 
 **Connection Timeouts**
+
 - Increase proxy timeouts
 - Check database connection limits
 - Verify network connectivity

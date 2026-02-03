@@ -199,6 +199,7 @@ curl http://localhost:5000/api/ping
 ## Step 10: Verify Everything Works (5 minutes)
 
 ### Test Database Connection
+
 ```bash
 # Connect to MongoDB
 mongosh
@@ -210,6 +211,7 @@ mongosh
 ```
 
 ### Test Redis Connection
+
 ```bash
 # Connect to Redis
 redis-cli
@@ -223,6 +225,7 @@ redis-cli
 ```
 
 ### Test API Endpoints
+
 ```bash
 # Test health endpoint
 curl http://localhost:5000/api/ping
@@ -254,6 +257,7 @@ curl -X POST http://localhost:5000/api/auth/login \
 ```
 
 ### Test Frontend
+
 ```bash
 # Open browser and visit
 http://localhost:5173
@@ -414,6 +418,7 @@ curl http://localhost/api/ping
 ## Troubleshooting
 
 ### MongoDB won't start
+
 ```bash
 # Check if port 27017 is already in use
 sudo lsof -i :27017
@@ -426,6 +431,7 @@ sudo systemctl restart mongod
 ```
 
 ### Redis won't start
+
 ```bash
 # Check if port 6379 is already in use
 sudo lsof -i :6379
@@ -438,6 +444,7 @@ sudo systemctl restart redis-server
 ```
 
 ### Node.js app won't start
+
 ```bash
 # Check if port 5000 is already in use
 sudo lsof -i :5000
@@ -454,6 +461,7 @@ ls node_modules | wc -l  # Should show many modules
 ```
 
 ### Nginx won't start
+
 ```bash
 # Test Nginx config
 sudo nginx -t
@@ -469,6 +477,7 @@ sudo systemctl restart nginx
 ```
 
 ### Database connection errors
+
 ```bash
 # Test MongoDB connection
 mongosh -u admin -p password
@@ -502,6 +511,7 @@ top -b -n 1      # CPU and processes
 ## Production Hardening (Optional)
 
 ### Add SSL Certificate (Let's Encrypt)
+
 ```bash
 # Install Certbot
 sudo apt-get install -y certbot python3-certbot-nginx
@@ -513,6 +523,7 @@ sudo certbot certonly --nginx -d yourdomain.com
 ```
 
 ### Firewall Setup
+
 ```bash
 # Enable UFW
 sudo ufw enable
@@ -527,6 +538,7 @@ sudo ufw status
 ```
 
 ### Automated Backups
+
 ```bash
 # Create backup script
 cat > ~/backup-mongodb.sh << 'EOF'
@@ -610,10 +622,12 @@ curl http://localhost/api/ping
 ## Access Your App
 
 **After deployment, access the app at:**
+
 - `http://<your-ubuntu-ip>`
 - `http://<your-ubuntu-ip>:5000` (direct Node.js)
 
 **The app includes:**
+
 - ✅ Beautiful landing page
 - ✅ User registration
 - ✅ User login
