@@ -47,7 +47,7 @@ services:
       start_period: 10s
 
   mongo:
-    image: mongo:7.0-alpine
+    image: mongo:latest
     container_name: social-media-mongo
     ports:
       - "27017:27017"
