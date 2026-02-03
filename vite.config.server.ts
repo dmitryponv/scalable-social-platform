@@ -35,6 +35,10 @@ export default defineConfig({
         // External dependencies that should not be bundled
         "express",
         "cors",
+        // Client-side only modules
+        "react",
+        "react-dom",
+        "react-router-dom",
       ],
       output: {
         format: "es",
