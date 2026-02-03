@@ -149,7 +149,7 @@ const followSchema = new Schema<IFollow>(
 
 followSchema.index({ followerId: 1 });
 followSchema.index({ followingId: 1 });
-followSchema.unique({ followerId: 1, followingId: 1 });
+followSchema.index({ followerId: 1, followingId: 1 }, { unique: true });
 
 // ============ Session Schema ============
 export interface ISession extends Document {
