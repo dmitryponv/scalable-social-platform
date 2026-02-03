@@ -92,6 +92,13 @@ export function createServer() {
   app.get("/api/search", handleSearch);
   app.get("/api/hashtag/:tag", handleGetHashtagPosts);
 
+  // ============ Analytics Routes ============
+  app.get("/api/analytics/engagement/:userId", handleGetUserEngagement);
+  app.get("/api/analytics/platform", handleGetPlatformAnalytics);
+  app.get("/api/analytics/trending", handleGetTrendingAnalytics);
+  app.get("/api/analytics/retention", handleGetRetentionAnalytics);
+  app.post("/api/analytics/event", handleTrackEvent);
+
   // ============ Error Handling ============
   app.use((err: any, _req: any, res: any, _next: any) => {
     console.error("Unhandled error:", err);
