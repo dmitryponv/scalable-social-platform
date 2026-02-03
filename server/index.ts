@@ -13,6 +13,7 @@ import { handleCreatePost, handleGetFeed, handleGetPost, handleLikePost, handleU
 import { handleCreateComment, handleGetComments, handleDeleteComment } from "./routes/comments";
 import { handleGetUser, handleGetSuggestions, handleFollowUser, handleUnfollowUser, handleGetFollowers, handleGetFollowing } from "./routes/users";
 import { handleGetTrending, handleSearch, handleGetHashtagPosts } from "./routes/trending";
+import { handleGetUserEngagement, handleGetPlatformAnalytics, handleGetTrendingAnalytics, handleGetRetentionAnalytics, handleTrackEvent } from "./routes/analytics";
 
 export function createServer() {
   const app = express();
