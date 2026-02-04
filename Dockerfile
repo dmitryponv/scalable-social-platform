@@ -10,8 +10,9 @@ RUN npm install -g pnpm && pnpm install --frozen-lockfile
 # Copy source code
 COPY . .
 
-# Build client and server
-RUN pnpm run build
+# Build client and server with production environment
+ENV VITE_PRODUCTION=true
+RUN pnpm run build:client && pnpm run build:server
 
 # Production stage
 FROM node:18-alpine
