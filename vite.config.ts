@@ -5,9 +5,12 @@ import { fileURLToPath } from "url";
 import { createServer } from "./server";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientDir = path.resolve(__dirname, "client");
+const sharedDir = path.resolve(__dirname, "shared");
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  root: __dirname,
   server: {
     host: "::",
     port: 8080,
@@ -19,13 +22,15 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: "dist/spa",
     sourcemap: false,
+    target: "esnext",
+    minify: "esbuild",
   },
   plugins: [react(), expressPlugin()],
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./client"),
-      "@shared": path.resolve(__dirname, "./shared"),
-    },
+    alias: [
+      { find: "@", replacement: clientDir },
+      { find: "@shared", replacement: sharedDir },
+    ],
     extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json"],
   },
   optimizeDeps: {
