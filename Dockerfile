@@ -1,5 +1,5 @@
 # Multi-stage build for optimized production image
-FROM node:18-alpine AS builder
+FROM node:18 AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ ENV VITE_PRODUCTION=true
 RUN pnpm run build:client && pnpm run build:server
 
 # Production stage
-FROM node:18-alpine
+FROM node:18-slim
 
 WORKDIR /app
 
