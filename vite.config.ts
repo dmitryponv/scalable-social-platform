@@ -8,6 +8,22 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const clientDir = path.resolve(__dirname, "client");
 const sharedDir = path.resolve(__dirname, "shared");
 
+// Custom Rollup plugin to resolve @ and @shared aliases
+function aliasPlugin(): Plugin {
+  return {
+    name: "alias-resolver",
+    resolveId(id) {
+      if (id.startsWith("@/")) {
+        return path.resolve(clientDir, id.slice(2));
+      }
+      if (id.startsWith("@shared/")) {
+        return path.resolve(sharedDir, id.slice(8));
+      }
+      return null;
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   root: __dirname,
@@ -25,7 +41,7 @@ export default defineConfig(({ mode }) => ({
     target: "esnext",
     minify: "esbuild",
   },
-  plugins: [react(), expressPlugin()],
+  plugins: [aliasPlugin(), react(), expressPlugin()],
   resolve: {
     alias: [
       { find: "@", replacement: clientDir },
