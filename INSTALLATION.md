@@ -40,7 +40,7 @@ sudo systemctl enable docker
 
 ```bash
 # If cloning from git:
-git clone https://github.com/your-username/scalable-social-platform.git
+git clone https://github.com/dmitryponv/scalable-social-platform.git
 cd scalable-social-platform
 
 # Or if already in project directory:
@@ -81,7 +81,7 @@ PORT=5000
 HTTPS_PORT=5443
 
 # Database
-MONGODB_URI=mongodb://mongo:27017/scalable-social-platform
+MONGODB_URI=mongodb://mongo:27017/social-media-app
 
 # Cache
 REDIS_URL=redis://redis:6379
@@ -161,42 +161,38 @@ Your system is now ready for deployment. Proceed to [QUICKSTART.md](QUICKSTART.m
 
 ## Installed Components Summary
 
-| Component      | Version | Purpose                       |
-| -------------- | ------- | ----------------------------- |
-| Node.js        | 18+     | JavaScript runtime            |
-| pnpm           | Latest  | Package manager               |
-| Docker         | Latest  | Container runtime             |
-| Docker Compose | Latest  | Multi-container orchestration |
-| MongoDB        | 7.0     | Database (via Docker)         |
-| Redis          | Latest  | Cache layer (via Docker)      |
-| Nginx          | Latest  | Reverse proxy (via Docker)    |
-| certbot        | Latest  | SSL certificate management    |
+| Component | Version | Purpose |
+|-----------|---------|---------|
+| Node.js | 18+ | JavaScript runtime |
+| pnpm | Latest | Package manager |
+| Docker | Latest | Container runtime |
+| Docker Compose | Latest | Multi-container orchestration |
+| MongoDB | 7.0 | Database (via Docker) |
+| Redis | Latest | Cache layer (via Docker) |
+| Nginx | Latest | Reverse proxy (via Docker) |
+| certbot | Latest | SSL certificate management |
 
 ## Troubleshooting Installation
 
 ### pnpm not found after installation
-
 ```bash
 source ~/.bashrc
 pnpm --version
 ```
 
 ### Docker permission denied
-
 ```bash
 sudo usermod -aG docker $USER
 newgrp docker
 ```
 
 ### Docker daemon not running
-
 ```bash
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
 ### Port already in use
-
 ```bash
 bash scripts/hard-reset.sh
 ```
