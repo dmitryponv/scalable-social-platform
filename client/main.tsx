@@ -4,7 +4,10 @@ import App from "./App";
 
 console.log("✅ main.tsx module loaded");
 console.log("📦 React available?", typeof React !== "undefined");
-console.log("📦 React.createElement available?", typeof React.createElement !== "undefined");
+console.log(
+  "📦 React.createElement available?",
+  typeof React.createElement !== "undefined",
+);
 console.log("📦 createRoot available?", typeof createRoot !== "undefined");
 console.log("📦 App available?", typeof App !== "undefined");
 

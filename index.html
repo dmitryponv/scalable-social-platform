@@ -13,7 +13,10 @@
       console.log("🔍 index.html loaded");
       console.log("📦 window object keys:", Object.keys(window).slice(0, 20));
       console.log("⚛️  React available?", typeof window.React !== "undefined");
-      console.log("⚛️  ReactDOM available?", typeof window.ReactDOM !== "undefined");
+      console.log(
+        "⚛️  ReactDOM available?",
+        typeof window.ReactDOM !== "undefined",
+      );
     </script>
 
     <script type="module">
@@ -29,10 +32,19 @@
       // Check after module loads
       setTimeout(() => {
         console.log("✅ After module load:");
-        console.log("⚛️  React available?", typeof window.React !== "undefined");
-        console.log("⚛️  ReactDOM available?", typeof window.ReactDOM !== "undefined");
+        console.log(
+          "⚛️  React available?",
+          typeof window.React !== "undefined",
+        );
+        console.log(
+          "⚛️  ReactDOM available?",
+          typeof window.ReactDOM !== "undefined",
+        );
         console.log("📋 Root element:", document.getElementById("root"));
-        console.log("📋 Root children:", document.getElementById("root")?.children.length);
+        console.log(
+          "📋 Root children:",
+          document.getElementById("root")?.children.length,
+        );
       }, 1000);
     </script>
   </body>
