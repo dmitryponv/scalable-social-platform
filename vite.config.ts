@@ -35,12 +35,7 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    plugins: [
-      react({
-        jsxRuntime: "automatic", // Use automatic JSX transform (no React import needed)
-      }),
-      isDev ? expressPlugin() : null,
-    ].filter(Boolean),
+    plugins: [react(), isDev ? expressPlugin() : null].filter(Boolean),
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "client"),
