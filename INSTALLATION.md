@@ -166,18 +166,23 @@ sudo ufw enable
 
 ### Setup Let's Encrypt SSL (For Production Domain - Optional)
 
-# IMPORTANT: Stop docker-compose before running certbot (port 80 must be free)
-
-# If docker-compose is running, stop it first:
-
-# docker-compose down
+# REQUIREMENTS BEFORE RUNNING:
+# 1. Own or control a domain (example: scalable-social-platform.com)
+# 2. Point your domain's DNS A record to your server's public IP address
+# 3. Verify DNS is working: nslookup scalable-social-platform.com (should show your IP)
+# 4. Ensure port 80 is accessible from the internet (not blocked by firewall)
 
 ## Get Let's Encrypt Certificate
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 
-# Replace yourdomain.com with your actual domain
+# IMPORTANT: Replace scalable-social-platform.com with YOUR actual domain name
+DOMAIN="scalable-social-platform.com"
+
+# Verify DNS points to this server
+nslookup $DOMAIN
+
 # Stop docker-compose
 docker-compose down
 
@@ -189,24 +194,26 @@ sleep 2
 # Verify port 80 is free
 sudo lsof -i :80 || echo "Port 80 is now free"
 
-# Get certificate
-sudo certbot certonly --standalone -d yourdomain.com --agree-tos --register-unsafely-without-email
+# Get certificate (this validates domain ownership via DNS)
+sudo certbot certonly --standalone -d $DOMAIN --agree-tos --register-unsafely-without-email
 
 # Auto-update .env with production certificate paths
-sed -i "s|SSL_KEY_PATH=/app/ssl/server.key|SSL_KEY_PATH=/etc/letsencrypt/live/yourdomain.com/privkey.pem|g" .env
-sed -i "s|SSL_CERT_PATH=/app/ssl/server.crt|SSL_CERT_PATH=/etc/letsencrypt/live/yourdomain.com/fullchain.pem|g" .env
+sed -i "s|SSL_KEY_PATH=/app/ssl/server.key|SSL_KEY_PATH=/etc/letsencrypt/live/$DOMAIN/privkey.pem|g" .env
+sed -i "s|SSL_CERT_PATH=/app/ssl/server.crt|SSL_CERT_PATH=/etc/letsencrypt/live/$DOMAIN/fullchain.pem|g" .env
+
+# Also update Google OAuth redirect URI
+sed -i "s|GOOGLE_REDIRECT_URI=https://yourdomain.com|GOOGLE_REDIRECT_URI=https://$DOMAIN|g" .env
 
 # Verify .env was updated
-grep "SSL_" .env
+grep "SSL_\|GOOGLE_REDIRECT" .env
 ```
 
 ### Updated .env Paths
 
 # Your .env now contains these production certificate paths:
-
-# SSL_KEY_PATH=/etc/letsencrypt/live/yourdomain.com/privkey.pem
-
-# SSL_CERT_PATH=/etc/letsencrypt/live/yourdomain.com/fullchain.pem
+# SSL_KEY_PATH=/etc/letsencrypt/live/scalable-social-platform.com/privkey.pem
+# SSL_CERT_PATH=/etc/letsencrypt/live/scalable-social-platform.com/fullchain.pem
+# GOOGLE_REDIRECT_URI=https://scalable-social-platform.com/auth/google/callback
 
 ## Installation Complete
 
