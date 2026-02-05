@@ -36,5 +36,9 @@ const App = () => (
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  createRoot(rootElement).render(<App />);
+  // Store root in window to prevent double createRoot calls in HMR
+  const root =
+    (window as any).__root || createRoot(rootElement);
+  (window as any).__root = root;
+  root.render(<App />);
 }
