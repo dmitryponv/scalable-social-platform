@@ -43,7 +43,7 @@ if (!rootElement) {
 } else {
   console.log("✓ Root element found, rendering React app...");
   try {
-    createRoot(rootElement).render(React.createElement(App));
+    createRoot(rootElement).render(<App />);
     console.log("✓ React app rendered successfully");
   } catch (error) {
     console.error("❌ Error rendering React app:", error);
