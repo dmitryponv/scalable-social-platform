@@ -14,7 +14,7 @@ sudo apt install -y curl wget gnupg
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
 sudo apt-get install -y nodejs
-npm install -g pnpm
+sudo npm install -g pnpm
 ```
 
 ## Verify Node.js and pnpm
@@ -52,7 +52,7 @@ docker-compose --version
 ## Clone Project
 
 ```bash
-git clone https://github.com/your-username/scalable-social-platform.git
+git clone https://github.com/dmitryponv/scalable-social-platform.git
 cd scalable-social-platform
 ```
 
@@ -69,15 +69,17 @@ mkdir -p ssl
 bash scripts/generate-ssl-certs.sh
 ```
 
-## Get Google OAuth Credentials
+### Google OAuth Setup Instructions
 
-Visit https://console.cloud.google.com/ and:
-
-1. Create/select a project
-2. Enable "Google+ API"
-3. Create OAuth 2.0 credentials (Web application)
-4. Add redirect URIs: `https://localhost:5443/auth/google/callback` and `https://yourdomain.com/auth/google/callback`
-5. Copy your Client ID and Client Secret (you'll paste them below)
+# Visit https://console.cloud.google.com/
+# 1. Create/select a project
+# 2. Enable "Google+ API"
+# 3. Create OAuth 2.0 credentials (Web application)
+# 4. Add redirect URIs:
+#    - https://localhost:5443/auth/google/callback (testing)
+#    - https://yourdomain.com/auth/google/callback (production)
+# 5. Copy your Client ID and Client Secret
+# 6. Paste them in the .env file below
 
 ## Create .env File (Auto-generate Session Secret)
 
@@ -96,7 +98,7 @@ MONGODB_URI=mongodb://mongo:27017/scalable-social-platform
 # Cache
 REDIS_URL=redis://redis:6379
 
-# Google OAuth (PASTE YOUR CREDENTIALS FROM ABOVE)
+# Google OAuth (PASTE YOUR CREDENTIALS FROM GOOGLE CLOUD CONSOLE)
 GOOGLE_CLIENT_ID=your_client_id_here.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your_client_secret_here
 GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
@@ -111,17 +113,13 @@ SSL_CERT_PATH=/app/ssl/server.crt
 EOF
 ```
 
-## Update .env with Your Google OAuth Credentials
+### Update .env with Your Google OAuth Credentials
 
-```bash
-# Edit .env file and update:
+# nano .env
+# Update these values with your actual credentials from Google Cloud Console:
 # GOOGLE_CLIENT_ID=your_actual_client_id
 # GOOGLE_CLIENT_SECRET=your_actual_secret
 # GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
-
-nano .env
-# Or use your preferred editor: vi .env, code .env, etc.
-```
 
 ## Build Project
 
@@ -154,19 +152,37 @@ sudo ufw allow 5443/tcp
 sudo ufw enable
 ```
 
-## Setup Let's Encrypt SSL (For Production Domain - Optional)
+### Setup Let's Encrypt SSL (For Production Domain - Optional)
+
+# IMPORTANT: Stop docker-compose before running certbot (port 80 must be free)
+# If docker-compose is running, stop it first:
+# docker-compose down
+
+## Get Let's Encrypt Certificate
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 
 # Replace yourdomain.com with your actual domain
-sudo certbot certonly --standalone -d yourdomain.com
+# Stop docker-compose first if it's running
+docker-compose down
 
-# Then update .env:
+# Get certificate
+sudo certbot certonly --standalone -d yourdomain.com --agree-tos --register-unsafely-without-email
+
+# Auto-update .env with production certificate paths
+sed -i "s|SSL_KEY_PATH=/app/ssl/server.key|SSL_KEY_PATH=/etc/letsencrypt/live/yourdomain.com/privkey.pem|g" .env
+sed -i "s|SSL_CERT_PATH=/app/ssl/server.crt|SSL_CERT_PATH=/etc/letsencrypt/live/yourdomain.com/fullchain.pem|g" .env
+
+# Verify .env was updated
+grep "SSL_" .env
+```
+
+### Updated .env Paths
+
+# Your .env now contains these production certificate paths:
 # SSL_KEY_PATH=/etc/letsencrypt/live/yourdomain.com/privkey.pem
 # SSL_CERT_PATH=/etc/letsencrypt/live/yourdomain.com/fullchain.pem
-# nano .env
-```
 
 ## Installation Complete
 
