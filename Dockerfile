@@ -13,7 +13,14 @@ RUN rm -f .env .env.production .env.development 2>/dev/null || true
 
 # Build client and server with production environment
 ENV VITE_PRODUCTION=true
-RUN pnpm run build:client && pnpm run build:server
+RUN echo "📦 Building client..." && \
+    pnpm run build:client && \
+    echo "✅ Client build complete" && \
+    echo "📦 Building server..." && \
+    pnpm run build:server && \
+    echo "✅ Server build complete" && \
+    echo "📋 Checking dist output..." && \
+    ls -lah dist/assets/ | head -20
 
 # Production stage
 FROM node:18-slim
