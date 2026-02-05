@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: "dist/spa",
+      outDir: "dist/client",
       sourcemap: false,
       target: "esnext",
       minify: "esbuild",
