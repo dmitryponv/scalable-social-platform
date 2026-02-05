@@ -24,7 +24,7 @@ services:
       REDIS_URL: redis://redis:6379
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      GOOGLE_REDIRECT_URI: https://localhost:5443/api/auth/google/callback
+      GOOGLE_REDIRECT_URI: https://localhost:5443/auth/google/callback
       SESSION_SECRET: ${SESSION_SECRET:-your-secret-key-change-in-production}
       ENABLE_HTTPS: "true"
       SSL_KEY_PATH: /app/ssl/server.key
