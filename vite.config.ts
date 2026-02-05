@@ -28,18 +28,9 @@ export default defineConfig(({ mode }) => {
       commonjsOptions: {
         transformMixedEsModules: true,
       },
-      rollupOptions: {
-        output: {
-          // Ensure React dependencies are properly bundled
-          manualChunks: undefined,
-        },
-      },
     },
     plugins: [
-      react({
-        jsxRuntime: "automatic",
-        jsxImportSource: "react",
-      }),
+      react(),
       isDev ? expressPlugin() : null,
     ].filter(Boolean),
     resolve: {
@@ -50,11 +41,6 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       include: ["react", "react-dom", "react-router-dom"],
-      esbuildOptions: {
-        define: {
-          global: "globalThis",
-        },
-      },
     },
   };
 });
