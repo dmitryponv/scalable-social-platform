@@ -202,7 +202,7 @@ sed -i "s|SSL_KEY_PATH=/app/ssl/server.key|SSL_KEY_PATH=/etc/letsencrypt/live/$D
 sed -i "s|SSL_CERT_PATH=/app/ssl/server.crt|SSL_CERT_PATH=/etc/letsencrypt/live/$DOMAIN/fullchain.pem|g" .env
 
 # Also update Google OAuth redirect URI
-sed -i "s|GOOGLE_REDIRECT_URI=https://yourdomain.com|GOOGLE_REDIRECT_URI=https://$DOMAIN|g" .env
+sed -i "s|GOOGLE_REDIRECT_URI=.*|GOOGLE_REDIRECT_URI=https://$DOMAIN/auth/google/callback|g" .env
 
 # Verify .env was updated
 grep "SSL_\|GOOGLE_REDIRECT" .env
