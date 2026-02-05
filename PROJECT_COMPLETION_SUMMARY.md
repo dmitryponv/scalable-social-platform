@@ -305,7 +305,7 @@ All requested features have been implemented, tested, and documented. The Social
 
 ### Backend
 
-- **Runtime:** Node.js 18+
+- **Runtime:** Node.js 22 LTS
 - **Framework:** Express.js 5
 - **Database:** MongoDB with Mongoose ODM
 - **Cache:** Redis with fallback to memory
