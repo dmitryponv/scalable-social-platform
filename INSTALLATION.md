@@ -72,13 +72,21 @@ bash scripts/generate-ssl-certs.sh
 ### Google OAuth Setup Instructions
 
 # Visit https://console.cloud.google.com/
+
 # 1. Create/select a project
+
 # 2. Enable "Google+ API"
+
 # 3. Create OAuth 2.0 credentials (Web application)
+
 # 4. Add redirect URIs:
-#    - https://localhost:5443/auth/google/callback (testing)
-#    - https://yourdomain.com/auth/google/callback (production)
+
+# - https://localhost:5443/auth/google/callback (testing)
+
+# - https://yourdomain.com/auth/google/callback (production)
+
 # 5. Copy your Client ID and Client Secret
+
 # 6. Paste them in the .env file below
 
 ## Create .env File (Auto-generate Session Secret)
@@ -116,9 +124,13 @@ EOF
 ### Update .env with Your Google OAuth Credentials
 
 # nano .env
+
 # Update these values with your actual credentials from Google Cloud Console:
+
 # GOOGLE_CLIENT_ID=your_actual_client_id
+
 # GOOGLE_CLIENT_SECRET=your_actual_secret
+
 # GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
 
 ## Build Project
@@ -155,7 +167,9 @@ sudo ufw enable
 ### Setup Let's Encrypt SSL (For Production Domain - Optional)
 
 # IMPORTANT: Stop docker-compose before running certbot (port 80 must be free)
+
 # If docker-compose is running, stop it first:
+
 # docker-compose down
 
 ## Get Let's Encrypt Certificate
@@ -189,7 +203,9 @@ grep "SSL_" .env
 ### Updated .env Paths
 
 # Your .env now contains these production certificate paths:
+
 # SSL_KEY_PATH=/etc/letsencrypt/live/yourdomain.com/privkey.pem
+
 # SSL_CERT_PATH=/etc/letsencrypt/live/yourdomain.com/fullchain.pem
 
 ## Installation Complete
