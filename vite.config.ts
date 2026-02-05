@@ -28,8 +28,19 @@ export default defineConfig(({ mode }) => {
       commonjsOptions: {
         transformMixedEsModules: true,
       },
+      rollupOptions: {
+        output: {
+          // Ensure React dependencies are properly bundled
+          manualChunks: undefined,
+        },
+      },
     },
-    plugins: [react(), isDev ? expressPlugin() : null].filter(Boolean),
+    plugins: [
+      react({
+        jsxRuntime: "automatic", // Use automatic JSX transform (no React import needed)
+      }),
+      isDev ? expressPlugin() : null,
+    ].filter(Boolean),
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "client"),
@@ -38,6 +49,11 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       include: ["react", "react-dom", "react-router-dom"],
+      esbuildOptions: {
+        define: {
+          global: "globalThis",
+        },
+      },
     },
   };
 });
