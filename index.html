@@ -16,18 +16,33 @@
         console.log("=== CSS CHECK ===");
         var links = document.querySelectorAll("link[rel='stylesheet']");
         console.log("CSS files loaded: " + links.length);
-        
+
         for (var i = 0; i < links.length; i++) {
           var href = links[i].getAttribute("href");
           console.log("[" + i + "] " + href);
+
+          // Check if stylesheet has rules
+          try {
+            var sheet = links[i].sheet;
+            if (sheet) {
+              console.log("   Sheet rules count: " + sheet.cssRules.length);
+              if (sheet.cssRules.length > 0) {
+                console.log("   First rule: " + sheet.cssRules[0].cssText.substring(0, 100));
+              }
+            }
+          } catch (e) {
+            console.log("   Can't access sheet (CORS): " + e.message);
+          }
         }
-        
+
         var root = document.getElementById("root");
         if (root) {
           console.log("Root has " + root.children.length + " children");
           if (root.children.length > 0) {
             var child = root.children[0];
-            console.log("First child classes: " + child.className);
+            console.log("First child tag: " + child.tagName);
+            console.log("First child classes: '" + child.className + "'");
+            console.log("First child HTML: " + child.outerHTML.substring(0, 200));
           }
         }
       }, 500);
