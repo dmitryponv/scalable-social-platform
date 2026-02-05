@@ -6,7 +6,10 @@ import App from "./App";
 (window as any).React = React;
 
 console.log("✅ main.tsx loaded");
-console.log("📦 React available globally?", (window as any).React !== undefined);
+console.log(
+  "📦 React available globally?",
+  (window as any).React !== undefined,
+);
 console.log("🎨 Checking CSS links...");
 const links = document.querySelectorAll('link[rel="stylesheet"]');
 console.log(`📋 Found ${links.length} stylesheets`);
