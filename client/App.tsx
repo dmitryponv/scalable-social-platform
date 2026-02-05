@@ -34,11 +34,21 @@ const App = () => (
   </QueryClientProvider>
 );
 
-// Initialize root only once
-if (!(window as any).__appInitialized) {
-  (window as any).__appInitialized = true;
+// Initialize app when DOM is ready
+const initApp = () => {
   const rootElement = document.getElementById("root");
-  if (rootElement) {
-    createRoot(rootElement).render(<App />);
+  if (rootElement && rootElement.children.length === 0) {
+    try {
+      createRoot(rootElement).render(<App />);
+    } catch (error) {
+      console.error("Failed to render app:", error);
+    }
   }
+};
+
+// If DOM is already loaded, initialize immediately
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
 }
