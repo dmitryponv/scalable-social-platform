@@ -9,11 +9,11 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget gnupg
 ```
 
-## Install Node.js 18 & pnpm
+## Install Node.js 22 LTS & pnpm
 
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
+sudo apt-get install -y nodejs
 npm install -g pnpm
 ```
 
