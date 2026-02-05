@@ -4,9 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello world project</title>
+    
+    <script>
+      console.log("=== HEAD LOADING ===");
+      console.log("📄 Head parsing started");
+    </script>
   </head>
+  
   <body>
+    <script>
+      console.log("=== BODY LOADING ===");
+      console.log("📄 Body tag reached");
+      console.log("📋 Current stylesheets in document:");
+      document.querySelectorAll('link[rel="stylesheet"]').forEach((link, i) => {
+        const href = link.getAttribute('href');
+        console.log(`  [${i}] href="${href}"`);
+      });
+    </script>
+    
     <div id="root"></div>
+    
     <script type="module" src="./client/main.tsx"></script>
+    
+    <script>
+      console.log("=== AFTER SCRIPT LOAD ===");
+      setTimeout(() => {
+        console.log("📋 Stylesheets after module load:");
+        const links = document.querySelectorAll('link[rel="stylesheet"]');
+        console.log(`✅ Total stylesheets: ${links.length}`);
+        
+        links.forEach((link, i) => {
+          const href = link.getAttribute('href');
+          const disabled = link.getAttribute('disabled');
+          console.log(`  [${i}] href="${href}" disabled="${disabled}"`);
+          
+          // Try to fetch the CSS file
+          fetch(href).then(r => {
+            console.log(`    ✅ CSS file loaded (${r.status}): ${href}`);
+          }).catch(e => {
+            console.error(`    ❌ CSS file failed: ${href}`, e);
+          });
+        });
+        
+        // Check computed styles
+        const root = document.getElementById('root');
+        if (root && root.children.length > 0) {
+          const child = root.children[0] as HTMLElement;
+          const computed = window.getComputedStyle(child);
+          console.log("🎨 Root child computed styles (sample):");
+          console.log(`  display: ${computed.display}`);
+          console.log(`  color: ${computed.color}`);
+          console.log(`  backgroundColor: ${computed.backgroundColor}`);
+          console.log(`  fontSize: ${computed.fontSize}`);
+        }
+      }, 500);
+    </script>
   </body>
 </html>
