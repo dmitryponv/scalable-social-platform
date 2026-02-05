@@ -1,8 +1,8 @@
 /**
  * Google OAuth Configuration
- * 
+ *
  * Handles Google OAuth 2.0 authentication flow.
- * 
+ *
  * Setup required:
  * 1. Create a Google Cloud project at https://console.cloud.google.com
  * 2. Create OAuth 2.0 credentials (Web application)
@@ -12,7 +12,7 @@
  * 4. Add environment variables:
  *    - GOOGLE_CLIENT_ID=your_client_id
  *    - GOOGLE_CLIENT_SECRET=your_client_secret
- * 
+ *
  * Installation required:
  * npm install google-auth-library
  */
@@ -30,7 +30,7 @@ export const initializeGoogleOAuth = (): OAuth2Client | null => {
 
   if (!clientId || !clientSecret) {
     console.warn(
-      "Google OAuth credentials not configured. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET."
+      "Google OAuth credentials not configured. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.",
     );
     return null;
   }
@@ -82,7 +82,7 @@ export interface GoogleTokenPayload {
 }
 
 export const verifyGoogleToken = async (
-  token: string
+  token: string,
 ): Promise<GoogleTokenPayload | null> => {
   if (!googleClient) {
     throw new Error("Google OAuth client not initialized");
@@ -103,7 +103,7 @@ export const verifyGoogleToken = async (
 };
 
 export const getGoogleAuthCode = async (
-  code: string
+  code: string,
 ): Promise<{
   accessToken: string;
   idToken: string;

@@ -7,8 +7,21 @@ import {
   isValidPassword,
   isValidHandle,
 } from "../auth";
-import { generateId, getUserByEmail, getUserByHandle, createSession, deleteSession, createUser } from "../db";
-import type { RegisterRequest, RegisterResponse, LoginRequest, LoginResponse, LogoutResponse } from "@shared/api";
+import {
+  generateId,
+  getUserByEmail,
+  getUserByHandle,
+  createSession,
+  deleteSession,
+  createUser,
+} from "../db";
+import type {
+  RegisterRequest,
+  RegisterResponse,
+  LoginRequest,
+  LoginResponse,
+  LogoutResponse,
+} from "@shared/api";
 
 /**
  * POST /api/auth/register
@@ -16,7 +29,8 @@ import type { RegisterRequest, RegisterResponse, LoginRequest, LoginResponse, Lo
  */
 export const handleRegister: RequestHandler = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword } = req.body as RegisterRequest;
+    const { name, email, password, confirmPassword } =
+      req.body as RegisterRequest;
 
     // Validation
     if (!name || !email || !password || !confirmPassword) {
@@ -260,7 +274,9 @@ export const handleGoogleCallback: RequestHandler = async (req, res) => {
     }
 
     // Exchange authorization code for tokens
-    const { getGoogleAuthCode, verifyGoogleToken } = await import("../config/oauth");
+    const { getGoogleAuthCode, verifyGoogleToken } = await import(
+      "../config/oauth"
+    );
     const tokenResult = await getGoogleAuthCode(code);
 
     if (!tokenResult || !tokenResult.idToken) {
