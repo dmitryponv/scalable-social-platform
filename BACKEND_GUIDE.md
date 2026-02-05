@@ -60,9 +60,9 @@ server/
 
 ---
 
-## 💾 Database (In-Memory)
+## 💾 Database (MongoDB)
 
-Currently uses **in-memory storage** with JavaScript Maps. This is perfect for development but not suitable for production.
+Production deployment uses **MongoDB** via Docker for persistent data storage.
 
 ### Collections:
 1. **users** - User accounts with credentials
@@ -74,16 +74,33 @@ Currently uses **in-memory storage** with JavaScript Maps. This is perfect for d
 ### Example User Structure:
 ```typescript
 {
-  id: "user123",
+  _id: ObjectId,
   name: "John Doe",
   email: "john@example.com",
-  password: "hashed_password",  // Uses simple hash for demo
+  password: "hashed_password",  // Uses bcrypt
   handle: "@johndoe",
   avatar?: "url",
   bio?: "My bio",
   createdAt: Date,
   updatedAt: Date
 }
+```
+
+### MongoDB Configuration:
+- **Connection:** `mongodb://mongo:27017/scalable-social-platform` (Docker)
+- **Host:** mongo service in docker-compose
+- **Database:** scalable-social-platform
+- **Ports:** 27017 (internal), mapped to localhost for development
+
+### Access MongoDB:
+```bash
+# Via Docker
+docker-compose exec mongo mongosh
+
+# Check database
+> use scalable-social-platform
+> db.users.find()
+> db.posts.find()
 ```
 
 ---
