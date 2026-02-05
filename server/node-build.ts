@@ -28,7 +28,13 @@ app.use((req, res) => {
     return res.status(404).json({ error: "API endpoint not found" });
   }
 
-  res.sendFile(path.join(distPath, "index.html"));
+  const indexPath = path.join(distPath, "index.html");
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error("Error serving index.html:", err);
+      res.status(404).json({ error: "index.html not found", path: indexPath });
+    }
+  });
 });
 
 // Start HTTPS server if enabled
