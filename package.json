@@ -4,7 +4,7 @@
   "type": "module",
   "pkg": {
     "assets": [
-      "dist/client/*"
+      "dist/*"
     ],
     "scripts": [
       "dist/server/**/*.js"
