@@ -7,21 +7,22 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
-# Copy source code
+# Copy source code (excluding .env files)
 COPY . .
+RUN rm -f .env .env.production .env.development 2>/dev/null || true
 
 # Build client and server with production environment
 ENV VITE_PRODUCTION=true
 RUN echo "===== BUILDING CLIENT =====" && \
-    pnpm run build:client && \
+    pnpm run build:client 2>&1 && \
     echo "===== CLIENT BUILD COMPLETE =====" && \
     echo "Checking dist/client:" && \
-    ls -la dist/client/ 2>&1 || echo "ERROR: dist/client not found" && \
+    ls -la dist/client/ 2>&1 && \
     echo "===== BUILDING SERVER =====" && \
-    pnpm run build:server && \
+    pnpm run build:server 2>&1 && \
     echo "===== SERVER BUILD COMPLETE =====" && \
-    echo "Checking dist/server:" && \
-    ls -la dist/server/ 2>&1 || echo "ERROR: dist/server not found"
+    echo "Checking dist:" && \
+    ls -la dist/ 2>&1
 
 # Production stage
 FROM node:18-slim
