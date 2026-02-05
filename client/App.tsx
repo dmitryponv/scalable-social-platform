@@ -1,7 +1,6 @@
-/** @jsxImportSource react */
 import "./global.css";
 
-import React from "react";
+import * as React from "react";
 import { Toaster } from "./components/ui/toaster";
 import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "./components/ui/sonner";
@@ -35,20 +34,7 @@ const App = () => (
   </QueryClientProvider>
 );
 
-console.log("App.tsx loaded, finding root element...");
 const rootElement = document.getElementById("root");
-console.log("Root element:", rootElement);
-
-if (!rootElement) {
-  console.error("❌ Root element #root not found!");
-  document.body.innerHTML = "<h1>Error: Root element not found</h1>";
-} else {
-  console.log("✓ Root element found, rendering React app...");
-  try {
-    createRoot(rootElement).render(<App />);
-    console.log("✓ React app rendered successfully");
-  } catch (error) {
-    console.error("❌ Error rendering React app:", error);
-    rootElement.innerHTML = `<h1>Error rendering app: ${(error as any).message || error}</h1>`;
-  }
+if (rootElement) {
+  createRoot(rootElement).render(<App />);
 }
