@@ -164,8 +164,16 @@ sudo ufw enable
 sudo apt install -y certbot python3-certbot-nginx
 
 # Replace yourdomain.com with your actual domain
-# Stop docker-compose first if it's running
+# Stop docker-compose
 docker-compose down
+
+# Kill any lingering nginx processes
+sudo killall nginx 2>/dev/null || true
+sudo pkill -f nginx 2>/dev/null || true
+sleep 2
+
+# Verify port 80 is free
+sudo lsof -i :80 || echo "Port 80 is now free"
 
 # Get certificate
 sudo certbot certonly --standalone -d yourdomain.com --agree-tos --register-unsafely-without-email
