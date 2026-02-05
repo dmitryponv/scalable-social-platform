@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
 import GoogleOAuthButton from "../components/GoogleOAuthButton";
 
