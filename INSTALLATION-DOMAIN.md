@@ -167,9 +167,13 @@ sudo ufw enable
 ### Setup Let's Encrypt SSL (For Production Domain - Optional)
 
 # REQUIREMENTS BEFORE RUNNING:
+
 # 1. Own or control a domain (example: scalable-social-platform.com)
+
 # 2. Point your domain's DNS A record to your server's public IP address
+
 # 3. Verify DNS is working: nslookup scalable-social-platform.com (should show your IP)
+
 # 4. Ensure port 80 is accessible from the internet (not blocked by firewall)
 
 ## Get Let's Encrypt Certificate
@@ -211,8 +215,11 @@ grep "SSL_\|GOOGLE_REDIRECT" .env
 ### Updated .env Paths
 
 # Your .env now contains these production certificate paths:
+
 # SSL_KEY_PATH=/etc/letsencrypt/live/scalable-social-platform.com/privkey.pem
+
 # SSL_CERT_PATH=/etc/letsencrypt/live/scalable-social-platform.com/fullchain.pem
+
 # GOOGLE_REDIRECT_URI=https://scalable-social-platform.com/auth/google/callback
 
 ## Installation Complete
