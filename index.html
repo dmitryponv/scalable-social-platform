@@ -9,6 +9,61 @@
   <body>
     <div id="root"></div>
 
-    <script type="module" src="./client/main.tsx"></script>
+    <script>
+      console.log("=== PAGE LOAD START ===");
+      console.log("📄 index.html parsing...");
+      console.log("🔍 Checking window.React:", typeof window.React);
+      console.log("🔍 Checking window.ReactDOM:", typeof window.ReactDOM);
+    </script>
+
+    <script type="module">
+      console.log("=== MODULE SCRIPT START ===");
+      console.log("🔍 In module scope - React available?", typeof React);
+      
+      // Try to import React to see what happens
+      try {
+        import("react").then((reactModule) => {
+          console.log("✅ React module imported successfully");
+          console.log("📦 React module keys:", Object.keys(reactModule).slice(0, 10));
+          window.ReactDebug = reactModule;
+        }).catch((err) => {
+          console.error("❌ Failed to import React:", err);
+        });
+      } catch (e) {
+        console.error("❌ Import error:", e);
+      }
+    </script>
+
+    <script type="module" src="./client/main.tsx">
+      console.log("🎯 main.tsx script tag loaded");
+    </script>
+
+    <script>
+      console.log("=== AFTER MODULE LOAD ===");
+      setTimeout(() => {
+        console.log("⏱️  After 100ms:");
+        console.log("🔍 window.React?", typeof window.React);
+        console.log("🔍 window.ReactDebug?", typeof window.ReactDebug);
+        console.log("🔍 window keys with React:", Object.keys(window).filter(k => k.includes("React") || k.includes("react")));
+        const root = document.getElementById("root");
+        console.log("🎯 Root element children:", root?.children.length);
+        if (root?.children.length === 0) {
+          console.warn("⚠️ Root is still empty - component may have failed to render");
+        } else {
+          console.log("✅ Root has children - component rendered!");
+        }
+      }, 100);
+
+      // Catch all errors
+      window.addEventListener("error", (e) => {
+        console.error("🔴 ERROR EVENT:", {
+          message: e.message,
+          filename: e.filename,
+          lineno: e.lineno,
+          colno: e.colno,
+          error: e.error?.stack,
+        });
+      });
+    </script>
   </body>
 </html>
