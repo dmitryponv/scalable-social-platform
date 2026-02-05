@@ -35,29 +35,27 @@
 
         links.forEach((link, i) => {
           const href = link.getAttribute('href');
-          const disabled = link.getAttribute('disabled');
-          console.log(`  [${i}] href="${href}" disabled="${disabled}"`);
-
-          // Try to fetch the CSS file
-          fetch(href).then(r => {
-            console.log(`    ✅ CSS file loaded (${r.status}): ${href}`);
-          }).catch(e => {
-            console.error(`    ❌ CSS file failed: ${href}`, e);
-          });
+          console.log(`  [${i}] ${href}`);
         });
 
-        // Check computed styles
+        // Check if styles are applied
         const root = document.getElementById('root');
+        console.log("🎨 Root element:", root);
+        console.log("🎨 Root children count:", root?.children.length);
+
         if (root && root.children.length > 0) {
           const child = root.children[0];
           const computed = window.getComputedStyle(child);
-          console.log("🎨 Root child computed styles (sample):");
-          console.log(`  display: ${computed.display}`);
-          console.log(`  color: ${computed.color}`);
-          console.log(`  backgroundColor: ${computed.backgroundColor}`);
-          console.log(`  fontSize: ${computed.fontSize}`);
+          console.log("🎨 Child element classes:", child.className);
+          console.log("🎨 Child computed display:", computed.display);
+          console.log("🎨 Child computed color:", computed.color);
+
+          // Check if Tailwind is applied
+          if (child.className) {
+            console.log("✅ Element has classes, Tailwind might be applied");
+          }
         }
-      }, 500);
+      }, 300);
     </script>
   </body>
 </html>
