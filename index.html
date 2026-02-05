@@ -19,16 +19,21 @@
     <script type="module">
       console.log("=== MODULE SCRIPT START ===");
       console.log("🔍 In module scope - React available?", typeof React);
-      
+
       // Try to import React to see what happens
       try {
-        import("react").then((reactModule) => {
-          console.log("✅ React module imported successfully");
-          console.log("📦 React module keys:", Object.keys(reactModule).slice(0, 10));
-          window.ReactDebug = reactModule;
-        }).catch((err) => {
-          console.error("❌ Failed to import React:", err);
-        });
+        import("react")
+          .then((reactModule) => {
+            console.log("✅ React module imported successfully");
+            console.log(
+              "📦 React module keys:",
+              Object.keys(reactModule).slice(0, 10),
+            );
+            window.ReactDebug = reactModule;
+          })
+          .catch((err) => {
+            console.error("❌ Failed to import React:", err);
+          });
       } catch (e) {
         console.error("❌ Import error:", e);
       }
@@ -44,11 +49,18 @@
         console.log("⏱️  After 100ms:");
         console.log("🔍 window.React?", typeof window.React);
         console.log("🔍 window.ReactDebug?", typeof window.ReactDebug);
-        console.log("🔍 window keys with React:", Object.keys(window).filter(k => k.includes("React") || k.includes("react")));
+        console.log(
+          "🔍 window keys with React:",
+          Object.keys(window).filter(
+            (k) => k.includes("React") || k.includes("react"),
+          ),
+        );
         const root = document.getElementById("root");
         console.log("🎯 Root element children:", root?.children.length);
         if (root?.children.length === 0) {
-          console.warn("⚠️ Root is still empty - component may have failed to render");
+          console.warn(
+            "⚠️ Root is still empty - component may have failed to render",
+          );
         } else {
           console.log("✅ Root has children - component rendered!");
         }
