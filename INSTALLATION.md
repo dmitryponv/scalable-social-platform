@@ -109,7 +109,7 @@ REDIS_URL=redis://redis:6379
 # Google OAuth (PASTE YOUR CREDENTIALS FROM GOOGLE CLOUD CONSOLE)
 GOOGLE_CLIENT_ID=your_client_id_here.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your_client_secret_here
-GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
+GOOGLE_REDIRECT_URI=https://scalable-social-platform.com/auth/google/callback
 
 # Session security (auto-generated)
 SESSION_SECRET=$SESSION_SECRET
@@ -131,7 +131,7 @@ EOF
 
 # GOOGLE_CLIENT_SECRET=your_actual_secret
 
-# GOOGLE_REDIRECT_URI=https://yourdomain.com/auth/google/callback
+# GOOGLE_REDIRECT_URI=https://scalable-social-platform.com/auth/google/callback
 
 ## Build Project
 
