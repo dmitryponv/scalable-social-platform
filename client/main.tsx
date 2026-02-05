@@ -2,31 +2,36 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 
-console.log("✅ main.tsx module loaded");
-console.log("📦 React available?", typeof React !== "undefined");
-console.log(
-  "📦 React.createElement available?",
-  typeof React.createElement !== "undefined",
-);
-console.log("📦 createRoot available?", typeof createRoot !== "undefined");
-console.log("📦 App available?", typeof App !== "undefined");
+console.log("✅ main.tsx loaded");
 
 const rootElement = document.getElementById("root");
-console.log("🎯 rootElement found?", rootElement !== null);
-console.log("🎯 rootElement children:", rootElement?.children.length);
 
 if (rootElement && rootElement.children.length === 0) {
-  console.log("🚀 Creating React root...");
   try {
+    console.log("🚀 Creating root...");
     const root = createRoot(rootElement);
-    console.log("✅ Root created successfully");
-    console.log("🎨 Rendering App component...");
+    console.log("✅ Root created");
+    console.log("🎨 Rendering...");
     root.render(React.createElement(App));
-    console.log("✅ App rendered successfully");
+    console.log("✅ Rendered!");
   } catch (error) {
-    console.error("❌ Error:", error);
-    console.error("❌ Stack:", (error as Error).stack);
+    console.error("❌ ERROR:", error);
+    const err = error as any;
+    rootElement.innerHTML = `
+      <div style="padding: 20px; color: red; font-family: monospace;">
+        <h2>Error Rendering App</h2>
+        <p>${err.message}</p>
+        <pre>${err.stack}</pre>
+      </div>
+    `;
   }
-} else {
-  console.warn("⚠️ Root element not found or already has children");
 }
+
+// Catch runtime errors in components
+window.addEventListener("error", (event) => {
+  console.error("🔴 Runtime error:", event.error);
+});
+
+window.addEventListener("unhandledrejection", (event) => {
+  console.error("🔴 Promise rejection:", event.reason);
+});
