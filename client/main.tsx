@@ -2,7 +2,17 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 
+// Make React globally available for JSX
+(window as any).React = React;
+
 console.log("✅ main.tsx loaded");
+console.log("📦 React available globally?", (window as any).React !== undefined);
+console.log("🎨 Checking CSS links...");
+const links = document.querySelectorAll('link[rel="stylesheet"]');
+console.log(`📋 Found ${links.length} stylesheets`);
+links.forEach((link, i) => {
+  console.log(`  [${i}] ${link.getAttribute("href")}`);
+});
 
 const rootElement = document.getElementById("root");
 
@@ -11,9 +21,9 @@ if (rootElement && rootElement.children.length === 0) {
     console.log("🚀 Creating root...");
     const root = createRoot(rootElement);
     console.log("✅ Root created");
-    console.log("🎨 Rendering...");
+    console.log("🎨 Rendering App...");
     root.render(React.createElement(App));
-    console.log("✅ Rendered!");
+    console.log("✅ App rendered successfully!");
   } catch (error) {
     console.error("❌ ERROR:", error);
     const err = error as any;
