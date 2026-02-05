@@ -12,7 +12,16 @@ COPY . .
 
 # Build client and server with production environment
 ENV VITE_PRODUCTION=true
-RUN pnpm run build:client && pnpm run build:server
+RUN echo "===== BUILDING CLIENT =====" && \
+    pnpm run build:client && \
+    echo "===== CLIENT BUILD COMPLETE =====" && \
+    echo "Checking dist/client:" && \
+    ls -la dist/client/ 2>&1 || echo "ERROR: dist/client not found" && \
+    echo "===== BUILDING SERVER =====" && \
+    pnpm run build:server && \
+    echo "===== SERVER BUILD COMPLETE =====" && \
+    echo "Checking dist/server:" && \
+    ls -la dist/server/ 2>&1 || echo "ERROR: dist/server not found"
 
 # Production stage
 FROM node:18-slim
