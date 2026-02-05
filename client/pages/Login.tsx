@@ -93,7 +93,10 @@ export default function Login() {
 
               {/* Email Field */}
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-bold text-gray-900">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-bold text-gray-900"
+                >
                   Email Address
                 </label>
                 <div className="relative">
@@ -113,7 +116,10 @@ export default function Login() {
               {/* Password Field */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="text-sm font-bold text-gray-900">
+                  <label
+                    htmlFor="password"
+                    className="text-sm font-bold text-gray-900"
+                  >
                     Password
                   </label>
                   <Link
@@ -143,7 +149,9 @@ export default function Login() {
                 disabled={loading}
                 className="w-full btn-social-primary py-3 justify-center font-black text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? "Signing In..." : (
+                {loading ? (
+                  "Signing In..."
+                ) : (
                   <>
                     Sign In
                     <ArrowRight className="w-5 h-5" />
@@ -182,13 +190,17 @@ export default function Login() {
 
             {/* Security Features */}
             <div className="space-y-3 bg-white border-2 border-purple-200 rounded-3xl p-5 shadow-lg">
-              <p className="text-xs font-black text-gray-500 uppercase tracking-wider">Security</p>
+              <p className="text-xs font-black text-gray-500 uppercase tracking-wider">
+                Security
+              </p>
               <div className="flex gap-3">
                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-purple-200 flex items-center justify-center">
                   <Lock className="w-3 h-3 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900">Secure Login</p>
+                  <p className="text-sm font-bold text-gray-900">
+                    Secure Login
+                  </p>
                   <p className="text-xs text-gray-500">Encrypted end-to-end</p>
                 </div>
               </div>
@@ -197,8 +209,12 @@ export default function Login() {
                   <Lock className="w-3 h-3 text-pink-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-gray-900">Session Tokens</p>
-                  <p className="text-xs text-gray-500">Secure cookie sessions</p>
+                  <p className="text-sm font-bold text-gray-900">
+                    Session Tokens
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Secure cookie sessions
+                  </p>
                 </div>
               </div>
             </div>

@@ -39,15 +39,13 @@ const NotFound = () => {
               Page Not Found
             </h1>
             <p className="text-muted-foreground text-lg">
-              Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+              Oops! The page you're looking for doesn't exist. It might have
+              been moved or deleted.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/"
-              className="btn-social-primary justify-center"
-            >
+            <Link to="/" className="btn-social-primary justify-center">
               <Home className="w-5 h-5" />
               Back to Home
             </Link>
@@ -61,7 +59,12 @@ const NotFound = () => {
           </div>
 
           <div className="bg-card border border-border rounded-lg p-4 text-sm text-muted-foreground">
-            <p>Tried to access: <code className="text-primary font-mono">{location.pathname}</code></p>
+            <p>
+              Tried to access:{" "}
+              <code className="text-primary font-mono">
+                {location.pathname}
+              </code>
+            </p>
           </div>
         </div>
       </div>

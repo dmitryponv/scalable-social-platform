@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
-import { Heart, MessageCircle, Share2, Users, Zap, Sparkles, ArrowRight, Star } from "lucide-react";
+import {
+  Heart,
+  MessageCircle,
+  Share2,
+  Users,
+  Zap,
+  Sparkles,
+  ArrowRight,
+  Star,
+} from "lucide-react";
 import React from "react";
 
 export default function Home() {
@@ -18,7 +27,10 @@ export default function Home() {
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <Link to="/login" className="btn-social-ghost text-sm hover:text-purple-600">
+              <Link
+                to="/login"
+                className="btn-social-ghost text-sm hover:text-purple-600"
+              >
                 Sign In
               </Link>
               <Link to="/register" className="btn-social-primary text-sm">
@@ -46,16 +58,24 @@ export default function Home() {
                 Story
               </h1>
               <p className="text-xl text-gray-600 max-w-lg leading-relaxed">
-                Connect with millions of vibrant creators. Share thoughts, discover amazing content, and engage with your community like never before.
+                Connect with millions of vibrant creators. Share thoughts,
+                discover amazing content, and engage with your community like
+                never before.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/register" className="btn-social-primary text-base px-8 py-4 justify-center group">
+              <Link
+                to="/register"
+                className="btn-social-primary text-base px-8 py-4 justify-center group"
+              >
                 Create Account
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link to="/feed" className="btn-social-secondary text-base px-8 py-4 justify-center">
+              <Link
+                to="/feed"
+                className="btn-social-secondary text-base px-8 py-4 justify-center"
+              >
                 Explore Now
               </Link>
             </div>
@@ -63,15 +83,21 @@ export default function Home() {
             {/* Stats with Colors */}
             <div className="grid grid-cols-3 gap-4 pt-8 border-t-2 border-purple-200">
               <div className="group">
-                <p className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">50M+</p>
+                <p className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  50M+
+                </p>
                 <p className="text-sm text-gray-500 font-semibold">Users</p>
               </div>
               <div className="group">
-                <p className="text-3xl font-black bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">1B+</p>
+                <p className="text-3xl font-black bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
+                  1B+
+                </p>
                 <p className="text-sm text-gray-500 font-semibold">Posts</p>
               </div>
               <div className="group">
-                <p className="text-3xl font-black bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">10B+</p>
+                <p className="text-3xl font-black bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">
+                  10B+
+                </p>
                 <p className="text-sm text-gray-500 font-semibold">Likes</p>
               </div>
             </div>
@@ -81,7 +107,10 @@ export default function Home() {
           <div className="relative">
             {/* Floating gradient shapes */}
             <div className="absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-br from-purple-400 to-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-            <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-gradient-to-br from-cyan-400 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style={{animationDelay: '2s'}}></div>
+            <div
+              className="absolute -bottom-20 -left-20 w-72 h-72 bg-gradient-to-br from-cyan-400 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"
+              style={{ animationDelay: "2s" }}
+            ></div>
 
             <div className="relative z-10 space-y-4">
               {/* Post Card 1 - Purple */}
@@ -144,7 +173,8 @@ export default function Home() {
               Packed with Powerful Features
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Everything you need to express yourself and connect with your community
+              Everything you need to express yourself and connect with your
+              community
             </p>
           </div>
 
@@ -154,7 +184,8 @@ export default function Home() {
               <MessageCircle className="w-8 h-8 mb-4" />
               <h3 className="text-xl font-black mb-3">Share & Post</h3>
               <p className="text-white/90">
-                Express yourself with rich content, images, and multimedia stories.
+                Express yourself with rich content, images, and multimedia
+                stories.
               </p>
             </div>
 
@@ -206,16 +237,20 @@ export default function Home() {
         <div className="relative overflow-hidden">
           {/* Background gradient blobs */}
           <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 opacity-20 rounded-3xl filter blur-2xl"></div>
-          
+
           <div className="relative bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-500 rounded-3xl p-12 sm:p-20 text-center shadow-2xl">
             <Sparkles className="w-12 h-12 text-white mx-auto mb-4" />
             <h2 className="text-4xl sm:text-5xl font-black text-white mb-6">
               Start Your Journey Today
             </h2>
             <p className="text-white/90 text-xl mb-10 max-w-2xl mx-auto">
-              Join our vibrant community of creators and discover what you can achieve. It's free and takes less than a minute!
+              Join our vibrant community of creators and discover what you can
+              achieve. It's free and takes less than a minute!
             </p>
-            <Link to="/register" className="inline-block bg-white text-transparent bg-clip-text font-black text-lg px-10 py-4 rounded-2xl bg-white hover:scale-110 transition-transform shadow-xl hover:shadow-2xl">
+            <Link
+              to="/register"
+              className="inline-block bg-white text-transparent bg-clip-text font-black text-lg px-10 py-4 rounded-2xl bg-white hover:scale-110 transition-transform shadow-xl hover:shadow-2xl"
+            >
               <span className="text-white bg-gradient-to-r from-purple-600 to-pink-600 px-10 py-4 rounded-2xl inline-block font-black">
                 Create Account Now
               </span>
@@ -233,32 +268,99 @@ export default function Home() {
                 <div className="gradient-primary w-10 h-10 rounded-xl flex items-center justify-center">
                   <span className="text-white font-black">C</span>
                 </div>
-                <span className="font-black text-lg gradient-primary-text">Connect</span>
+                <span className="font-black text-lg gradient-primary-text">
+                  Connect
+                </span>
               </div>
-              <p className="text-gray-600 font-semibold">Your vibrant community, your story.</p>
+              <p className="text-gray-600 font-semibold">
+                Your vibrant community, your story.
+              </p>
             </div>
             <div>
               <p className="font-black text-gray-900 mb-4">Product</p>
               <ul className="space-y-2 text-gray-600 font-semibold">
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Security</a></li>
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Pricing</a></li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Security
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Pricing
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <p className="font-black text-gray-900 mb-4">Company</p>
               <ul className="space-y-2 text-gray-600 font-semibold">
-                <li><a href="#" className="hover:text-purple-600 transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Careers</a></li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Careers
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <p className="font-black text-gray-900 mb-4">Legal</p>
               <ul className="space-y-2 text-gray-600 font-semibold">
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-purple-600 transition-colors">Contact</a></li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Privacy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Terms
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="hover:text-purple-600 transition-colors"
+                  >
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

@@ -69,7 +69,9 @@ export default function Feed() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [newPost, setNewPost] = useState("");
   const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
-  const [postComments, setPostComments] = useState<Record<string, Comment[]>>({});
+  const [postComments, setPostComments] = useState<Record<string, Comment[]>>(
+    {},
+  );
   const [newComments, setNewComments] = useState<Record<string, string>>({});
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -149,7 +151,9 @@ export default function Feed() {
       const post = posts.find((p) => p.id === postId);
       if (!post) return;
 
-      const endpoint = post.liked ? `/api/posts/${postId}/unlike` : `/api/posts/${postId}/like`;
+      const endpoint = post.liked
+        ? `/api/posts/${postId}/unlike`
+        : `/api/posts/${postId}/like`;
       const response = await fetch(endpoint, {
         method: "POST",
         credentials: "include",
@@ -166,7 +170,7 @@ export default function Feed() {
               };
             }
             return p;
-          })
+          }),
         );
       }
     } catch (err) {
@@ -263,10 +267,7 @@ export default function Feed() {
               <button className="btn-social-ghost p-2">
                 <User className="w-5 h-5" />
               </button>
-              <button
-                onClick={handleLogout}
-                className="btn-social-ghost p-2"
-              >
+              <button onClick={handleLogout} className="btn-social-ghost p-2">
                 <LogOut className="w-5 h-5" />
               </button>
             </div>
@@ -280,19 +281,31 @@ export default function Feed() {
           <aside className="hidden lg:block">
             <div className="sticky top-24 space-y-4">
               <div className="post-card p-4 space-y-3">
-                <Link to="/" className="flex items-center gap-3 btn-social-ghost text-foreground">
+                <Link
+                  to="/"
+                  className="flex items-center gap-3 btn-social-ghost text-foreground"
+                >
                   <Home className="w-5 h-5" />
                   <span>Home</span>
                 </Link>
-                <Link to="/feed" className="flex items-center gap-3 btn-social-ghost text-foreground">
+                <Link
+                  to="/feed"
+                  className="flex items-center gap-3 btn-social-ghost text-foreground"
+                >
                   <Compass className="w-5 h-5" />
                   <span>Explore</span>
                 </Link>
-                <Link to="/feed" className="flex items-center gap-3 btn-social-ghost text-foreground">
+                <Link
+                  to="/feed"
+                  className="flex items-center gap-3 btn-social-ghost text-foreground"
+                >
                   <BookMarked className="w-5 h-5" />
                   <span>Bookmarks</span>
                 </Link>
-                <Link to="/feed" className="flex items-center gap-3 btn-social-ghost text-foreground">
+                <Link
+                  to="/feed"
+                  className="flex items-center gap-3 btn-social-ghost text-foreground"
+                >
                   <User className="w-5 h-5" />
                   <span>Profile</span>
                 </Link>
@@ -318,11 +331,15 @@ export default function Feed() {
             {loading ? (
               <div className="post-card flex items-center justify-center py-12">
                 <Loader className="w-6 h-6 animate-spin text-primary" />
-                <span className="ml-2 text-muted-foreground">Loading feed...</span>
+                <span className="ml-2 text-muted-foreground">
+                  Loading feed...
+                </span>
               </div>
             ) : posts.length === 0 ? (
               <div className="post-card text-center py-12">
-                <p className="text-muted-foreground">No posts yet. Be the first to share something!</p>
+                <p className="text-muted-foreground">
+                  No posts yet. Be the first to share something!
+                </p>
               </div>
             ) : null}
 
@@ -340,16 +357,10 @@ export default function Feed() {
                   />
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
-                      <button
-                        type="button"
-                        className="btn-social-ghost p-2"
-                      >
+                      <button type="button" className="btn-social-ghost p-2">
                         <Image className="w-5 h-5" />
                       </button>
-                      <button
-                        type="button"
-                        className="btn-social-ghost p-2"
-                      >
+                      <button type="button" className="btn-social-ghost p-2">
                         <Smile className="w-5 h-5" />
                       </button>
                     </div>
@@ -375,7 +386,8 @@ export default function Feed() {
                     <div>
                       <p className="font-semibold">{post.author.name}</p>
                       <p className="text-xs text-muted-foreground">
-                        {post.author.handle} · {new Date(post.createdAt).toLocaleString()}
+                        {post.author.handle} ·{" "}
+                        {new Date(post.createdAt).toLocaleString()}
                       </p>
                     </div>
                   </div>
@@ -417,7 +429,11 @@ export default function Feed() {
                     <span className="text-sm">Like</span>
                   </button>
                   <button
-                    onClick={() => setExpandedPostId(expandedPostId === post.id ? null : post.id)}
+                    onClick={() =>
+                      setExpandedPostId(
+                        expandedPostId === post.id ? null : post.id,
+                      )
+                    }
                     className="flex-1 btn-social-ghost justify-center py-2"
                   >
                     <MessageCircle className="w-5 h-5" />
@@ -493,7 +509,9 @@ export default function Feed() {
                 <h3 className="font-bold text-lg">Suggestions For You</h3>
                 <div className="space-y-4">
                   {suggestions.length === 0 ? (
-                    <p className="text-xs text-muted-foreground">No suggestions available</p>
+                    <p className="text-xs text-muted-foreground">
+                      No suggestions available
+                    </p>
                   ) : (
                     suggestions.map((user) => (
                       <div
