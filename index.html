@@ -9,6 +9,31 @@
   <body>
     <div id="root"></div>
 
-    <script type="module" src="./client/main.tsx"></script>
+    <script>
+      console.log("🔍 index.html loaded");
+      console.log("📦 window object keys:", Object.keys(window).slice(0, 20));
+      console.log("⚛️  React available?", typeof window.React !== "undefined");
+      console.log("⚛️  ReactDOM available?", typeof window.ReactDOM !== "undefined");
+    </script>
+
+    <script type="module">
+      console.log("📝 Module script starting...");
+      console.log("⚛️  React in module scope?", typeof React !== "undefined");
+    </script>
+
+    <script type="module" src="./client/main.tsx">
+      console.log("📦 main.tsx module loaded");
+    </script>
+
+    <script>
+      // Check after module loads
+      setTimeout(() => {
+        console.log("✅ After module load:");
+        console.log("⚛️  React available?", typeof window.React !== "undefined");
+        console.log("⚛️  ReactDOM available?", typeof window.ReactDOM !== "undefined");
+        console.log("📋 Root element:", document.getElementById("root"));
+        console.log("📋 Root children:", document.getElementById("root")?.children.length);
+      }, 1000);
+    </script>
   </body>
 </html>
