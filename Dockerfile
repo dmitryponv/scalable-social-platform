@@ -33,9 +33,6 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server ./server
 COPY .env.example .env.example
 
-# Verify files were copied
-RUN echo "Checking production stage dist:" && ls -la dist/ && echo "Checking dist/spa:" && ls -la dist/spa/ || echo "dist/spa not found!"
-
 # Expose ports
 EXPOSE 5000
 EXPOSE 5443
