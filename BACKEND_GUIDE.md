@@ -197,47 +197,56 @@ All pages are already connected to the backend:
 
 ---
 
-## 🗄️ Upgrading to Real Database (Production)
+## 🗄️ Production Database Setup
 
-### Option 1: MongoDB (Recommended for this project)
+### MongoDB (Already Configured)
 
-Install MongoDB client:
+Your production deployment already uses MongoDB:
+
+**Setup:**
+- Docker container: `mongo:7.0`
+- Connection string: `mongodb://mongo:27017/scalable-social-platform`
+- Persistence: Volumes configured in docker-compose.yml
+- Access: `docker-compose exec mongo mongosh`
+
+**Verify data persists:**
 ```bash
-npm install mongoose
-npm install --save-dev @types/node
+# Create a document
+docker-compose exec mongo mongosh << 'EOF'
+use scalable-social-platform
+db.users.insertOne({ name: "Test User", email: "test@example.com" })
+EOF
+
+# Stop and restart services
+docker-compose down
+docker-compose up -d
+
+# Data should still exist
+docker-compose exec mongo mongosh << 'EOF'
+use scalable-social-platform
+db.users.findOne()
+EOF
 ```
 
-Example schema:
-```typescript
-// server/models/User.ts
-import mongoose from "mongoose";
+### Alternative Databases
 
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
-  handle: { type: String, unique: true },
-  avatar: String,
-  bio: String,
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-});
+If you want to use a different database:
 
-export const User = mongoose.model("User", userSchema);
-```
-
-Then update `server/db.ts` to use MongoDB instead of Maps.
-
-### Option 2: Supabase (PostgreSQL + Auth)
+**Supabase (PostgreSQL + Auth):**
 ```bash
 npm install @supabase/supabase-js
 ```
-
 Connect via MCP integration [here](#open-mcp-popover)
 
-### Option 3: Firebase
+**Firebase:**
 ```bash
 npm install firebase-admin
+```
+
+**Atlas MongoDB (Cloud):**
+Replace connection string in .env:
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/scalable-social-platform
 ```
 
 ---
