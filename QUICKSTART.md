@@ -27,9 +27,11 @@ docker-compose ps
 ## Access Application
 
 **HTTPS (Secure):**
+
 ```
 https://localhost:5443
 ```
+
 Or with your domain: `https://yourdomain.com`
 
 **Note:** Browser will warn about self-signed certificate in testing. Click "Advanced" → "Proceed" to access.
@@ -69,27 +71,30 @@ docker-compose down
 
 ## Common Commands
 
-| Command | Action |
-|---------|--------|
-| `docker-compose ps` | Show service status |
-| `docker-compose logs -f app` | View app logs in real-time |
-| `docker-compose restart app` | Restart app service |
-| `docker-compose exec mongo mongosh` | Access MongoDB shell |
-| `docker-compose exec redis redis-cli` | Access Redis CLI |
-| `docker-compose down` | Stop all services |
-| `docker-compose down -v` | Stop and remove all data |
+| Command                               | Action                     |
+| ------------------------------------- | -------------------------- |
+| `docker-compose ps`                   | Show service status        |
+| `docker-compose logs -f app`          | View app logs in real-time |
+| `docker-compose restart app`          | Restart app service        |
+| `docker-compose exec mongo mongosh`   | Access MongoDB shell       |
+| `docker-compose exec redis redis-cli` | Access Redis CLI           |
+| `docker-compose down`                 | Stop all services          |
+| `docker-compose down -v`              | Stop and remove all data   |
 
 ## Troubleshooting
 
 ### Services won't start
+
 ```bash
 docker-compose logs app
 ```
 
 ### Port already in use
+
 See [RESET.md](RESET.md)
 
 ### Can't connect to MongoDB
+
 ```bash
 docker-compose restart mongo
 sleep 5
@@ -97,6 +102,7 @@ docker-compose ps
 ```
 
 ### SSL certificate issues
+
 ```bash
 bash scripts/generate-ssl-certs.sh
 docker-compose restart app

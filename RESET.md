@@ -11,6 +11,7 @@ bash scripts/hard-reset.sh
 ```
 
 This script:
+
 - Stops all Docker containers
 - Removes all containers and volumes
 - Clears ports (5000, 5443, 6379, 27017, 80, 443)
@@ -171,6 +172,7 @@ docker-compose logs redis > redis-logs.txt
 ## Common Issues & Fixes
 
 ### Port Already in Use Error
+
 ```bash
 bash scripts/hard-reset.sh
 sleep 10
@@ -178,6 +180,7 @@ docker-compose up -d
 ```
 
 ### Connection Refused Error
+
 ```bash
 docker-compose ps
 docker-compose logs app
@@ -185,6 +188,7 @@ docker-compose restart app
 ```
 
 ### MongoDB Won't Connect
+
 ```bash
 docker-compose restart mongo
 sleep 10
@@ -192,6 +196,7 @@ docker-compose exec mongo mongosh --eval "db.adminCommand('ping')"
 ```
 
 ### Redis Connection Lost
+
 ```bash
 docker-compose restart redis
 sleep 5
@@ -199,12 +204,14 @@ docker-compose exec redis redis-cli ping
 ```
 
 ### App Container Exits Immediately
+
 ```bash
 docker-compose logs app
 # Check for errors in output
 ```
 
 ### Nginx Not Proxying Requests
+
 ```bash
 docker-compose restart nginx
 docker-compose logs nginx
