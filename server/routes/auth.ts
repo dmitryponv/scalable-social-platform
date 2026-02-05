@@ -260,27 +260,18 @@ export const handleGoogleCallback: RequestHandler = async (req, res) => {
     }
 
     // Exchange authorization code for tokens
-    const { getGoogleAuthCode, verifyGoogleToken, getGoogleClient } = await import("../config/oauth");
+    const { getGoogleAuthCode, verifyGoogleToken } = await import("../config/oauth");
     const tokenResult = await getGoogleAuthCode(code);
 
-    if (!tokenResult) {
+    if (!tokenResult || !tokenResult.idToken) {
       return res.status(401).json({
         success: false,
         message: "Failed to exchange authorization code",
       });
     }
 
-    // Get the ID token from the response
-    const client = getGoogleClient();
-    if (!client) {
-      return res.status(500).json({
-        success: false,
-        message: "OAuth client not configured",
-      });
-    }
-
     // Verify the ID token
-    const payload = await verifyGoogleToken(tokenResult.accessToken);
+    const payload = await verifyGoogleToken(tokenResult.idToken);
 
     if (!payload) {
       return res.status(401).json({
