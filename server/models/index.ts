@@ -40,17 +40,12 @@ const userSchema = new Schema<IUser>(
 );
 
 // Hash password before saving
-userSchema.pre<IUser>("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  if (!this.password) return next(); // Skip for OAuth users
+userSchema.pre<IUser>("save", async function () {
+  if (!this.isModified("password")) return;
+  if (!this.password) return; // Skip for OAuth users
 
-  try {
-    const salt = await bcryptjs.genSalt(10);
-    this.password = await bcryptjs.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error as Error);
-  }
+  const salt = await bcryptjs.genSalt(10);
+  this.password = await bcryptjs.hash(this.password, salt);
 });
 
 // Method to compare passwords
