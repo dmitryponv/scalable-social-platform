@@ -30,9 +30,7 @@ export default defineConfig(({ mode }) => {
         transformMixedEsModules: true,
       },
     },
-    plugins: [react(), isDev ? expressPlugin() : null].filter(
-      Boolean,
-    ),
+    plugins: [react(), isDev ? expressPlugin() : null].filter(Boolean),
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "client"),

@@ -84,9 +84,7 @@ if (enableHttps && sslKeyPath && sslCertPath) {
     const httpServer = http.createServer(app);
 
     httpServer.listen(port, () => {
-      console.log(
-        `🚀 HTTP server running on port ${port}`,
-      );
+      console.log(`🚀 HTTP server running on port ${port}`);
       console.log(`📱 Frontend: http://localhost:${port}`);
       console.log(`🔧 API: http://localhost:${port}/api`);
     });
