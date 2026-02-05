@@ -106,6 +106,7 @@ export const getGoogleAuthCode = async (
   code: string
 ): Promise<{
   accessToken: string;
+  idToken: string;
   refreshToken: string | null;
   expiresIn: number;
 } | null> => {
@@ -117,6 +118,7 @@ export const getGoogleAuthCode = async (
     const { tokens } = await googleClient.getToken(code);
     return {
       accessToken: tokens.access_token || "",
+      idToken: tokens.id_token || "",
       refreshToken: tokens.refresh_token || null,
       expiresIn: tokens.expiry_date ? tokens.expiry_date - Date.now() : 3600,
     };
