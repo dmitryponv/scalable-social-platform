@@ -1,8 +1,12 @@
 import type { Config } from "tailwindcss";
+import path from "path";
 
-export default {
+const config: Config = {
   darkMode: ["class"],
-  content: ["./client/**/*.{ts,tsx}"],
+  content: [
+    path.join(process.cwd(), "client/**/*.{ts,tsx}"),
+    path.join(process.cwd(), "index.html"),
+  ],
   prefix: "",
   theme: {
     container: {
