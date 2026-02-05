@@ -40,8 +40,8 @@ sudo systemctl enable docker
 
 ```bash
 # If cloning from git:
-git clone https://github.com/your-username/social-media-app.git
-cd social-media-app
+git clone https://github.com/your-username/scalable-social-platform.git
+cd scalable-social-platform
 
 # Or if already in project directory:
 cd /path/to/project
@@ -81,7 +81,7 @@ PORT=5000
 HTTPS_PORT=5443
 
 # Database
-MONGODB_URI=mongodb://mongo:27017/social-media-app
+MONGODB_URI=mongodb://mongo:27017/scalable-social-platform
 
 # Cache
 REDIS_URL=redis://redis:6379
