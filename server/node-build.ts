@@ -19,6 +19,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // __dirname is /app/dist/server, so go up 2 levels to /app, then down to dist/spa
 const distPath = path.join(__dirname, "../../dist/spa");
 
+console.log("📂 Serving static files from:", distPath);
+console.log("📂 Index.html path:", path.join(distPath, "index.html"));
+console.log("📂 Index.html exists:", fs.existsSync(path.join(distPath, "index.html")));
+
 // Serve static files
 app.use(express.static(distPath));
 
