@@ -16,8 +16,8 @@ const sslCertPath = process.env.SSL_CERT_PATH;
 
 // In production, serve the built SPA files
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// __dirname is /app/dist/server, so go up 2 levels to /app, then down to dist/client
-const distPath = path.join(__dirname, "../../dist/client");
+// __dirname is /app/dist/server, so go up 2 levels to /app, then into dist
+const distPath = path.join(__dirname, "../../dist");
 
 console.log("📂 Serving static files from:", distPath);
 console.log("📂 Index.html path:", path.join(distPath, "index.html"));
