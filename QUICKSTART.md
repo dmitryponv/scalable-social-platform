@@ -1,77 +1,85 @@
-# Quick Start - Copy & Paste Commands
+# Quick Start Guide
 
-## Clean Up (if port errors)
+Choose your setup:
 
-# Kill any running containers
-docker-compose down -v
-docker system prune -a -f
+## Option 1: Development (Recommended for Testing)
+- Local Node.js dev server
+- No Docker needed
+- Hot reload enabled
+- Fast feedback loop
+- **File:** QUICKSTART_DEV.md
 
-# Stop any background processes
-pkill -f redis-server
-pkill -f mongod
-pkill -f node
-
-# Wait 5 seconds for processes to fully terminate
-sleep 5
-
-## Step 1: Generate SSL Certificates
-
-bash scripts/generate-ssl-certs.sh
-
-## Step 2: Start Docker Services
-
-docker-compose up -d
-
-## Step 3: Wait for Services to Start
-
-sleep 10
-
-## Step 4: Check Status
-
-docker-compose ps
-
-## Step 5: View Logs (optional - to debug)
-
-docker-compose logs app
-
-## Step 6: Access the App
-
-# HTTPS with Docker
-# Browser: https://localhost:5443
-# Accept certificate warning (it's self-signed, normal)
-
-## OR: Development Mode (No Docker)
-
-# Stop Docker
-docker-compose down
-
-# Install dependencies
+```bash
 pnpm install
-
-# Start dev server
 pnpm run dev
+# Access: http://localhost:8080
+```
 
-# Browser: http://localhost:8080
+## Option 2: Production (Ubuntu Deployment)
+- Complete Docker setup with MongoDB, Redis, Nginx
+- SSL/TLS encryption
+- Google OAuth integration
+- Production-ready deployment
+- **File:** QUICKSTART_PRODUCTION.md
 
-## Useful Commands
+```bash
+bash scripts/generate-ssl-certs.sh
+docker-compose up -d
+# Access: https://localhost:5443
+```
 
-# Stop all services
-docker-compose down
+## Port Conflict Issues?
 
-# Stop and remove all volumes (resets data)
+Run the hard reset script:
+
+```bash
+bash scripts/hard-reset.sh
+sleep 10
+docker-compose up -d
+```
+
+## All Available Guides
+
+- **QUICKSTART_DEV.md** - Development setup (local server)
+- **QUICKSTART_PRODUCTION.md** - Production deployment (Ubuntu + Docker)
+- **QUICKSTART.md** - This file (overview)
+
+## Which One Should I Use?
+
+| Need | Use |
+|------|-----|
+| Testing features locally | QUICKSTART_DEV.md |
+| Deploying to production | QUICKSTART_PRODUCTION.md |
+| Learning the codebase | QUICKSTART_DEV.md |
+| Full stack with databases | QUICKSTART_PRODUCTION.md |
+| Just UI development | QUICKSTART_DEV.md |
+
+## Common Issues
+
+### Docker port conflicts
+```bash
+bash scripts/hard-reset.sh
+```
+
+### Can't access app
+- Dev: http://localhost:8080
+- Production: https://localhost:5443 (ignore SSL warning)
+
+### MongoDB won't connect
+```bash
 docker-compose down -v
+docker-compose up -d
+sleep 15
+docker-compose ps
+```
 
-# View service logs
+### Container won't start
+```bash
 docker-compose logs app
+```
 
-# Access MongoDB shell
-docker-compose exec mongo mongosh
+## Support
 
-# Access Redis CLI
-docker-compose exec redis redis-cli
-
-# Restart a specific service
-docker-compose restart app
-
-# Execute command in container
-docker-compose exec app npm run build
+See respective guide for detailed troubleshooting:
+- QUICKSTART_DEV.md - Development troubleshooting
+- QUICKSTART_PRODUCTION.md - Production troubleshooting
