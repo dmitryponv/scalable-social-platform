@@ -115,7 +115,15 @@ export const getGoogleAuthCode = async (
   }
 
   try {
+    console.log("Exchanging code for tokens with redirect URI:", googleClient._clientSecret ? "[configured]" : "[missing]");
     const { tokens } = await googleClient.getToken(code);
+
+    console.log("Tokens received:", {
+      hasAccessToken: !!tokens.access_token,
+      hasIdToken: !!tokens.id_token,
+      hasRefreshToken: !!tokens.refresh_token,
+    });
+
     return {
       accessToken: tokens.access_token || "",
       idToken: tokens.id_token || "",
@@ -123,7 +131,7 @@ export const getGoogleAuthCode = async (
       expiresIn: tokens.expiry_date ? tokens.expiry_date - Date.now() : 3600,
     };
   } catch (error) {
-    console.error("Failed to get auth code:", error);
+    console.error("Failed to exchange code for tokens:", error);
     return null;
   }
 };
