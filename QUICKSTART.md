@@ -12,7 +12,7 @@ Start the production server after completing [INSTALLATION.md](INSTALLATION.md).
 
 ```bash
 # Navigate to project directory
-cd /path/to/social-media-app
+cd /path/to/scalable-social-platform
 
 # Start all services (MongoDB, Redis, Nginx, App)
 docker-compose up -d
