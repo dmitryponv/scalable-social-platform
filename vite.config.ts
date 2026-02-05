@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
         allow: [".", "./client", "./shared"],
         deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
       },
-      hmr: isDev ? undefined : false,
+      hmr: false,
     },
     build: {
       outDir: "dist",
