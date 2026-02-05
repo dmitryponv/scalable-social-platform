@@ -1,12 +1,6 @@
-# Quick Start - Production Server
+# Quick Start - Copy & Paste Commands
 
-Start the production server after completing [INSTALLATION.md](INSTALLATION.md).
-
-## Prerequisites
-
-- ✅ System installation completed ([INSTALLATION.md](INSTALLATION.md))
-- ✅ `.env` file configured with Google OAuth credentials
-- ✅ SSL certificates generated
+Complete [INSTALLATION.md](INSTALLATION.md) first, then copy-paste below.
 
 ## Start Production Server
 
@@ -14,42 +8,28 @@ Start the production server after completing [INSTALLATION.md](INSTALLATION.md).
 # Navigate to project directory
 cd /path/to/scalable-social-platform
 
-# Start all services (MongoDB, Redis, Nginx, App)
+# Start all services
 docker-compose up -d
 
-# Wait for services to be ready
+# Wait for services to start
 sleep 15
 
-# Verify all services are running
+# Verify all services running
 docker-compose ps
 ```
 
-## Access Application
-
-**HTTPS (Secure):**
-
-```
-https://localhost:5443
-```
-
-Or with your domain: `https://yourdomain.com`
-
-**Note:** Browser will warn about self-signed certificate in testing. Click "Advanced" → "Proceed" to access.
-
-## Verify Services Are Running
+## Verify Services
 
 ```bash
-# Check app is responding
+# Check app
 curl -k https://localhost:5443/api/ping
 
-# Check MongoDB is accessible
+# Check MongoDB
 docker-compose exec mongo mongosh --eval "db.adminCommand('ping')"
 
-# Check Redis is accessible
+# Check Redis
 docker-compose exec redis redis-cli ping
 ```
-
-All three should return success messages (PONG, ok: 1, etc.)
 
 ## View Logs
 
@@ -71,41 +51,50 @@ docker-compose down
 
 ## Common Commands
 
-| Command                               | Action                     |
-| ------------------------------------- | -------------------------- |
-| `docker-compose ps`                   | Show service status        |
-| `docker-compose logs -f app`          | View app logs in real-time |
-| `docker-compose restart app`          | Restart app service        |
-| `docker-compose exec mongo mongosh`   | Access MongoDB shell       |
-| `docker-compose exec redis redis-cli` | Access Redis CLI           |
-| `docker-compose down`                 | Stop all services          |
-| `docker-compose down -v`              | Stop and remove all data   |
+```bash
+# Service status
+docker-compose ps
+
+# Restart app
+docker-compose restart app
+
+# Access MongoDB shell
+docker-compose exec mongo mongosh
+
+# Access Redis CLI
+docker-compose exec redis redis-cli
+
+# View app logs
+docker-compose logs -f app
+
+# Stop all services and remove data
+docker-compose down -v
+```
+
+## Access Application
+
+HTTPS: https://localhost:5443 (or https://yourdomain.com)
+
+Note: Self-signed cert in testing - click "Advanced" → "Proceed" to access
 
 ## Troubleshooting
 
-### Services won't start
-
 ```bash
+# Services won't start
 docker-compose logs app
-```
 
-### Port already in use
+# Port already in use
+bash scripts/hard-reset.sh
+sleep 10
+docker-compose up -d
 
-See [RESET.md](RESET.md)
-
-### Can't connect to MongoDB
-
-```bash
+# MongoDB won't connect
 docker-compose restart mongo
 sleep 5
-docker-compose ps
-```
 
-### SSL certificate issues
-
-```bash
+# Regenerate SSL certs
 bash scripts/generate-ssl-certs.sh
 docker-compose restart app
 ```
 
-For more help, see [RESET.md](RESET.md) for advanced procedures.
+See [RESET.md](RESET.md) for more help.
