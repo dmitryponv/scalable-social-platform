@@ -6,7 +6,7 @@ Complete [INSTALLATION.md](INSTALLATION.md) first, then copy-paste below.
 
 ```bash
 # Navigate to project directory
-cd /path/to/scalable-social-platform
+cd ~/scalable-social-platform
 
 # Start all services
 docker-compose up -d
