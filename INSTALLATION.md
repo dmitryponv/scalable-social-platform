@@ -83,7 +83,7 @@ bash scripts/generate-ssl-certs.sh
 
 # - https://localhost:5443/auth/google/callback (testing)
 
-# - https://yourdomain.com/auth/google/callback (production)
+# - https://scalable-social-platform.com/auth/google/callback (production)
 
 # 5. Copy your Client ID and Client Secret
 
