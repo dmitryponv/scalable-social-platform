@@ -12,7 +12,7 @@
     <script type="module" src="./client/main.tsx"></script>
 
     <script>
-      setTimeout(function() {
+      setTimeout(function () {
         console.log("=== CSS CHECK ===");
         var links = document.querySelectorAll("link[rel='stylesheet']");
         console.log("CSS files loaded: " + links.length);
@@ -27,7 +27,10 @@
             if (sheet) {
               console.log("   Sheet rules count: " + sheet.cssRules.length);
               if (sheet.cssRules.length > 0) {
-                console.log("   First rule: " + sheet.cssRules[0].cssText.substring(0, 100));
+                console.log(
+                  "   First rule: " +
+                    sheet.cssRules[0].cssText.substring(0, 100),
+                );
               }
             }
           } catch (e) {
@@ -42,7 +45,9 @@
             var child = root.children[0];
             console.log("First child tag: " + child.tagName);
             console.log("First child classes: '" + child.className + "'");
-            console.log("First child HTML: " + child.outerHTML.substring(0, 200));
+            console.log(
+              "First child HTML: " + child.outerHTML.substring(0, 200),
+            );
           }
         }
       }, 500);
