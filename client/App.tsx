@@ -34,11 +34,11 @@ const App = () => (
   </QueryClientProvider>
 );
 
-const rootElement = document.getElementById("root");
-if (rootElement) {
-  // Store root in window to prevent double createRoot calls in HMR
-  const root =
-    (window as any).__root || createRoot(rootElement);
-  (window as any).__root = root;
-  root.render(<App />);
+// Initialize root only once
+if (!(window as any).__appInitialized) {
+  (window as any).__appInitialized = true;
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    createRoot(rootElement).render(<App />);
+  }
 }
