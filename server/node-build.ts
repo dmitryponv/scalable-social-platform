@@ -26,6 +26,19 @@ console.log(
   fs.existsSync(path.join(distPath, "index.html")),
 );
 
+// Debug: List all files in distPath
+try {
+  const files = fs.readdirSync(distPath);
+  console.log("📂 Files in distPath:", files);
+
+  if (fs.existsSync(path.join(distPath, "index.html"))) {
+    const indexContent = fs.readFileSync(path.join(distPath, "index.html"), "utf8");
+    console.log("📄 index.html first 300 chars:", indexContent.substring(0, 300));
+  }
+} catch (err) {
+  console.error("❌ Error reading distPath:", err);
+}
+
 // Serve static files
 app.use(express.static(distPath));
 
