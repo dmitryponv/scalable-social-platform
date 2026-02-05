@@ -80,18 +80,15 @@ if (enableHttps && sslKeyPath && sslCertPath) {
       console.log(`🔐 SSL: Enabled`);
     });
 
-    // Also start HTTP server that redirects to HTTPS
-    const httpServer = http.createServer((req, res) => {
-      res.writeHead(301, {
-        Location: `https://${req.headers.host}${req.url}`,
-      });
-      res.end();
-    });
+    // Also start HTTP server that serves the same app (for testing)
+    const httpServer = http.createServer(app);
 
     httpServer.listen(port, () => {
       console.log(
-        `🔄 HTTP redirect server running on port ${port} -> HTTPS on ${httpsPort}`,
+        `🚀 HTTP server running on port ${port}`,
       );
+      console.log(`📱 Frontend: http://localhost:${port}`);
+      console.log(`🔧 API: http://localhost:${port}/api`);
     });
 
     // Graceful shutdown for both servers
