@@ -31,7 +31,6 @@ RUN pnpm install --frozen-lockfile
 
 # Copy built artifacts from builder
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/server ./server
 COPY .env.example .env.example
 
 # Expose ports
