@@ -34,12 +34,12 @@
         console.log(`✅ Total stylesheets: ${links.length}`);
 
         links.forEach((link, i) => {
-          const href = link.getAttribute('href');
+          const href = link.getAttribute("href");
           console.log(`  [${i}] ${href}`);
         });
 
         // Check if styles are applied
-        const root = document.getElementById('root');
+        const root = document.getElementById("root");
         console.log("🎨 Root element:", root);
         console.log("🎨 Root children count:", root?.children.length);
 
