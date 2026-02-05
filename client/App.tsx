@@ -33,4 +33,20 @@ const App = () => (
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+console.log("App.tsx loaded, finding root element...");
+const rootElement = document.getElementById("root");
+console.log("Root element:", rootElement);
+
+if (!rootElement) {
+  console.error("❌ Root element #root not found!");
+  document.body.innerHTML = "<h1>Error: Root element not found</h1>";
+} else {
+  console.log("✓ Root element found, rendering React app...");
+  try {
+    createRoot(rootElement).render(<App />);
+    console.log("✓ React app rendered successfully");
+  } catch (error) {
+    console.error("❌ Error rendering React app:", error);
+    rootElement.innerHTML = `<h1>Error rendering app: ${error}</h1>`;
+  }
+}
