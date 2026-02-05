@@ -72,6 +72,7 @@ bash scripts/generate-ssl-certs.sh
 ## Get Google OAuth Credentials
 
 Visit https://console.cloud.google.com/ and:
+
 1. Create/select a project
 2. Enable "Google+ API"
 3. Create OAuth 2.0 credentials (Web application)
