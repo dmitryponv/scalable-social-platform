@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Heart, MessageCircle, Share2, Users, Zap, Sparkles, ArrowRight, Star } from "lucide-react";
+import React from "react";
 
 export default function Home() {
   return (
