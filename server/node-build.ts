@@ -1,7 +1,9 @@
 import path from "path";
 import fs from "fs";
+import path from "path";
 import https from "https";
 import http from "http";
+import { fileURLToPath } from "url";
 import { createServer } from "./index";
 import * as express from "express";
 
@@ -13,7 +15,7 @@ const sslKeyPath = process.env.SSL_KEY_PATH;
 const sslCertPath = process.env.SSL_CERT_PATH;
 
 // In production, serve the built SPA files
-const __dirname = import.meta.dirname;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.join(__dirname, "../spa");
 
 // Serve static files
