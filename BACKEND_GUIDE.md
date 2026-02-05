@@ -27,12 +27,14 @@ server/
 ## 🔑 API Endpoints Summary
 
 ### Authentication
+
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Log in a user
 - `POST /api/auth/logout` - Log out a user
 - `GET /api/auth/me` - Get current authenticated user
 
 ### Posts
+
 - `POST /api/posts` - Create a new post
 - `GET /api/posts` - Get all posts (feed)
 - `GET /api/posts/:id` - Get a single post
@@ -41,11 +43,13 @@ server/
 - `POST /api/posts/:id/share` - Share a post
 
 ### Comments
+
 - `POST /api/posts/:postId/comments` - Create a comment
 - `GET /api/posts/:postId/comments` - Get all comments for a post
 - `DELETE /api/comments/:id` - Delete a comment
 
 ### Users
+
 - `GET /api/users/:id` - Get user profile
 - `GET /api/users/suggestions` - Get suggested users to follow
 - `POST /api/users/:id/follow` - Follow a user
@@ -54,6 +58,7 @@ server/
 - `GET /api/users/:id/following` - Get users that user is following
 
 ### Trending & Search
+
 - `GET /api/trending` - Get trending hashtags
 - `GET /api/search?q=query` - Search posts
 - `GET /api/hashtag/:tag` - Get posts with a specific hashtag
@@ -65,6 +70,7 @@ server/
 Production deployment uses **MongoDB** via Docker for persistent data storage.
 
 ### Collections:
+
 1. **users** - User accounts with credentials
 2. **posts** - Social media posts
 3. **comments** - Comments on posts
@@ -72,6 +78,7 @@ Production deployment uses **MongoDB** via Docker for persistent data storage.
 5. **sessions** - Active user sessions
 
 ### Example User Structure:
+
 ```typescript
 {
   _id: ObjectId,
@@ -87,12 +94,14 @@ Production deployment uses **MongoDB** via Docker for persistent data storage.
 ```
 
 ### MongoDB Configuration:
+
 - **Connection:** `mongodb://mongo:27017/scalable-social-platform` (Docker)
 - **Host:** mongo service in docker-compose
 - **Database:** scalable-social-platform
 - **Ports:** 27017 (internal), mapped to localhost for development
 
 ### Access MongoDB:
+
 ```bash
 # Via Docker
 docker-compose exec mongo mongosh
@@ -108,28 +117,33 @@ docker-compose exec mongo mongosh
 ## 🔐 Authentication & Security
 
 ### Password Hashing
+
 **Current:** Simple demo hash function  
 **Production:** Use bcrypt
+
 ```bash
 npm install bcrypt
 npm install --save-dev @types/bcrypt
 ```
 
 Then update `server/auth.ts`:
+
 ```typescript
 import bcrypt from "bcrypt";
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
-export const comparePassword = (password: string, hash: string) => 
+export const comparePassword = (password: string, hash: string) =>
   bcrypt.compare(password, hash);
 ```
 
 ### Session Management
+
 - Uses cookie-based sessions (7-day expiration)
 - Session tokens stored in `db.sessions`
 - Cookies are `httpOnly` and `secure` in production
 
 ### Middleware
+
 - `authMiddleware` - Extracts user from session cookie
 - `requireAuth` - Protects routes that need authentication
 
@@ -138,11 +152,13 @@ export const comparePassword = (password: string, hash: string) =>
 ## 🚀 How to Use
 
 ### 1. Start the server (automatically running)
+
 ```bash
 npm run dev
 ```
 
 ### 2. Register a user
+
 ```bash
 curl -X POST http://localhost:8080/api/auth/register \
   -H "Content-Type: application/json" \
@@ -155,6 +171,7 @@ curl -X POST http://localhost:8080/api/auth/register \
 ```
 
 ### 3. Create a post
+
 ```bash
 curl -X POST http://localhost:8080/api/posts \
   -H "Content-Type: application/json" \
@@ -165,6 +182,7 @@ curl -X POST http://localhost:8080/api/posts \
 ```
 
 ### 4. Like a post
+
 ```bash
 curl -X POST http://localhost:8080/api/posts/{postId}/like \
   -b "sessionToken=YOUR_SESSION_TOKEN"
@@ -177,16 +195,19 @@ curl -X POST http://localhost:8080/api/posts/{postId}/like \
 All pages are already connected to the backend:
 
 ### Register.tsx
+
 - Sends POST to `/api/auth/register`
 - Receives user data and session cookie
 - Redirects to `/feed`
 
 ### Login.tsx
+
 - Sends POST to `/api/auth/login`
 - Gets session cookie
 - Redirects to `/feed`
 
 ### Feed.tsx
+
 - Loads posts from `GET /api/posts` on mount
 - Creates posts with `POST /api/posts`
 - Likes/unlikes with `POST /api/posts/:id/like` and `POST /api/posts/:id/unlike`
@@ -204,12 +225,14 @@ All pages are already connected to the backend:
 Your production deployment already uses MongoDB:
 
 **Setup:**
+
 - Docker container: `mongo:7.0`
 - Connection string: `mongodb://mongo:27017/scalable-social-platform`
 - Persistence: Volumes configured in docker-compose.yml
 - Access: `docker-compose exec mongo mongosh`
 
 **Verify data persists:**
+
 ```bash
 # Create a document
 docker-compose exec mongo mongosh << 'EOF'
@@ -233,18 +256,22 @@ EOF
 If you want to use a different database:
 
 **Supabase (PostgreSQL + Auth):**
+
 ```bash
 npm install @supabase/supabase-js
 ```
+
 Connect via MCP integration [here](#open-mcp-popover)
 
 **Firebase:**
+
 ```bash
 npm install firebase-admin
 ```
 
 **Atlas MongoDB (Cloud):**
 Replace connection string in .env:
+
 ```
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/scalable-social-platform
 ```
@@ -254,16 +281,19 @@ MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/scalable-social-
 ## 🧪 Testing the API
 
 ### Get all posts
+
 ```bash
 curl http://localhost:8080/api/posts
 ```
 
 ### Get trending hashtags
+
 ```bash
 curl http://localhost:8080/api/trending
 ```
 
 ### Get user suggestions (requires auth)
+
 ```bash
 curl http://localhost:8080/api/users/suggestions \
   -b "sessionToken=YOUR_SESSION_TOKEN"
@@ -276,11 +306,14 @@ curl http://localhost:8080/api/users/suggestions \
 1. **Password Hashing:** The current implementation uses a simple hash function for demo purposes. **DO NOT use in production** - use bcrypt instead.
 
 2. **CORS:** Currently allows all origins. In production, set specific allowed origins:
+
    ```typescript
-   app.use(cors({
-     origin: "https://yourdomain.com",
-     credentials: true
-   }));
+   app.use(
+     cors({
+       origin: "https://yourdomain.com",
+       credentials: true,
+     }),
+   );
    ```
 
 3. **Validation:** Basic validation is implemented. Add more robust validation for production using libraries like:
@@ -291,6 +324,7 @@ curl http://localhost:8080/api/users/suggestions \
 4. **Error Handling:** Current error handling is basic. Implement comprehensive error handling with custom error classes.
 
 5. **Rate Limiting:** Add rate limiting to prevent abuse:
+
    ```bash
    npm install express-rate-limit
    ```
