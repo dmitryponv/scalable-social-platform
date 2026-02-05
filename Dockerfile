@@ -12,7 +12,9 @@ COPY . .
 
 # Build client and server with production environment
 ENV VITE_PRODUCTION=true
-RUN pnpm run build:client && pnpm run build:server
+RUN echo "Building client..." && pnpm run build:client && echo "Client built successfully"
+RUN echo "Building server..." && pnpm run build:server && echo "Server built successfully"
+RUN echo "Checking dist directory:" && ls -la dist/ && echo "Checking dist/spa:" && ls -la dist/spa/ || echo "dist/spa does not exist"
 
 # Production stage
 FROM node:18-slim
