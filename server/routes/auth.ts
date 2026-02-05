@@ -250,17 +250,37 @@ export const handleGoogleAuthUrl: RequestHandler = async (req, res) => {
  */
 export const handleGoogleCallback: RequestHandler = async (req, res) => {
   try {
-    const { idToken } = req.body;
+    const { code } = req.body;
 
-    if (!idToken) {
+    if (!code) {
       return res.status(400).json({
         success: false,
-        message: "ID token is required",
+        message: "Authorization code is required",
       });
     }
 
-    const { verifyGoogleToken, getGoogleClient } = await import("../config/oauth");
-    const payload = await verifyGoogleToken(idToken);
+    // Exchange authorization code for tokens
+    const { getGoogleAuthCode, verifyGoogleToken, getGoogleClient } = await import("../config/oauth");
+    const tokenResult = await getGoogleAuthCode(code);
+
+    if (!tokenResult) {
+      return res.status(401).json({
+        success: false,
+        message: "Failed to exchange authorization code",
+      });
+    }
+
+    // Get the ID token from the response
+    const client = getGoogleClient();
+    if (!client) {
+      return res.status(500).json({
+        success: false,
+        message: "OAuth client not configured",
+      });
+    }
+
+    // Verify the ID token
+    const payload = await verifyGoogleToken(tokenResult.accessToken);
 
     if (!payload) {
       return res.status(401).json({
