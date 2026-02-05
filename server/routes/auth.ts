@@ -273,18 +273,31 @@ export const handleGoogleCallback: RequestHandler = async (req, res) => {
       });
     }
 
+    console.log("Google callback received with code:", code.substring(0, 20) + "...");
+
     // Exchange authorization code for tokens
     const { getGoogleAuthCode, verifyGoogleToken } = await import(
       "../config/oauth"
     );
     const tokenResult = await getGoogleAuthCode(code);
 
-    if (!tokenResult || !tokenResult.idToken) {
+    if (!tokenResult) {
+      console.error("Failed to exchange code for tokens");
       return res.status(401).json({
         success: false,
         message: "Failed to exchange authorization code",
       });
     }
+
+    if (!tokenResult.idToken) {
+      console.error("ID token missing from token response");
+      return res.status(401).json({
+        success: false,
+        message: "Failed to exchange authorization code",
+      });
+    }
+
+    console.log("Token exchange successful, verifying ID token...");
 
     // Verify the ID token
     const payload = await verifyGoogleToken(tokenResult.idToken);
