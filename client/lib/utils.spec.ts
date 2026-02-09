@@ -20,7 +20,6 @@ describe("cn function", () => {
     );
   });
 
-
   it("should work with object notation", () => {
     expect(cn("base", { conditional: true, "not-included": false })).toBe(
       "base conditional",
