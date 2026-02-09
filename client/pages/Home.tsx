@@ -48,9 +48,9 @@ export default function Home() {
           <div className="space-y-8">
             <div className="space-y-4">
               <div className="inline-block">
-                <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold">
-                  ✨ Welcome to Connect
-                </span>
+                <span className="text-white px-4 py-2 rounded-full text-sm font-bold" style={{ background: 'linear-gradient(90deg, #a855f7, #ec4899)' }}>
+                ✨ Welcome to Connect
+              </span>
               </div>
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight">
                 Share Your{" "}
