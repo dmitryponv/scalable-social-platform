@@ -281,6 +281,39 @@ input, textarea, select {
 .text-muted-foreground { color: hsl(var(--muted-foreground)); }
 .text-white { color: #ffffff; }
 .text-black { color: #000000; }
+.text-gray-900 { color: #111827; }
+.text-gray-700 { color: #374151; }
+.text-gray-600 { color: #4b5563; }
+.text-gray-500 { color: #6b7280; }
+.text-gray-400 { color: #9ca3af; }
+.text-slate-800 { color: #1e293b; }
+
+/* Background Colors - Extended */
+.bg-gray-900 { background-color: #111827; }
+.bg-gray-800 { background-color: #1f2937; }
+.bg-gray-700 { background-color: #374151; }
+.bg-gray-100 { background-color: #f3f4f6; }
+.bg-gray-50 { background-color: #f9fafb; }
+.bg-purple-50 { background-color: #faf5ff; }
+.bg-purple-100 { background-color: #f3e8ff; }
+.bg-purple-200 { background-color: #e9d5ff; }
+.bg-pink-50 { background-color: #fdf2f8; }
+.bg-pink-100 { background-color: #fce7f3; }
+.bg-pink-200 { background-color: #fbcfe8; }
+.bg-cyan-50 { background-color: #ecf9ff; }
+.bg-cyan-100 { background-color: #cffafe; }
+.bg-blue-100 { background-color: #dbeafe; }
+.bg-orange-50 { background-color: #fffbeb; }
+.bg-yellow-50 { background-color: #fffbeb; }
+
+/* Border Colors - Extended */
+.border-purple-200 { border-color: #e9d5ff; }
+.border-purple-300 { border-color: #d8b4fe; }
+.border-pink-300 { border-color: #f9a8d4; }
+.border-cyan-300 { border-color: #a5f3fc; }
+.border-orange-300 { border-color: #fed7aa; }
+.border-gray-200 { border-color: #e5e7eb; }
+.border-gray-300 { border-color: #d1d5db; }
 
 /* Font Sizes */
 .text-xs { font-size: 0.75rem; line-height: 1rem; }
