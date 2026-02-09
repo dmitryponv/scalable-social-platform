@@ -256,7 +256,7 @@ export default function Feed() {
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="w-full bg-input border border-border rounded-full pl-10 pr-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full bg-input border border-border rounded-full pl-10 pr-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none"
                 />
               </div>
             </div>
@@ -323,7 +323,7 @@ export default function Feed() {
           {/* Main Feed */}
           <div className="lg:col-span-2 space-y-6">
             {error && (
-              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 text-sm text-destructive">
+              <div className="bg-destructive-10 border border-destructive-30 rounded-lg p-4 text-sm text-destructive">
                 {error}
               </div>
             )}
@@ -352,7 +352,7 @@ export default function Feed() {
                     value={newPost}
                     onChange={(e) => setNewPost(e.target.value)}
                     placeholder="What's on your mind?"
-                    className="w-full bg-input border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+                    className="w-full bg-input border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none resize-none"
                     rows={4}
                   />
                   <div className="flex items-center justify-between">
@@ -453,7 +453,7 @@ export default function Feed() {
                       <div key={comment.id} className="flex gap-3">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex-shrink-0"></div>
                         <div className="flex-1">
-                          <div className="bg-muted/50 rounded-lg p-3">
+                          <div className="bg-muted-50 rounded-lg p-3">
                             <p className="font-semibold text-sm">
                               {comment.author.name}
                             </p>
@@ -485,7 +485,7 @@ export default function Feed() {
                             }))
                           }
                           placeholder="Write a comment..."
-                          className="flex-1 bg-input border border-border rounded-full px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+                          className="flex-1 bg-input border border-border rounded-full px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none"
                         />
                         <button
                           type="submit"
