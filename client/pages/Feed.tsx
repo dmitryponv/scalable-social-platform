@@ -50,10 +50,7 @@ const TrendingWidget = () => {
           {trending.map((item) => (
             <div
               key={item.tag}
-              className="p-2 rounded transition-colors cursor-pointer"
-            style={{ cursor: 'pointer' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsl(var(--muted) / 0.5)'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              className="trending-item p-2 rounded transition-colors cursor-pointer"
             >
               <p className="font-semibold text-sm">{item.tag}</p>
               <p className="text-xs text-muted-foreground">
