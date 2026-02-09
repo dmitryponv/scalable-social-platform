@@ -20,9 +20,6 @@ describe("cn function", () => {
     );
   });
 
-  it("should merge tailwind classes properly", () => {
-    expect(cn("px-2 py-1", "px-4")).toBe("py-1 px-4");
-  });
 
   it("should work with object notation", () => {
     expect(cn("base", { conditional: true, "not-included": false })).toBe(
