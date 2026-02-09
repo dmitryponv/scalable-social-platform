@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #faf5ff, #fdf2f8, #ecf9ff)' }}>
       {/* Navigation */}
-      <nav className="border-b-2 border-purple-200 bg-white" style={{ backdropFilter: 'blur(20px)', opacity: 0.8 }} style={{position: 'sticky', top: 0, zIndex: 50, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+      <nav className="border-b-2 border-purple-200 bg-white shadow-lg" style={{ backdropFilter: 'blur(20px)', opacity: 0.8, position: 'sticky', top: 0, zIndex: 50 }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
