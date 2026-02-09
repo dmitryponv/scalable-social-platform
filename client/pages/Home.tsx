@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Heart,
   MessageCircle,
@@ -12,6 +12,42 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [isChecking, setIsChecking] = useState(true);
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkAuth = async () => {
+      try {
+        const response = await fetch("/api/auth/me", {
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          // User is logged in, redirect to feed
+          navigate("/feed");
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
+  // Show nothing while checking auth
+  if (isChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin">
+          <div style={{ width: "3rem", height: "3rem", borderWidth: "4px", borderColor: "#e9d5ff", borderTopColor: "#9333ea", borderRadius: "9999px" }}></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="min-h-screen"
