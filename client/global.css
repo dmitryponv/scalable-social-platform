@@ -596,3 +596,19 @@ select:focus {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
+
+/* Input focus ring with opacity */
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px hsl(var(--primary) / 0.5);
+}
+
+/* Hover states for trending items */
+.trending-item:hover {
+  background-color: hsl(var(--muted) / 0.5);
+}
+
+/* Suggestion button hover */
+.suggestion-btn:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
