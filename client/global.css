@@ -349,8 +349,17 @@ input, textarea, select {
 
 /* Opacity */
 .opacity-0 { opacity: 0; }
+.opacity-10 { opacity: 0.1; }
+.opacity-30 { opacity: 0.3; }
 .opacity-50 { opacity: 0.5; }
+.opacity-70 { opacity: 0.7; }
 .opacity-100 { opacity: 1; }
+
+/* Background with opacity */
+.bg-card-50 { background-color: hsl(var(--card) / 0.5); }
+.bg-muted-50 { background-color: hsl(var(--muted) / 0.5); }
+.bg-destructive-10 { background-color: hsl(var(--destructive) / 0.1); }
+.border-destructive-30 { border-color: hsl(var(--destructive) / 0.3); }
 
 /* Z-index */
 .z-0 { z-index: 0; }
