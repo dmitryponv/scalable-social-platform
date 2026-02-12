@@ -55,7 +55,7 @@ declare global {
  * Authentication middleware
  * Checks for valid session token in cookies and sets req.user
  */
-export const authMiddleware = (
+export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -63,7 +63,7 @@ export const authMiddleware = (
   const sessionToken = req.cookies?.sessionToken;
 
   if (sessionToken) {
-    const user = getSessionUser(sessionToken);
+    const user = await getSessionUser(sessionToken);
     if (user) {
       req.user = user as AuthUser;
       req.sessionToken = sessionToken;

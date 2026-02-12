@@ -20,10 +20,10 @@ export default function Header() {
   const [isChecking, setIsChecking] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Check auth status on mount and when location changes
+  // Check auth status on mount
   useEffect(() => {
     checkAuth();
-  }, [location]);
+  }, []);
 
   const checkAuth = async () => {
     try {
@@ -34,6 +34,7 @@ export default function Header() {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("Auth response:", data);
         setUser(data.user);
       } else {
         setUser(null);
