@@ -5,7 +5,12 @@ import { LogOut } from "lucide-react";
 interface User {
   id: string;
   email: string;
-  name?: string;
+  name: string;
+  handle?: string;
+  avatar?: string;
+  bio?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export default function Header() {
@@ -105,7 +110,7 @@ export default function Header() {
             ) : user ? (
               <>
                 <span className="text-sm font-medium text-gray-600">
-                  Logged in as <span className="text-purple-600">{user.email}</span>
+                  <span className="text-purple-600">{user.name}</span>
                 </span>
                 <button
                   onClick={handleLogout}
