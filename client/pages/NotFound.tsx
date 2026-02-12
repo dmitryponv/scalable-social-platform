@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Home, ArrowRight } from "lucide-react";
+import Header from "../components/Header";
 
 const NotFound = () => {
   const location = useLocation();
@@ -14,21 +15,7 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Navigation */}
-      <nav className="border-b border-border bg-card/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="gradient-primary w-10 h-10 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
-              </div>
-              <span className="font-bold text-xl hidden sm:inline gradient-primary-text">
-                Connect
-              </span>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* 404 Content */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">

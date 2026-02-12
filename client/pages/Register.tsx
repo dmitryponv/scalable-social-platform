@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, User, ArrowRight, Sparkles } from "lucide-react";
 import GoogleOAuthButton from "../components/GoogleOAuthButton";
+import Header from "../components/Header";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -64,21 +65,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-cyan-50 flex flex-col">
-      {/* Navigation */}
-      <nav className="border-b-2 border-purple-200 bg-white/80 backdrop-blur-xl shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="gradient-primary w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-lg">C</span>
-              </div>
-              <span className="font-black text-2xl gradient-primary-text hidden sm:inline">
-                Connect
-              </span>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Register Form */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">

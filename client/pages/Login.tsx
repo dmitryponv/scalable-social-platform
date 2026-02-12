@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
 import GoogleOAuthButton from "../components/GoogleOAuthButton";
+import Header from "../components/Header";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -58,32 +59,7 @@ export default function Login() {
           "linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #ecf9ff 100%)",
       }}
     >
-      {/* Navigation */}
-      <nav
-        className="border-b-2 border-purple-200 bg-white shadow-lg"
-        style={{ backdropFilter: "blur(20px)", opacity: 0.8 }}
-      >
-        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1rem" }}>
-          <div
-            className="flex items-center justify-between"
-            style={{ height: "4rem" }}
-          >
-            <Link to="/" className="flex items-center gap-3">
-              <div className="gradient-primary w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg">
-                <span
-                  className="text-white font-bold"
-                  style={{ fontSize: "1.125rem", fontWeight: 900 }}
-                >
-                  C
-                </span>
-              </div>
-              <span className="font-bold text-2xl gradient-primary-text hidden sm:inline">
-                Connect
-              </span>
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Login Form */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">

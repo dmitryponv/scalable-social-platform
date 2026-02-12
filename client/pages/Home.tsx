@@ -10,6 +10,7 @@ import {
   ArrowRight,
   Star,
 } from "lucide-react";
+import Header from "../components/Header";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -56,55 +57,7 @@ export default function Home() {
           "linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #ecf9ff 100%)",
       }}
     >
-      {/* Navigation */}
-      <nav
-        className="border-b-2 border-purple-200 bg-white shadow-lg"
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          backdropFilter: "blur(20px)",
-          opacity: 0.8,
-        }}
-      >
-        <div style={{ maxWidth: "80rem", margin: "0 auto", padding: "0 1rem" }}>
-          <div
-            className="flex items-center justify-between"
-            style={{ height: "4rem" }}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="gradient-primary w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg"
-                style={{ transition: "transform 0.3s ease" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "scale(1.1)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "scale(1)")
-                }
-              >
-                <span
-                  className="text-white font-bold"
-                  style={{ fontSize: "1.125rem", fontWeight: 900 }}
-                >
-                  C
-                </span>
-              </div>
-              <span className="font-bold text-2xl gradient-primary-text hidden sm:inline">
-                Connect
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link to="/login" className="btn-social-ghost text-sm">
-                Sign In
-              </Link>
-              <Link to="/register" className="btn-social-primary text-sm">
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* Hero Section */}
       <section
@@ -459,8 +412,7 @@ export default function Home() {
             </h2>
             <p
               className="text-white text-xl mb-10"
-              style={{ maxWidth: "42rem", margin: "0 auto 2.5rem" }}
-              style={{ opacity: 0.9 }}
+              style={{ maxWidth: "42rem", margin: "0 auto 2.5rem", opacity: 0.9 }}
             >
               Join our vibrant community of creators and discover what you can
               achieve. It's free and takes less than a minute!
