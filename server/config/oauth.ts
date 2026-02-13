@@ -22,6 +22,7 @@ import { OAuth2Client } from "google-auth-library";
 let googleClient: OAuth2Client | null = null;
 
 export const initializeGoogleOAuth = (): OAuth2Client | null => {
+  console.log("Just an OAUTH test!!!");
   const clientId = process.env.GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
   const redirectUri =
