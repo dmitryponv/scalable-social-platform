@@ -49,6 +49,7 @@ import {
   handleGetRetentionAnalytics,
   handleTrackEvent,
 } from "./routes/analytics";
+import { handleRunTests, handleGetTestSummary } from "./routes/unittests";
 
 export function createServer() {
   const app = express();
@@ -133,6 +134,10 @@ export function createServer() {
   app.get("/api/analytics/trending", handleGetTrendingAnalytics);
   app.get("/api/analytics/retention", handleGetRetentionAnalytics);
   app.post("/api/analytics/event", handleTrackEvent);
+
+  // ============ Unit Tests Routes ============
+  app.get("/api/unittests", handleGetTestSummary);
+  app.post("/api/unittests", handleRunTests);
 
   // ============ Error Handling ============
   app.use((err: any, _req: any, res: any, _next: any) => {
