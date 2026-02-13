@@ -180,8 +180,28 @@ export const authTests = {
   async testCreateAndGetSession(): Promise<TestResult> {
     const start = Date.now();
     try {
-      const testUserId = "test_user_" + Date.now();
-      const token = await createSession(testUserId);
+      // Import createUser to get a valid MongoDB ObjectId
+      const { createUser } = await import("../db");
+
+      // Create a real test user to get valid ObjectId
+      const testEmail = `session_test_${Date.now()}@test.com`;
+      const testUser = await createUser({
+        name: "Session Test User",
+        email: testEmail,
+        password: "hashedPassword123",
+        handle: `session_test_${Date.now()}`,
+      });
+
+      if (!testUser) {
+        return {
+          name: "Auth - Create and retrieve session",
+          passed: false,
+          error: "Failed to create test user",
+          duration: Date.now() - start,
+        };
+      }
+
+      const token = await createSession(testUser.id);
 
       if (!token) {
         return {
@@ -192,13 +212,16 @@ export const authTests = {
         };
       }
 
+      // Small delay to ensure session is written
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       const user = await getSessionUser(token);
-      const passed = user && user.id === testUserId;
+      const passed = user && user.id === testUser.id;
 
       return {
         name: "Auth - Create and retrieve session",
         passed,
-        error: passed ? undefined : "Session retrieval failed",
+        error: passed ? undefined : `Session retrieval failed. Expected: ${testUser.id}, Got: ${user?.id}`,
         duration: Date.now() - start,
       };
     } catch (error) {
