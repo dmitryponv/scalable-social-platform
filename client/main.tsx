@@ -28,6 +28,7 @@ if (rootElement && rootElement.children.length === 0) {
     console.log("🎨 Rendering App...");
     root.render(React.createElement(App));
     console.log("✅ App rendered successfully!");
+    console.log("Just a test!!!");
   } catch (error) {
     console.error("❌ ERROR:", error);
     const err = error as any;
