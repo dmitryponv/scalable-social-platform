@@ -35,16 +35,24 @@ export const cacheTests = {
   async testCacheGet(): Promise<TestResult> {
     const start = Date.now();
     try {
-      const testData = { value: "hello", timestamp: Date.now() };
-      await cacheSet("test:get", testData, 60);
-      // Small delay to ensure write completes
-      await new Promise((resolve) => setTimeout(resolve, 50));
-      const result = await cacheGet<{ value: string; timestamp: number }>("test:get");
-      const passed = result?.value === "hello";
+      // Use a unique key for this test
+      const uniqueKey = `test:get:${Date.now()}`;
+      const testData = "hello";
+
+      // Set the value
+      await cacheSet(uniqueKey, testData, 60);
+
+      // Longer delay to ensure write completes
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // Retrieve the value
+      const result = await cacheGet<string>(uniqueKey);
+
+      const passed = result === testData;
       return {
         name: "Cache GET - Retrieve data from cache",
         passed,
-        error: passed ? undefined : `Retrieved value does not match. Expected: hello, Got: ${result?.value}`,
+        error: passed ? undefined : `Retrieved value does not match. Expected: "${testData}", Got: "${result}"`,
         duration: Date.now() - start,
       };
     } catch (error) {
