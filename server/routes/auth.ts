@@ -95,6 +95,8 @@ export const handleRegister: RequestHandler = async (req, res) => {
 
     // Create session
     const sessionToken = await createSession(newUser.id);
+    console.log(`✓ AUTH SUCCESS: User registered successfully - Email: ${newUser.email}, Handle: ${newUser.handle}`);
+    console.log(`✓ AUTH SUCCESS: Session created for new user - Email: ${newUser.email}`);
 
     // Set session cookie (httpOnly for security)
     res.cookie("sessionToken", sessionToken, {
@@ -154,6 +156,8 @@ export const handleLogin: RequestHandler = async (req, res) => {
 
     // Create session
     const sessionToken = await createSession(user.id);
+    console.log(`✓ AUTH SUCCESS: User logged in successfully - Email: ${user.email}`);
+    console.log(`✓ AUTH SUCCESS: Session created for login - Email: ${user.email}`);
 
     // Set session cookie
     res.cookie("sessionToken", sessionToken, {
@@ -194,6 +198,7 @@ export const handleLogout: RequestHandler = async (req, res) => {
     const sessionToken = req.cookies?.sessionToken;
     if (sessionToken) {
       await deleteSession(sessionToken);
+      console.log(`✓ AUTH SUCCESS: User logged out successfully - Session deleted`);
     }
 
     res.clearCookie("sessionToken");
@@ -221,6 +226,8 @@ export const handleGetMe: RequestHandler = async (req, res) => {
       message: "Not authenticated",
     });
   }
+
+  console.log(`✓ AUTH CHECK: User verified - Email: ${req.user.email}`);
 
   return res.json({
     success: true,
@@ -311,6 +318,7 @@ export const handleGoogleCallback: RequestHandler = async (req, res) => {
 
     // Check if user exists with this email
     let user = await getUserByEmail(payload.email);
+    let isNewUser = false;
 
     // If not, create a new user
     if (!user) {
@@ -336,10 +344,15 @@ export const handleGoogleCallback: RequestHandler = async (req, res) => {
           message: "Failed to create user",
         });
       }
+      isNewUser = true;
+      console.log(`✓ OAuth SUCCESS: New user registered via Google - Email: ${payload.email}, Handle: ${user.handle}`);
+    } else {
+      console.log(`✓ OAuth SUCCESS: Existing user authenticated via Google - Email: ${payload.email}`);
     }
 
     // Create session
     const sessionToken = await createSession(user.id);
+    console.log(`✓ OAuth SUCCESS: Session created - User: ${user.email}, Session Token established`);
 
     // Set session cookie
     res.cookie("sessionToken", sessionToken, {

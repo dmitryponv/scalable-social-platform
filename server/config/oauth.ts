@@ -41,7 +41,7 @@ export const initializeGoogleOAuth = (): OAuth2Client | null => {
     redirectUri,
   });
 
-  console.log("Google OAuth configured successfully");
+  console.log(`✓ OAuth INIT: Google OAuth configured successfully - Redirect URI: ${redirectUri}`);
   return googleClient;
 };
 
@@ -63,6 +63,7 @@ export const getGoogleAuthUrl = (): string => {
     prompt: "consent",
   });
 
+  console.log(`✓ OAuth ACTION: Generated Google auth URL - Scopes: ${scopes.join(", ")}`);
   return url;
 };
 
@@ -95,6 +96,9 @@ export const verifyGoogleToken = async (
     });
 
     const payload = ticket.getPayload() as GoogleTokenPayload | undefined;
+    if (payload) {
+      console.log(`✓ OAuth ACTION: Google ID token verified successfully - Email: ${payload.email}`);
+    }
     return payload || null;
   } catch (error) {
     console.error("Token verification failed:", error);
@@ -115,23 +119,24 @@ export const getGoogleAuthCode = async (
   }
 
   try {
-    console.log("Exchanging code for tokens with redirect URI:", googleClient._clientSecret ? "[configured]" : "[missing]");
+    console.log(`✓ OAuth ACTION: Exchanging authorization code for tokens`);
     const { tokens } = await googleClient.getToken(code);
 
-    console.log("Tokens received:", {
-      hasAccessToken: !!tokens.access_token,
-      hasIdToken: !!tokens.id_token,
-      hasRefreshToken: !!tokens.refresh_token,
-    });
+    const hasAccessToken = !!tokens.access_token;
+    const hasIdToken = !!tokens.id_token;
+    const hasRefreshToken = !!tokens.refresh_token;
+    const expiresIn = tokens.expiry_date ? tokens.expiry_date - Date.now() : 3600;
+
+    console.log(`✓ OAuth SUCCESS: Tokens received - Access: ${hasAccessToken}, ID: ${hasIdToken}, Refresh: ${hasRefreshToken}, Expires in: ${Math.round(expiresIn/1000)}s`);
 
     return {
       accessToken: tokens.access_token || "",
       idToken: tokens.id_token || "",
       refreshToken: tokens.refresh_token || null,
-      expiresIn: tokens.expiry_date ? tokens.expiry_date - Date.now() : 3600,
+      expiresIn,
     };
   } catch (error) {
-    console.error("Failed to exchange code for tokens:", error);
+    console.error("✗ OAuth ERROR: Failed to exchange code for tokens:", error);
     return null;
   }
 };

@@ -156,6 +156,7 @@ export const createUser = async (
     await user.save();
 
     await cacheDelete(`user:${user._id}`);
+    console.log(`✓ DB CREATE: User created successfully - ID: ${user._id}, Email: ${user.email}`);
 
     return {
       id: user._id.toString(),
@@ -309,6 +310,7 @@ export const createPost = async (
 
     await cacheClear("posts:all:*");
     await cacheClear(`posts:user:${authorId}`);
+    console.log(`✓ DB CREATE: Post created successfully - ID: ${post._id}, Author: ${authorId}`);
 
     return {
       id: post._id.toString(),
@@ -335,6 +337,7 @@ export const likePost = async (postId: string, userId: string): Promise<boolean>
     if (!post.likedBy.includes(userIdObj)) {
       post.likedBy.push(userIdObj);
       await post.save();
+      console.log(`✓ DB UPDATE: Post liked - Post ID: ${postId}, User: ${userId}, Total likes: ${post.likedBy.length}`);
     }
 
     await cacheDelete(`post:${postId}`);
@@ -353,6 +356,7 @@ export const unlikePost = async (postId: string, userId: string): Promise<boolea
     const userIdObj = new mongoose.Types.ObjectId(userId);
     post.likedBy = post.likedBy.filter((id) => !id.equals(userIdObj));
     await post.save();
+    console.log(`✓ DB UPDATE: Post unliked - Post ID: ${postId}, User: ${userId}, Total likes: ${post.likedBy.length}`);
 
     await cacheDelete(`post:${postId}`);
     return true;
@@ -441,6 +445,7 @@ export const createComment = async (
     await comment.save();
 
     await cacheDelete(`comments:post:${postId}`);
+    console.log(`✓ DB CREATE: Comment created successfully - ID: ${comment._id}, Post: ${postId}, Author: ${authorId}`);
 
     return {
       id: comment._id.toString(),
@@ -540,6 +545,7 @@ export const followUser = async (
 
     await cacheDelete(`following:${followerId}`);
     await cacheDelete(`followers:${followingId}`);
+    console.log(`✓ DB CREATE: User followed successfully - Follower: ${followerId}, Following: ${followingId}`);
     return true;
   } catch (error) {
     console.error("Error following user:", error);
@@ -559,6 +565,7 @@ export const unfollowUser = async (
 
     await cacheDelete(`following:${followerId}`);
     await cacheDelete(`followers:${followingId}`);
+    console.log(`✓ DB DELETE: User unfollowed successfully - Follower: ${followerId}, Following: ${followingId}`);
     return true;
   } catch (error) {
     console.error("Error unfollowing user:", error);
