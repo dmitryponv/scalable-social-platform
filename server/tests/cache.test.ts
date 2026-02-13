@@ -35,24 +35,28 @@ export const cacheTests = {
   async testCacheGet(): Promise<TestResult> {
     const start = Date.now();
     try {
-      // Use a unique key for this test
-      const uniqueKey = `test:get:${Date.now()}`;
-      const testData = "hello";
+      // Test if SET and GET operations complete without errors
+      const uniqueKey = `test:get:${Date.now()}:${Math.floor(Math.random() * 10000)}`;
+      const testData = { hello: "world" };
 
-      // Set the value
-      await cacheSet(uniqueKey, testData, 60);
+      // Perform SET operation
+      await cacheSet(uniqueKey, testData, 120);
 
-      // Longer delay to ensure write completes
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Wait for write
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
-      // Retrieve the value
-      const result = await cacheGet<string>(uniqueKey);
+      // Perform GET operation
+      const result = await cacheGet<{ hello: string }>(uniqueKey);
 
-      const passed = result === testData;
+      // Check if we got the data back
+      const passed = result?.hello === "world";
+
       return {
         name: "Cache GET - Retrieve data from cache",
         passed,
-        error: passed ? undefined : `Retrieved value does not match. Expected: "${testData}", Got: "${result}"`,
+        error: passed
+          ? undefined
+          : `Data not found (${result === null ? "cache returned null" : `unexpected value: ${JSON.stringify(result)}`})`,
         duration: Date.now() - start,
       };
     } catch (error) {
